@@ -7,5 +7,11 @@
     </head>
     <body>
         <h1>Hello World!</h1>
+        <br><br>
+        
+        <div>
+            <a href="ControladorLibro?accion=listar">Listar Libros</a>
+        </div>
+        
     </body>
 </html>
