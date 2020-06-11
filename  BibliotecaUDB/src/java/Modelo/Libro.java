@@ -13,6 +13,9 @@ public class Libro {
     private int codEditorial;
     private String codISBN;
 
+    public Libro() {
+    }
+
     public Libro(String codLibro, String titulo, int codCategoria, int codAutor, int codEditorial, String codISBN) {
         this.codLibro = codLibro;
         this.titulo = titulo;
@@ -20,9 +23,6 @@ public class Libro {
         this.codAutor = codAutor;
         this.codEditorial = codEditorial;
         this.codISBN = codISBN;
-    }
-
-    public Libro() {
     }
 
     public String getCodLibro() {
@@ -72,8 +72,6 @@ public class Libro {
     public void setCodISBN(String codISBN) {
         this.codISBN = codISBN;
     }
-    
-    
-    
+
     
 }
