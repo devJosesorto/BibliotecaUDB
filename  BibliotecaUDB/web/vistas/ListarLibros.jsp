@@ -7,20 +7,22 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Listar Libros</title>
+        <link href="Bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+        <link href="Bootstrap/css/estilo.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>
         <div>
             <h1>Listar Libros</h1>
             
-            <table border="1">
+            <table class="table table-bordered">
                 <thead>
                     <tr>
                         <th>codLibro</th>
                         <th>Titulo</th>
-                        <th>cod_Categoria</th>
-                        <th>cod_Autor</th>
-                        <th>cod_Editorial</th>
+                        <th>Categoria</th>
+                        <th>Autor</th>
+                        <th>Editorial</th>
                         <th>ISBN</th>
                     </tr>
                 </thead>

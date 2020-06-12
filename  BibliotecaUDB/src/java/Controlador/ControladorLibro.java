@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 public class ControladorLibro extends HttpServlet {
     
     String listar="vistas/ListarLibros.jsp";
+    String test="vistas/testing.jsp";
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -58,6 +59,8 @@ public class ControladorLibro extends HttpServlet {
         String action=request.getParameter("accion");
         if(action.equalsIgnoreCase("listar")){
         acesso=listar;
+        }else if(action.equalsIgnoreCase("test")){
+            acesso=test;
         }
         RequestDispatcher vista=request.getRequestDispatcher(acesso);
         vista.forward(request, response);

@@ -8,21 +8,21 @@ public class Libro {
     
     private String codLibro;
     private String titulo;
-    private int codCategoria;
-    private int codAutor;
-    private int codEditorial;
+    private String codCategoria;
+    private String codAutor;
+    private String codEditorial;
     private String codISBN;
 
-    public Libro() {
-    }
-
-    public Libro(String codLibro, String titulo, int codCategoria, int codAutor, int codEditorial, String codISBN) {
+    public Libro(String codLibro, String titulo, String codCategoria, String codAutor, String codEditorial, String codISBN) {
         this.codLibro = codLibro;
         this.titulo = titulo;
         this.codCategoria = codCategoria;
         this.codAutor = codAutor;
         this.codEditorial = codEditorial;
         this.codISBN = codISBN;
+    }
+
+    public Libro() {
     }
 
     public String getCodLibro() {
@@ -41,27 +41,27 @@ public class Libro {
         this.titulo = titulo;
     }
 
-    public int getCodCategoria() {
+    public String getCodCategoria() {
         return codCategoria;
     }
 
-    public void setCodCategoria(int codCategoria) {
+    public void setCodCategoria(String codCategoria) {
         this.codCategoria = codCategoria;
     }
 
-    public int getCodAutor() {
+    public String getCodAutor() {
         return codAutor;
     }
 
-    public void setCodAutor(int codAutor) {
+    public void setCodAutor(String codAutor) {
         this.codAutor = codAutor;
     }
 
-    public int getCodEditorial() {
+    public String getCodEditorial() {
         return codEditorial;
     }
 
-    public void setCodEditorial(int codEditorial) {
+    public void setCodEditorial(String codEditorial) {
         this.codEditorial = codEditorial;
     }
 
@@ -72,6 +72,7 @@ public class Libro {
     public void setCodISBN(String codISBN) {
         this.codISBN = codISBN;
     }
-
+    
+    
     
 }
