@@ -58,7 +58,7 @@ public class AutorSQL extends Conexion {
             try {
                 int z = 1;
                 ps = con.prepareStatement(sql);
-                ps.setInt(z++, autor.getCodAutor());
+                ps.setInt(z++, generarCod());
                 ps.setString(z++, autor.getNombre());
                 ps.setString(z++, autor.getPais());
 
@@ -66,6 +66,7 @@ public class AutorSQL extends Conexion {
 
             } catch (SQLException e) {
                 System.err.println(e);
+                System.out.println("Error en Agregar de la clase AutorSQL");
                 return false;
 
             } finally {
@@ -79,7 +80,61 @@ public class AutorSQL extends Conexion {
         return true;
     }
 
-    public int count() {
+    public void Actualizar(boolean pass, Autor autor) {
+        if (pass) {
+            PreparedStatement ps = null;
+            Connection con = getConexion();
+            String sql = "UPDATE autor SET Nombre=?, Pais=?, cod_Autor=? WHERE codAutor=? ";
+
+            try {
+                ps = con.prepareStatement(sql);
+                int z = 1;
+                ps.setString(z++, autor.getNombre());
+                ps.setString(z++, autor.getPais());
+                ps.setInt(z++, autor.getCodAutor());
+                
+                ps.execute();
+
+            } catch (SQLException e) {
+                System.err.println(e);
+                System.out.println("Error en Actualizar de la clase AutorSQL");
+
+            } finally {
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                    System.err.println(e);
+                }
+            }
+        }
+    }
+
+    public void Eliminar(boolean pass, String codLibro) {
+        if (pass) {
+            PreparedStatement ps = null;
+            Connection con = getConexion();
+            String sql = "DELETE FROM autor WHERE codAutor=? ";
+
+            try {
+                ps = con.prepareStatement(sql);
+                ps.setString(1, sql);
+                ps.execute();
+
+            } catch (SQLException e) {
+                System.err.println(e);
+                System.out.println("Error en Eliminar de la clase AutorSQL");
+
+            } finally {
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                    System.err.println(e);
+                }
+            }
+        }
+    }
+
+    public int generarCod() {
         PreparedStatement ps = null;
         ResultSet rs = null;
         Connection con = getConexion();

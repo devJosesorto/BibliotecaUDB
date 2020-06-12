@@ -78,6 +78,7 @@ public class LibroSQL extends Conexion {
 
             } catch (SQLException e) {
                 System.err.println(e);
+                System.out.println("Error en Agregar de la clase LibroSQL");
                 return false;
 
             } finally {
@@ -89,6 +90,62 @@ public class LibroSQL extends Conexion {
             }
         }
         return true;
+    }
+    
+        public void Actualizar(boolean pass, Libro lib) {
+        if (pass) {
+            PreparedStatement ps = null;
+            Connection con = getConexion();
+            String sql = "UPDATE libro SET Titulo=?, cod_Categoria=?, cod_Autor=?, cod_Editorial=?, ISBN=? WHERE codLibro=? ";
+
+            try {
+                ps = con.prepareStatement(sql);
+                int z=1;
+                ps.setString(z++, lib.getTitulo());
+                ps.setString(z++, lib.getCodCategoria());
+                ps.setString(z++, lib.getCodAutor());
+                ps.setString(z++, lib.getCodEditorial());
+                ps.setString(z++, lib.getCodISBN());
+                ps.setString(z++, lib.getCodLibro());
+                ps.execute();
+
+            } catch (SQLException e) {
+                System.err.println(e);
+                System.out.println("Error en Actualizar de la clase LibroSQL");
+
+            } finally {
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                    System.err.println(e);
+                }
+            }
+        }
+    }
+
+    public void Eliminar(boolean pass, String codLibro) {
+        if (pass) {
+            PreparedStatement ps = null;
+            Connection con = getConexion();
+            String sql = "DELETE FROM desktop WHERE codigo_desktop=? ";
+
+            try {
+                ps = con.prepareStatement(sql);
+                ps.setString(1, sql);
+                ps.execute();
+
+            } catch (SQLException e) {
+                System.err.println(e);
+                System.out.println("Error en Eliminar de la clase LibroSQL");
+
+            } finally {
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                    System.err.println(e);
+                }
+            }
+        }
     }
 
     public String generarCod() {
@@ -108,6 +165,7 @@ public class LibroSQL extends Conexion {
 
         } catch (SQLException e) {
             System.err.println(e);
+            System.out.println("Error en generarCod de la clase LibroSQL");
 
         } finally {
             try {

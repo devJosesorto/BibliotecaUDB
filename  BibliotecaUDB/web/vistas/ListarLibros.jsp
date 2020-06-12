@@ -34,7 +34,7 @@
                     Libro lib=null;
                     while(iter.hasNext()){
                         lib=iter.next();
-                        System.out.println("olv");
+                       
                 %>
                 
                 <tbody>
