@@ -61,7 +61,7 @@ public class LibroSQL extends Conexion {
         if (pass) {
             PreparedStatement ps = null;
             Connection con = getConexion();
-            String sql = "INSERT INTO libro (codLibro, Titulo, cod_Categoria, cod_Autor, cod_Editorial, ISBN) VALUES(?,?,?,?,?,?)";
+            String sql = "INSERT INTO libro (codLibro, Titulo, cod_Categoria, cod_Autor, cod_Editorial, ISBN, descripcion) VALUES(?,?,?,?,?,?,?)";
 
             try {
                 int z = 1;
@@ -73,6 +73,7 @@ public class LibroSQL extends Conexion {
                 ps.setInt(z++, Integer.parseInt(lib.getCodAutor()));
                 ps.setInt(z++, Integer.parseInt(lib.getCodEditorial()));
                 ps.setString(z++, lib.getCodISBN());
+                ps.setString(z++, lib.getDescripcion());
 
                 ps.execute();
 
@@ -96,7 +97,7 @@ public class LibroSQL extends Conexion {
         if (pass) {
             PreparedStatement ps = null;
             Connection con = getConexion();
-            String sql = "UPDATE libro SET Titulo=?, cod_Categoria=?, cod_Autor=?, cod_Editorial=?, ISBN=? WHERE codLibro=? ";
+            String sql = "UPDATE libro SET Titulo=?, cod_Categoria=?, cod_Autor=?, cod_Editorial=?, ISBN=?, descripcion=? WHERE codLibro=? ";
 
             try {
                 ps = con.prepareStatement(sql);
@@ -106,6 +107,7 @@ public class LibroSQL extends Conexion {
                 ps.setString(z++, lib.getCodAutor());
                 ps.setString(z++, lib.getCodEditorial());
                 ps.setString(z++, lib.getCodISBN());
+                ps.setString(z++, lib.getDescripcion());
                 ps.setString(z++, lib.getCodLibro());
                 ps.execute();
 

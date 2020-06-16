@@ -5,21 +5,23 @@ package Modelo;
  * @author José Sorto
  */
 public class Libro {
-    
+
     private String codLibro;
     private String titulo;
     private String codCategoria;
     private String codAutor;
     private String codEditorial;
     private String codISBN;
+    private String descripcion;
 
-    public Libro(String codLibro, String titulo, String codCategoria, String codAutor, String codEditorial, String codISBN) {
+    public Libro(String codLibro, String titulo, String codCategoria, String codAutor, String codEditorial, String codISBN, String descripcion) {
         this.codLibro = codLibro;
         this.titulo = titulo;
         this.codCategoria = codCategoria;
         this.codAutor = codAutor;
         this.codEditorial = codEditorial;
         this.codISBN = codISBN;
+        this.descripcion = descripcion;
     }
 
     public Libro() {
@@ -72,7 +74,14 @@ public class Libro {
     public void setCodISBN(String codISBN) {
         this.codISBN = codISBN;
     }
-    
-    
-    
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+
 }
