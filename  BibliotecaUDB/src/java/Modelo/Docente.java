@@ -1,4 +1,3 @@
-
 package Modelo;
 
 /**
@@ -6,7 +5,7 @@ package Modelo;
  * @author Bolaines
  */
 public class Docente {
-    
+
     private String carnet;
     private String nombre;
     private String apellido;
@@ -19,6 +18,9 @@ public class Docente {
         this.apellido = apellido;
         this.sexo = sexo;
         this.departamento = departamento;
+    }
+
+    public Docente() {
     }
 
     public String getCarnet() {
@@ -60,8 +62,5 @@ public class Docente {
     public void setDepartamento(String departamento) {
         this.departamento = departamento;
     }
-    
-    
-    
-    
+
 }
