@@ -1,7 +1,19 @@
 <%@page import="java.util.Iterator"%>
 <%@page import="java.util.List"%>
+
 <%@page import="Modelo.Libro"%>
 <%@page import="ModeoDAO.LibroSQL"%>
+
+<%@page import="Modelo.Autor"%>
+<%@page import="ModeoDAO.AutorSQL"%>
+
+<%@page import="Modelo.Categoria"%>
+<%@page import="ModeoDAO.CategoriaSQL"%>
+
+<%@page import="Modelo.Editorial"%>
+<%@page import="ModeoDAO.EditorialSQL"%>
+
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="es">
@@ -112,56 +124,115 @@
                     </li>
                 </ul>
             </nav>
-            <div class="container">
-                <div class="page-header">
-                    <h1 class="all-tittles">Sistema bibliotecario <small>Busqueda de libro</small></h1>
-                </div>
-            </div>
+
             <br><br><br>
-            <h3 class="text-center all-tittles">resultados de la búsqueda</h3>
+            <h3 class="text-center all-tittles">Ingresar nuevo libro</h3>
 
             <!CUERPO DEL DOCUMENTO #######################################################################################>
+            <form class="form-padding">
+                <div class="row">
 
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th>codLibro</th>
-                        <th>Titulo</th>
-                        <th>Categoria</th>
-                        <th>Autor</th>
-                        <th>Editorial</th>
-                        <th>ISBN</th>
+                    <div class="col-xs-12">
+                        <legend><i class="zmdi zmdi-account-box"></i> &nbsp; Datos del libro</legend><br>
+                    </div>
 
-                        <th>Editar</th>
-                        <th>eliminar</th>
-                    </tr>
-                </thead>
+                    <div class="col-xs-12 col-sm-6">
+                        <div class="group-material">
+                            <input type="text" id="txtTitulo" name="txtTitulo" class="material-control tooltips-general" placeholder="Nombre del titulo" required="" maxlength="50" data-toggle="tooltip" data-placement="top" title="Escribe el nombre del titulo">
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label>Nombre titulo</label>
+                        </div>
+                    </div>
 
-                <%
-                    LibroSQL libsql = new LibroSQL();
-                    List<Libro> list = libsql.Mostrar();
-                    Iterator<Libro> iter = list.iterator();
-                    Libro lib = null;
-                    while (iter.hasNext()) {
-                        lib = iter.next();
+                    <div class="col-xs-12">
+                        <div class="group-material">
+                            <span>Autor</span>
+                            <select id="txtAutor" name="txtAutor" class="tooltips-general material-control" data-toggle="tooltip" data-placement="top" title="Elige un autor" required>
+                                <option value="" disabled="" selected="">Selecciona un autor</option>
 
-                %>
+                                <%
+                                    AutorSQL autorsql = new AutorSQL();
+                                    List<Autor> list = autorsql.Mostrar();
+                                    Iterator<Autor> iter = list.iterator();
+                                    Autor autor = null;
+                                    while (iter.hasNext()) {
+                                        autor = iter.next();
+                                %>
+                                <option value="Autor"><%=autor.getNombre()%></option>                              
+                                <%}%>
 
-                <tbody>
-                    <tr>
-                        <td><%=lib.getCodLibro()%></td>
-                        <td><%=lib.getTitulo()%></td>
-                        <td><%=lib.getCodCategoria()%></td>
-                        <td><%=lib.getCodAutor()%></td>
-                        <td><%=lib.getCodEditorial()%></td>
-                        <td><%=lib.getCodISBN()%></td>
+                            </select>
+                        </div>
+                        <p class="text-center pull-right">
+                            <a href="#!" class="btn btn-info btn-xs" style="margin-right: 10px;"><i class="zmdi zmdi-info-outline"></i> &nbsp;&nbsp; Agregar autor</a>
+                        </p>
+                    </div>
 
-                        <td>N/A</td>
-                        <td>N/A</td>
-                    </tr>
-                    <%}%>
-                </tbody>
-            </table>
+                    <div class="col-xs-12">
+                        <div class="group-material">
+                            <span>Categoria</span>
+                            <select id="txtCategoria" name="txtCategoria" class="tooltips-general material-control" data-toggle="tooltip" data-placement="top" title="Elige la categoria del libro" required>
+                                <option value="" disabled="" selected="">Selecciona una categoria</option>
+                                <%
+                                    CategoriaSQL categoriasql = new CategoriaSQL();
+                                    List<Categoria> listcat = categoriasql.Mostrar();
+                                    Iterator<Categoria> itercat = listcat.iterator();
+                                    Categoria categoria = null;
+                                    while (itercat.hasNext()) {
+                                        categoria = itercat.next();
+                                %>
+                                <option value="Categoria"><%=categoria.getNombre()%></option>                              
+                                <%}%>
+                            </select>
+                        </div>
+                        <p class="text-center pull-right">
+                            <a href="#!" class="btn btn-info btn-xs" style="margin-right: 10px;"><i class="zmdi zmdi-info-outline"></i> &nbsp;&nbsp; Agregar Categoria</a>
+                        </p>
+                    </div>
+
+
+
+                    <div class="col-xs-12">
+                        <div class="group-material">
+                            <span>Editorial</span>
+                            <select id="txtEditorial" name="txtEditorial" class="tooltips-general material-control" data-toggle="tooltip" data-placement="top" title="Elige una editorial" required>
+                                <option value="" disabled="" selected="">Selecciona una Editorial</option>
+                                <%
+                                    EditorialSQL editorialsql = new EditorialSQL();
+                                    List<Editorial> listedit = editorialsql.Mostrar();
+                                    Iterator<Editorial> iteredit = listedit.iterator();
+                                    Editorial editorial = null;
+                                    while (iteredit.hasNext()) {
+                                        editorial = iteredit.next();
+                                %>
+                                <option value="editorial"><%=editorial.getNombre()%></option>                              
+                                <%}%>
+                            </select>
+                        </div>
+                        <p class="text-center pull-right">
+                            <a href="#!" class="btn btn-info btn-xs" style="margin-right: 10px;"><i class="zmdi zmdi-info-outline"></i> &nbsp;&nbsp; Agregar Editorial</a>
+                        </p>
+                    </div>
+
+                    <div class="col-xs-12 col-sm-6">
+                        <div class="group-material">
+                            <input type="text" id="txtTitulo" name="txtDescripcion" class="material-control tooltips-general" placeholder="Escribe una breve descripcion" required="" maxlength="150" data-toggle="tooltip" data-placement="top" title="Escribe una breve descripcion">
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label>Descripcion del libro</label>
+                        </div>
+                    </div>
+
+
+                    <div class="col-xs-12">
+                        <p class="text-center">
+                            <button type="reset" class="btn btn-info" style="margin-right: 20px;"><i class="zmdi zmdi-roller"></i> &nbsp;&nbsp; Limpiar</button>
+                            <button type="submit" class="btn btn-primary"><i class="zmdi zmdi-floppy"></i> &nbsp;&nbsp; Guardar</button>
+                        </p> 
+                    </div>
+                </div>
+            </form>
             <!CUERPO DEL DOCUMENTO #######################################################################################>
 
             <div class="modal fade" tabindex="-1" role="dialog" id="ModalHelp">

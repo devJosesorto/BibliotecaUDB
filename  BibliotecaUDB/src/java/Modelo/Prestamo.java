@@ -1,4 +1,3 @@
-
 package Modelo;
 
 /**
@@ -6,8 +5,7 @@ package Modelo;
  * @author Bolaines
  */
 public class Prestamo {
-   
-    
+
     private int codPrestamo;
     private String fecha_entrega;
     private String fecha_devolucion;
@@ -22,7 +20,10 @@ public class Prestamo {
         this.ejemplar_codEjemplar = ejemplar_codEjemplar;
         this.usuario = usuario;
         this.mora = mora;
-       
+
+    }
+
+    public Prestamo() {
     }
 
     public int getCodPrestamo() {
@@ -72,13 +73,5 @@ public class Prestamo {
     public void setMora(String mora) {
         this.mora = mora;
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
 }

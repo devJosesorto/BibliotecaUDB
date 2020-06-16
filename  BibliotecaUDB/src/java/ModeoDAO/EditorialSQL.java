@@ -1,7 +1,7 @@
 package ModeoDAO;
 
 import Conexion.Conexion;
-import Modelo.Autor;
+import Modelo.Editorial;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -13,23 +13,23 @@ import java.util.List;
  *
  * @author José Sorto
  */
-public class AutorSQL extends Conexion {
+public class EditorialSQL extends Conexion {
 
     public List Mostrar() {
         PreparedStatement ps = null;
         ResultSet rs = null;
         Connection con = getConexion();
 
-        ArrayList<Autor> list = new ArrayList<>();
+        ArrayList<Editorial> list = new ArrayList<>();
 
-        String sql = "SELECT* FROM autor";
+        String sql = "SELECT* FROM editorial";
         try {
             ps = con.prepareStatement(sql);
             rs = ps.executeQuery();
             while (rs.next()) {
-                Autor autor = new Autor();
+                Editorial autor = new Editorial();
 
-                autor.setCodAutor(rs.getInt(1));
+                autor.setCodEditorial(rs.getInt(1));
                 autor.setNombre(rs.getString(2));
                 autor.setPais(rs.getString(3));
                 list.add(autor);
@@ -48,12 +48,12 @@ public class AutorSQL extends Conexion {
         return list;
     }
 
-    public boolean Agregar(boolean pass, Autor autor) {
+    public boolean Agregar(boolean pass, Editorial autor) {
 
         if (pass) {
             PreparedStatement ps = null;
             Connection con = getConexion();
-            String sql = "INSERT INTO autor (codAutor, Nombre, Pais) VALUES(?,?,?)";
+            String sql = "INSERT INTO autor (codEditorial, Nombre, Pais) VALUES(?,?,?)";
 
             try {
                 int z = 1;
@@ -66,7 +66,7 @@ public class AutorSQL extends Conexion {
 
             } catch (SQLException e) {
                 System.err.println(e);
-                System.out.println("Error en Agregar de la clase AutorSQL");
+                System.out.println("Error en Agregar de la clase EditorialSQL");
                 return false;
 
             } finally {
@@ -80,24 +80,24 @@ public class AutorSQL extends Conexion {
         return true;
     }
 
-    public void Actualizar(boolean pass, Autor autor) {
+    public void Actualizar(boolean pass, Editorial autor) {
         if (pass) {
             PreparedStatement ps = null;
             Connection con = getConexion();
-            String sql = "UPDATE autor SET Nombre=?, Pais=?, cod_Autor=? WHERE codAutor=? ";
+            String sql = "UPDATE autor SET Nombre=?, Pais=?, cod_Editorial=? WHERE codEditorial=? ";
 
             try {
                 ps = con.prepareStatement(sql);
                 int z = 1;
                 ps.setString(z++, autor.getNombre());
                 ps.setString(z++, autor.getPais());
-                ps.setInt(z++, autor.getCodAutor());
+                ps.setInt(z++, autor.getCodEditorial());
                 
                 ps.execute();
 
             } catch (SQLException e) {
                 System.err.println(e);
-                System.out.println("Error en Actualizar de la clase AutorSQL");
+                System.out.println("Error en Actualizar de la clase EditorialSQL");
 
             } finally {
                 try {
@@ -113,7 +113,7 @@ public class AutorSQL extends Conexion {
         if (pass) {
             PreparedStatement ps = null;
             Connection con = getConexion();
-            String sql = "DELETE FROM autor WHERE codAutor=? ";
+            String sql = "DELETE FROM autor WHERE codEditorial=? ";
 
             try {
                 ps = con.prepareStatement(sql);
@@ -122,7 +122,7 @@ public class AutorSQL extends Conexion {
 
             } catch (SQLException e) {
                 System.err.println(e);
-                System.out.println("Error en Eliminar de la clase AutorSQL");
+                System.out.println("Error en Eliminar de la clase EditorialSQL");
 
             } finally {
                 try {
@@ -139,7 +139,7 @@ public class AutorSQL extends Conexion {
         ResultSet rs = null;
         Connection con = getConexion();
 
-        String sql = "SELECT MAX(codAutor) as cantidad FROM autor";
+        String sql = "SELECT MAX(codEditorial) as cantidad FROM autor";
         try {
             ps = con.prepareStatement(sql);
             rs = ps.executeQuery();
@@ -161,3 +161,4 @@ public class AutorSQL extends Conexion {
     }
 
 }
+

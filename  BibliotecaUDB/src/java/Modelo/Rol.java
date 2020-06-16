@@ -1,4 +1,3 @@
-
 package Modelo;
 
 /**
@@ -6,7 +5,7 @@ package Modelo;
  * @author Bolaines
  */
 public class Rol {
-    
+
     private int codRol;
     private String nombre;
     private String permisos;
@@ -15,6 +14,9 @@ public class Rol {
         this.codRol = codRol;
         this.nombre = nombre;
         this.permisos = permisos;
+    }
+
+    public Rol() {
     }
 
     public int getCodRol() {
@@ -40,7 +42,5 @@ public class Rol {
     public void setPermisos(String permisos) {
         this.permisos = permisos;
     }
-    
-     
-    
+
 } // cierre

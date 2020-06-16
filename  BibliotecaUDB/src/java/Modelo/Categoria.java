@@ -1,4 +1,3 @@
-
 package Modelo;
 
 /**
@@ -6,24 +5,19 @@ package Modelo;
  * @author Bolaines
  */
 public class Categoria {
-    
-    
-    private int  codCategoria;
+
+    private int codCategoria;
     private String nombre;
 
-    
-      public Categoria(int codCategoria, String nombre) {
+    public Categoria(int codCategoria, String nombre) {
         this.codCategoria = codCategoria;
         this.nombre = nombre;
     }
 
-      
     public Categoria() {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
-    
-    
+
     public int getCodCategoria() {
         return codCategoria;
     }
@@ -40,11 +34,4 @@ public class Categoria {
         this.nombre = nombre;
     }
 
-  
-    
-    
-    
-    
-    
-    
 }// cierre

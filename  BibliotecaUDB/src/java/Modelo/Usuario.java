@@ -1,4 +1,3 @@
-
 package Modelo;
 
 /**
@@ -6,7 +5,7 @@ package Modelo;
  * @author Bolaines
  */
 public class Usuario {
-    
+
     private int codUsuario;
     private String correo;
     private String pass;
@@ -17,6 +16,9 @@ public class Usuario {
         this.correo = correo;
         this.pass = pass;
         this.cod_Rol = cod_Rol;
+    }
+
+    public Usuario() {
     }
 
     public int getCodUsuario() {
@@ -50,8 +52,5 @@ public class Usuario {
     public void setCod_Rol(String cod_Rol) {
         this.cod_Rol = cod_Rol;
     }
-    
-    
-    
-    
+
 }

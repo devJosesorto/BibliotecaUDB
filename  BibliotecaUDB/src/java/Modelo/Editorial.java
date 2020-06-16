@@ -1,4 +1,3 @@
-
 package Modelo;
 
 /**
@@ -6,7 +5,7 @@ package Modelo;
  * @author Bolaines
  */
 public class Editorial {
-   
+
     private int codEditorial;
     private String nombre;
     private String pais;
@@ -15,6 +14,9 @@ public class Editorial {
         this.codEditorial = codEditorial;
         this.nombre = nombre;
         this.pais = pais;
+    }
+
+    public Editorial() {
     }
 
     public int getCodEditorial() {
@@ -40,9 +42,5 @@ public class Editorial {
     public void setPais(String pais) {
         this.pais = pais;
     }
-    
-    
-    
-    
-    
+
 }

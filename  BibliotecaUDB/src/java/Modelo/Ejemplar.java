@@ -1,4 +1,3 @@
-
 package Modelo;
 
 /**
@@ -6,7 +5,7 @@ package Modelo;
  * @author Bolaines
  */
 public class Ejemplar {
-  
+
     private String codEjemplar;
     private String cod_Libro;
     private String ubicacion;
@@ -19,6 +18,9 @@ public class Ejemplar {
         this.ubicacion = ubicacion;
         this.estado = estado;
         this.departamento_codDpto = departamento_codDpto;
+    }
+
+    public Ejemplar() {
     }
 
     public String getCodEjemplar() {
@@ -60,13 +62,5 @@ public class Ejemplar {
     public void setDepartamento_codDpto(String departamento_codDpto) {
         this.departamento_codDpto = departamento_codDpto;
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
 }
