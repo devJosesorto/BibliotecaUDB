@@ -177,7 +177,7 @@
                                 <option value="" disabled="" selected="">Selecciona una categoria</option>
                                 <%
                                     CategoriaSQL categoriasql = new CategoriaSQL();
-                                    List<Categoria> listcat = categoriasql.Mostrar();
+                                    List<Categoria> listcat = categoriasql.mostrar();
                                     Iterator<Categoria> itercat = listcat.iterator();
                                     Categoria categoria = null;
                                     while (itercat.hasNext()) {
@@ -201,7 +201,7 @@
                                 <option value="" disabled="" selected="">Selecciona una Editorial</option>
                                 <%
                                     EditorialSQL editorialsql = new EditorialSQL();
-                                    List<Editorial> listedit = editorialsql.Mostrar();
+                                    List<Editorial> listedit = editorialsql.mostrar();
                                     Iterator<Editorial> iteredit = listedit.iterator();
                                     Editorial editorial = null;
                                     while (iteredit.hasNext()) {
