@@ -66,8 +66,8 @@ public class LibroSQL extends Conexion {
             try {
                 int z = 1;
                 ps = con.prepareStatement(sql);
-                //a cada onjeto de tipo libro en el cod se debe de asignar "LIB" como valor, el metodo generarCod le proporciona el coorelativo
-                ps.setString(z++, lib.getCodLibro() + generarCod());
+                
+                ps.setString(z++, generarCod());
                 ps.setString(z++, lib.getTitulo());
                 ps.setInt(z++, Integer.parseInt(lib.getCodCategoria()));
                 ps.setInt(z++, Integer.parseInt(lib.getCodAutor()));
@@ -156,7 +156,7 @@ public class LibroSQL extends Conexion {
         Connection con = getConexion();
         String a = null;
 
-        String sql = "SELECT MAX(codAutor) as cantidad FROM libro";
+        String sql = "SELECT MAX(codLibro) as cantidad FROM libro";
         try {
             ps = con.prepareStatement(sql);
             rs = ps.executeQuery();

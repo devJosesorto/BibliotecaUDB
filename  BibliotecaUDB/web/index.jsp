@@ -14,8 +14,9 @@
 
         <div>
             <a class="btn btn-primary btn-sm" href="ControladorLibro?accion=listar" role="button">Listar libros</a>
-            <a class="btn btn-primary btn-sm" href="ControladorLibro?accion=test" role="button">Testing</a>
-            <a class="btn btn-primary btn-sm" href="ControladorLibro?accion=nuevolibro" role="button">Testing</a>
+            <a class="btn btn-primary btn-sm" href="ControladorLibro?accion=nuevoautor" role="button">Nuevo Autor</a>
+            <a class="btn btn-primary btn-sm" href="ControladorLibro?accion=nuevolibro" role="button">Nuevo Libro</a>
+            <a class="btn btn-primary btn-sm" href="ControladorLibro?accion=nuevoeditorial" role="button">Nuevo Editorial</a>
         </div>
 
     </body>

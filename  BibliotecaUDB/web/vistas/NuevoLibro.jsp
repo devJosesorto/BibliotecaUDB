@@ -133,12 +133,13 @@
                 <div class="row">
 
                     <div class="col-xs-12">
+                        <div class="title-flat-form title-flat-blue">Nuevo libro</div>
                         <legend><i class="zmdi zmdi-account-box"></i> &nbsp; Datos del libro</legend><br>
                     </div>
 
                     <div class="col-xs-12 col-sm-6">
                         <div class="group-material">
-                            <input type="text" id="txtTitulo" name="txtTitulo" class="material-control tooltips-general" placeholder="Nombre del titulo" required="" maxlength="50" data-toggle="tooltip" data-placement="top" title="Escribe el nombre del titulo">
+                            <input type="text" name="txtTitulo" class="material-control tooltips-general" placeholder="Nombre del titulo" required="" maxlength="50" data-toggle="tooltip" data-placement="top" title="Escribe el nombre del titulo">
                             <span class="highlight"></span>
                             <span class="bar"></span>
                             <label>Nombre titulo</label>
@@ -148,7 +149,7 @@
                     <div class="col-xs-12">
                         <div class="group-material">
                             <span>Autor</span>
-                            <select id="txtAutor" name="txtAutor" class="tooltips-general material-control" data-toggle="tooltip" data-placement="top" title="Elige un autor" required>
+                            <select name="txtAutor" class="tooltips-general material-control" data-toggle="tooltip" data-placement="top" title="Elige un autor" required>
                                 <option value="" disabled="" selected="">Selecciona un autor</option>
 
                                 <%
@@ -159,20 +160,20 @@
                                     while (iter.hasNext()) {
                                         autor = iter.next();
                                 %>
-                                <option value="Autor"><%=autor.getNombre()%></option>                              
+                                <option value="<%=autor.getCodAutor()%>"><%=autor.getNombre()%></option>                              
                                 <%}%>
 
                             </select>
                         </div>
                         <p class="text-center pull-right">
-                            <a href="#!" class="btn btn-info btn-xs" style="margin-right: 10px;"><i class="zmdi zmdi-info-outline"></i> &nbsp;&nbsp; Agregar autor</a>
+                            <a href="ControladorLibro?accion=nuevoautor" class="btn btn-info btn-xs" style="margin-right: 10px;"><i class="zmdi zmdi-info-outline"></i> &nbsp;&nbsp; Agregar autor</a>
                         </p>
                     </div>
 
                     <div class="col-xs-12">
                         <div class="group-material">
                             <span>Categoria</span>
-                            <select id="txtCategoria" name="txtCategoria" class="tooltips-general material-control" data-toggle="tooltip" data-placement="top" title="Elige la categoria del libro" required>
+                            <select name="txtCategoria" class="tooltips-general material-control" data-toggle="tooltip" data-placement="top" title="Elige la categoria del libro" required>
                                 <option value="" disabled="" selected="">Selecciona una categoria</option>
                                 <%
                                     CategoriaSQL categoriasql = new CategoriaSQL();
@@ -182,7 +183,7 @@
                                     while (itercat.hasNext()) {
                                         categoria = itercat.next();
                                 %>
-                                <option value="Categoria"><%=categoria.getNombre()%></option>                              
+                                <option value="<%=categoria.getCodCategoria()%>"><%=categoria.getNombre()%></option>                              
                                 <%}%>
                             </select>
                         </div>
@@ -196,7 +197,7 @@
                     <div class="col-xs-12">
                         <div class="group-material">
                             <span>Editorial</span>
-                            <select id="txtEditorial" name="txtEditorial" class="tooltips-general material-control" data-toggle="tooltip" data-placement="top" title="Elige una editorial" required>
+                            <select name="txtEditorial" class="tooltips-general material-control" data-toggle="tooltip" data-placement="top" title="Elige una editorial" required>
                                 <option value="" disabled="" selected="">Selecciona una Editorial</option>
                                 <%
                                     EditorialSQL editorialsql = new EditorialSQL();
@@ -206,7 +207,7 @@
                                     while (iteredit.hasNext()) {
                                         editorial = iteredit.next();
                                 %>
-                                <option value="editorial"><%=editorial.getNombre()%></option>                              
+                                <option value="<%=editorial.getCodEditorial()%>"><%=editorial.getNombre()%></option>                              
                                 <%}%>
                             </select>
                         </div>
@@ -217,7 +218,7 @@
 
                     <div class="col-xs-12 col-sm-6">
                         <div class="group-material">
-                            <input type="text" id="txtTitulo" name="txtDescripcion" class="material-control tooltips-general" placeholder="Escribe una breve descripcion" required="" maxlength="150" data-toggle="tooltip" data-placement="top" title="Escribe una breve descripcion">
+                            <input type="text" name="txtDescripcion" class="material-control tooltips-general" placeholder="Escribe una breve descripcion" required="" maxlength="150" data-toggle="tooltip" data-placement="top" title="Escribe una breve descripcion">
                             <span class="highlight"></span>
                             <span class="bar"></span>
                             <label>Descripcion del libro</label>
@@ -225,10 +226,20 @@
                     </div>
 
 
+                    <div class="col-xs-12 col-sm-6">
+                        <div class="group-material">
+                            <input type="text" name="txtISBN" class="material-control tooltips-general" placeholder="Escribe el ISBN" required="" maxlength="150" data-toggle="tooltip" data-placement="top" title="Escribe el ISBN">
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label>ISBN</label>
+                        </div>
+                    </div>
+
+
                     <div class="col-xs-12">
                         <p class="text-center">
                             <button type="reset" class="btn btn-info" style="margin-right: 20px;"><i class="zmdi zmdi-roller"></i> &nbsp;&nbsp; Limpiar</button>
-                            <button type="submit" class="btn btn-primary"><i class="zmdi zmdi-floppy"></i> &nbsp;&nbsp; Guardar</button>
+                            <button type="submit" name="accion" value="agregarlibro" class="btn btn-primary"><i class="zmdi zmdi-floppy"></i> &nbsp;&nbsp; Guardar</button>
                         </p> 
                     </div>
                 </div>

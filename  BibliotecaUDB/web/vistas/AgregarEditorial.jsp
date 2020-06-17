@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="es">
     <head>
-        <title>Buscar libro</title>
+        <title>Agregar Editorial</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="Shortcut Icon" type="image/x-icon" href="Bootstrap/assets/icons/book.ico" />
@@ -110,7 +110,7 @@
             </nav>
             <div class="container">
                 <div class="page-header">
-                    <h1 class="all-tittles">Sistema bibliotecario <small>Agrear autor</small></h1>
+                    <h1 class="all-tittles">Sistema bibliotecario <small>Agregar editorial</small></h1>
                 </div>
             </div>
 
@@ -119,8 +119,42 @@
                 <div class="row">
 
                     <div class="col-xs-12">
-                        <div class="title-flat-form title-flat-blue">Nuevo autor</div>
-                        <legend><i class="zmdi zmdi-account-box"></i> &nbsp; Datos del autor</legend><br>
+                        <div class="title-flat-form title-flat-blue">Nuevo editorial</div>
+                        <legend><i class="zmdi zmdi-account-box"></i> &nbsp; Datos de la editorial</legend><br>
+
+
+                        <div class="col-xs-12 col-sm-6">
+                            <div class="group-material">
+                                <input type="text" name="txtEditorial" class="material-control tooltips-general" placeholder="Nombre de la editorial" required="" maxlength="50" data-toggle="tooltip" data-placement="top" title="Escribe el nombre de la editorial">
+                                <span class="highlight"></span>
+                                <span class="bar"></span>
+                                <label>Nombre Editorial</label>
+                            </div>
+                        </div>
+
+
+                        <div class="col-xs-12 col-sm-6">
+                            <div class="group-material">
+                                <input type="text" name="txtPais" class="material-control tooltips-general" placeholder="Pais de la editorial" required="" maxlength="50" data-toggle="tooltip" data-placement="top" title="Escribe el pais de origen de la editorial">
+                                <span class="highlight"></span>
+                                <span class="bar"></span>
+                                <label>Pais de origen de la editorial</label>
+                            </div>
+                        </div>
+
+
+
+
+                        <div class="col-xs-12">
+                            <p class="text-center">
+                                <button type="reset" class="btn btn-info" style="margin-right: 20px;"><i class="zmdi zmdi-roller"></i> &nbsp;&nbsp; Limpiar</button>
+                                <button type="submit" name="accion" value="agregarautor" class="btn btn-primary"><i class="zmdi zmdi-floppy"></i> &nbsp;&nbsp; Guardar</button>
+                            </p> 
+                        </div>
+
+
+
+
                     </div>
                 </div>
         </div>

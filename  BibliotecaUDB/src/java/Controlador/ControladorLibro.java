@@ -8,6 +8,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import Modelo.Libro;
+import ModeoDAO.LibroSQL;
+
+import Modelo.Autor;
+import ModeoDAO.AutorSQL;
+
+import Modelo.Editorial;
+import ModeoDAO.EditorialSQL;
 /**
  *
  * @author José Sorto
@@ -15,8 +23,9 @@ import javax.servlet.http.HttpServletResponse;
 public class ControladorLibro extends HttpServlet {
     
     String listar="vistas/ListarLibros.jsp";
-    String test="vistas/testing.jsp";
+    String nuevoautor="vistas/AgregarAutor.jsp";
     String nuevolibro="vistas/NuevoLibro.jsp";
+    String nuevoeditorial="vistas/AgregarEditorial.jsp";
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -51,11 +60,36 @@ public class ControladorLibro extends HttpServlet {
         String action=request.getParameter("accion");
         if(action.equalsIgnoreCase("listar")){
         acesso=listar;
-        }else if(action.equalsIgnoreCase("test")){
-            acesso=test;
+        }else if(action.equalsIgnoreCase("nuevoautor")){
+            acesso=nuevoautor;
+        }else if(action.equalsIgnoreCase("agregarautor")){
+            Autor autor =new Autor();
+            AutorSQL autorsql =new AutorSQL();
+            
+            autor.setNombre(request.getParameter("txtAutor"));
+            autor.setPais(request.getParameter("txtPais"));
+            autorsql.Agregar(true, autor);
+            
+            acesso=listar;
         }else if(action.equalsIgnoreCase("nuevolibro")){
+            
             acesso=nuevolibro;
+        }else if(action.equalsIgnoreCase("agregarlibro")){
+            Libro lib =new Libro();
+            LibroSQL libsql = new LibroSQL();
+            
+            lib.setTitulo(request.getParameter("txtTitulo"));
+            lib.setCodCategoria(request.getParameter("txtCategoria"));
+            lib.setCodAutor(request.getParameter("txtAutor"));
+            lib.setCodEditorial(request.getParameter("txtEditorial"));
+            lib.setCodISBN(request.getParameter("txtISBN"));
+            lib.setDescripcion(request.getParameter("txtDescripcion"));
+            libsql.Agregar(true, lib);
+            
+            acesso=listar;
         }
+        
+        
         RequestDispatcher vista=request.getRequestDispatcher(acesso);
         vista.forward(request, response);
     }
