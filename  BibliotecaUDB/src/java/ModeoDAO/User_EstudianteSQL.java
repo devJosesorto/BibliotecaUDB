@@ -2,7 +2,7 @@
 package ModeoDAO;
 
 import Conexion.Conexion;
-import Modelo.Categoria;
+import Modelo.User_Estudiante;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -14,28 +14,27 @@ import java.util.List;
  *
  * @author Bolaines
  */
-public class CategoriaSQL extends Conexion {
+public class User_EstudianteSQL extends Conexion {
     
- 
-     public List mostrar() {
+    
+     public List mostrar()  {
         PreparedStatement ps = null;
         ResultSet rs = null;
         Connection con = getConexion();
 
-        ArrayList<Categoria> list = new ArrayList<>();
+        ArrayList<User_Estudiante> list = new ArrayList<>();
 
-        String sql = "SELECT* FROM categoria";
+        String sql = "SELECT* FROM user_Estudiante";
         try {
             ps = con.prepareStatement(sql);
             rs = ps.executeQuery();
-            
             while (rs.next()) {
-                Categoria categoria = new Categoria();
+                User_Estudiante usrE = new User_Estudiante();
 
-                categoria.setCodCategoria(rs.getInt(1));
-                categoria.setNombre(rs.getString(2));
+                usrE.setEstudiante_carnet(rs.getString(1));
+                usrE.setUsuario_codUsuario(rs.getString(2));
                 
-                list.add(categoria);
+                list.add(usrE);
             }
 
         } catch (SQLException e) {
@@ -51,26 +50,27 @@ public class CategoriaSQL extends Conexion {
         return list;
     }
     
-        
-     public boolean agregar(boolean pass, Categoria categoria) {
+     
+    public boolean agregar(boolean pass, User_Estudiante est) {
 
         if (pass) {
             PreparedStatement ps = null;
             Connection con = getConexion();
-            String sql = "INSERT INTO categoria (codCategoria, Nombre) VALUES(?,?)";
+            String sql = "INSERT INTO user_estudiante (estudiante_carnet, Usuario_codUsuario) VALUES(?,?,)";
 
             try {
                 int z = 1;
                 ps = con.prepareStatement(sql);
-                ps.setInt(z++, generarCod());
-                ps.setString(z++, categoria.getNombre());
                 
-
+                ps.setString(z++, est.getEstudiante_carnet()+ generarCod());
+                ps.setString(z++, est.getUsuario_codUsuario());
+               
+             
                 ps.execute();
 
             } catch (SQLException e) {
                 System.err.println(e);
-                System.out.println("Error en Agregar de la clase AutorSQL");
+                System.out.println("Error en Agregar de la clase User_EstudianteSQL");
                 return false;
 
             } finally {
@@ -82,26 +82,25 @@ public class CategoriaSQL extends Conexion {
             }
         }
         return true;
-    }
+    } 
+     
     
-    
-     public void actualizar(boolean pass, Categoria categoria) {
+    public void actualizar(boolean pass, User_Estudiante est) {
         if (pass) {
             PreparedStatement ps = null;
             Connection con = getConexion();
-            String sql = "UPDATE categoria SET Nombre=?, codCategoria=? WHERE codCategoria=? ";
+            String sql = "UPDATE user_estudiante  SET estudiante_carnet, usuario_codUsuario WHERE estudiante_carnet=? ";
 
             try {
                 ps = con.prepareStatement(sql);
-                int z = 1;
-                ps.setString(z++, categoria.getNombre());
-                ps.setInt(z++, categoria.getCodCategoria());
-                
+                int z=1;
+                ps.setString(z++, est.getUsuario_codUsuario());
+                ps.setString(z++, est.getEstudiante_carnet());
                 ps.execute();
 
             } catch (SQLException e) {
                 System.err.println(e);
-                System.out.println("Error en Actualizar de la clase CategoriaSQL");
+                System.out.println("Error en Actualizar de la clase User_EstudianteSQL");
 
             } finally {
                 try {
@@ -112,13 +111,13 @@ public class CategoriaSQL extends Conexion {
             }
         }
     }
-     
     
-    public void eliminar(boolean pass, String codCategoria) {
+    
+     public void eliminar(boolean pass, String estudiante_carnet) {
         if (pass) {
             PreparedStatement ps = null;
             Connection con = getConexion();
-            String sql = "DELETE FROM Categoria WHERE codCategoria=? ";
+            String sql = "DELETE FROM user_estudiante WHERE estudiante_carnet=? ";
 
             try {
                 ps = con.prepareStatement(sql);
@@ -127,7 +126,7 @@ public class CategoriaSQL extends Conexion {
 
             } catch (SQLException e) {
                 System.err.println(e);
-                System.out.println("Error en Eliminar de la clase CategoriaSQL");
+                System.out.println("Error en Eliminar de la clase User_EstudianteSQL");
 
             } finally {
                 try {
@@ -139,26 +138,26 @@ public class CategoriaSQL extends Conexion {
         }
     }
     
-              
-     ///Genarador de codigo
-     
-     public int generarCod() {
+    
+   public String generarCod() {
         PreparedStatement ps = null;
         ResultSet rs = null;
         Connection con = getConexion();
+        String a = null;
 
-        String sql = "SELECT MAX(codCategoria) as cantidad FROM categoria";
+        String sql = "SELECT MAX(estudiante_carnet) as cantidad FROM user_estudiante";
         try {
             ps = con.prepareStatement(sql);
             rs = ps.executeQuery();
 
             if (rs.next()) {
-                return Integer.parseInt(rs.getString("cantidad")) + 1;
+                a = rs.getString(1);
             }
-            return 0;
+
         } catch (SQLException e) {
             System.err.println(e);
-            return 0;
+            System.out.println("Error en generarCod de la clase User_EstudianteSQL");
+
         } finally {
             try {
                 con.close();
@@ -166,11 +165,23 @@ public class CategoriaSQL extends Conexion {
                 System.err.println(e);
             }
         }
-    }
-     
-     
-     
-     
+        String string = a;
+        string = string.substring(string.length() - 3);
+
+        int i = 0;
+        i = Integer.parseInt(string) + 1;
+
+        if (i > 9) {
+            if (i > 99) {
+                string = "EST" + i;
+            } else {
+                string = "EST0" + i;
+            }
+        } else {
+            string = "EST00" + i;
+        }
+
+        return string;
+    }   
     
-    
-}// cierre
+}//Cierre

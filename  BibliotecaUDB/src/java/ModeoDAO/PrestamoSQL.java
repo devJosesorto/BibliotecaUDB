@@ -2,7 +2,8 @@
 package ModeoDAO;
 
 import Conexion.Conexion;
-import Modelo.Categoria;
+
+import Modelo.Prestamo;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -14,28 +15,33 @@ import java.util.List;
  *
  * @author Bolaines
  */
-public class CategoriaSQL extends Conexion {
+public class PrestamoSQL extends Conexion {
     
- 
+   
      public List mostrar() {
         PreparedStatement ps = null;
         ResultSet rs = null;
         Connection con = getConexion();
 
-        ArrayList<Categoria> list = new ArrayList<>();
+        ArrayList<Prestamo> list = new ArrayList<>();
 
-        String sql = "SELECT* FROM categoria";
+        String sql = "SELECT* FROM prestamo";
         try {
             ps = con.prepareStatement(sql);
             rs = ps.executeQuery();
             
             while (rs.next()) {
-                Categoria categoria = new Categoria();
+                Prestamo prestamo = new Prestamo();
 
-                categoria.setCodCategoria(rs.getInt(1));
-                categoria.setNombre(rs.getString(2));
+                prestamo.setCodPrestamo(rs.getInt(1));
+                prestamo.setFecha_entrega(rs.getString(2));
+                prestamo.setFecha_devolucion(rs.getString(3));
+                prestamo.setEjemplar_codEjemplar(rs.getString(4));
+                prestamo.setUsuario(rs.getInt(5));
+                prestamo.setMora(rs.getString(6));
                 
-                list.add(categoria);
+                
+                list.add(prestamo);
             }
 
         } catch (SQLException e) {
@@ -51,26 +57,29 @@ public class CategoriaSQL extends Conexion {
         return list;
     }
     
-        
-     public boolean agregar(boolean pass, Categoria categoria) {
+     public boolean agregar(boolean pass, Prestamo prest ) {
 
         if (pass) {
             PreparedStatement ps = null;
             Connection con = getConexion();
-            String sql = "INSERT INTO categoria (codCategoria, Nombre) VALUES(?,?)";
+            String sql = "INSERT INTO prestamo (codPrestamo, fecha_entrega, fecha_devolucion, ejemplar_codEjemplar, usuario, mora ) VALUES(?,?,?,?,?,?)";
 
             try {
                 int z = 1;
                 ps = con.prepareStatement(sql);
                 ps.setInt(z++, generarCod());
-                ps.setString(z++, categoria.getNombre());
-                
+                ps.setString(z++, prest.getFecha_entrega());
+                ps.setString(z++, prest.getFecha_devolucion());
+                ps.setString(z++, prest.getEjemplar_codEjemplar());
+                ps.setInt(z++, prest.getUsuario());
+                ps.setString(z++, prest.getMora());
+                                
 
                 ps.execute();
 
             } catch (SQLException e) {
                 System.err.println(e);
-                System.out.println("Error en Agregar de la clase AutorSQL");
+                System.out.println("Error en Agregar de la clase PrestamoSQL");
                 return false;
 
             } finally {
@@ -83,25 +92,29 @@ public class CategoriaSQL extends Conexion {
         }
         return true;
     }
+     
     
-    
-     public void actualizar(boolean pass, Categoria categoria) {
+     public void actualizar(boolean pass, Prestamo prest ) {
         if (pass) {
             PreparedStatement ps = null;
             Connection con = getConexion();
-            String sql = "UPDATE categoria SET Nombre=?, codCategoria=? WHERE codCategoria=? ";
+            String sql = "UPDATE prestamo SET codPrestamo=?, fecha_entrega=?, fecha_devolucion=?, ejemplar_codEjemplar=?, usuario=?, mora=? WHERE codPrestamo=? ";
 
             try {
                 ps = con.prepareStatement(sql);
                 int z = 1;
-                ps.setString(z++, categoria.getNombre());
-                ps.setInt(z++, categoria.getCodCategoria());
+                ps.setString(z++, prest.getFecha_entrega());
+                ps.setString(z++, prest.getFecha_devolucion());
+                ps.setString(z++, prest.getEjemplar_codEjemplar());
+                ps.setInt(z++, prest.getUsuario());
+                ps.setString(z++, prest.getMora());
+                ps.setInt(z++, prest.getCodPrestamo());
                 
                 ps.execute();
 
             } catch (SQLException e) {
                 System.err.println(e);
-                System.out.println("Error en Actualizar de la clase CategoriaSQL");
+                System.out.println("Error en Actualizar de la clase PrestamoSQL");
 
             } finally {
                 try {
@@ -113,12 +126,12 @@ public class CategoriaSQL extends Conexion {
         }
     }
      
-    
-    public void eliminar(boolean pass, String codCategoria) {
+     
+     public void eliminar(boolean pass, String codPrestamo) {
         if (pass) {
             PreparedStatement ps = null;
             Connection con = getConexion();
-            String sql = "DELETE FROM Categoria WHERE codCategoria=? ";
+            String sql = "DELETE FROM prestamo WHERE codPrestamo=? ";
 
             try {
                 ps = con.prepareStatement(sql);
@@ -127,7 +140,7 @@ public class CategoriaSQL extends Conexion {
 
             } catch (SQLException e) {
                 System.err.println(e);
-                System.out.println("Error en Eliminar de la clase CategoriaSQL");
+                System.out.println("Error en Eliminar de la clase PrestamoSQL");
 
             } finally {
                 try {
@@ -138,8 +151,9 @@ public class CategoriaSQL extends Conexion {
             }
         }
     }
+     
     
-              
+               
      ///Genarador de codigo
      
      public int generarCod() {
@@ -147,7 +161,7 @@ public class CategoriaSQL extends Conexion {
         ResultSet rs = null;
         Connection con = getConexion();
 
-        String sql = "SELECT MAX(codCategoria) as cantidad FROM categoria";
+        String sql = "SELECT MAX(codPrestamo) as cantidad FROM prestamo";
         try {
             ps = con.prepareStatement(sql);
             rs = ps.executeQuery();
@@ -167,10 +181,7 @@ public class CategoriaSQL extends Conexion {
             }
         }
     }
-     
-     
-     
-     
+    
     
     
 }// cierre

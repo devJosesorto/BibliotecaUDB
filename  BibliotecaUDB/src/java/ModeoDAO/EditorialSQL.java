@@ -15,7 +15,7 @@ import java.util.List;
  */
 public class EditorialSQL extends Conexion {
 
-    public List Mostrar() {
+    public List mostrar() {
         PreparedStatement ps = null;
         ResultSet rs = null;
         Connection con = getConexion();
@@ -48,7 +48,7 @@ public class EditorialSQL extends Conexion {
         return list;
     }
 
-    public boolean Agregar(boolean pass, Editorial autor) {
+    public boolean agregar(boolean pass, Editorial autor) {
 
         if (pass) {
             PreparedStatement ps = null;
@@ -80,7 +80,7 @@ public class EditorialSQL extends Conexion {
         return true;
     }
 
-    public void Actualizar(boolean pass, Editorial autor) {
+    public void actualizar(boolean pass, Editorial autor) {
         if (pass) {
             PreparedStatement ps = null;
             Connection con = getConexion();
@@ -109,7 +109,7 @@ public class EditorialSQL extends Conexion {
         }
     }
 
-    public void Eliminar(boolean pass, String codLibro) {
+    public void eliminar(boolean pass, String codLibro) {
         if (pass) {
             PreparedStatement ps = null;
             Connection con = getConexion();

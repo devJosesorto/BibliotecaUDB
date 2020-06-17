@@ -2,7 +2,7 @@
 package ModeoDAO;
 
 import Conexion.Conexion;
-import Modelo.Categoria;
+import Modelo.Usuario;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -14,28 +14,29 @@ import java.util.List;
  *
  * @author Bolaines
  */
-public class CategoriaSQL extends Conexion {
+public class UsuarioSQL extends Conexion {
     
- 
+    
      public List mostrar() {
         PreparedStatement ps = null;
         ResultSet rs = null;
         Connection con = getConexion();
 
-        ArrayList<Categoria> list = new ArrayList<>();
+        ArrayList<Usuario> list = new ArrayList<>();
 
-        String sql = "SELECT* FROM categoria";
+        String sql = "SELECT* FROM usuario";
         try {
             ps = con.prepareStatement(sql);
             rs = ps.executeQuery();
             
             while (rs.next()) {
-                Categoria categoria = new Categoria();
+                Usuario usr = new Usuario();
 
-                categoria.setCodCategoria(rs.getInt(1));
-                categoria.setNombre(rs.getString(2));
-                
-                list.add(categoria);
+                usr.setCodUsuario(rs.getInt(1));
+                usr.setCorreo(rs.getString(2));
+                usr.setPass(rs.getString(3));
+                usr.setCod_Rol(rs.getString(4));
+                list.add(usr);
             }
 
         } catch (SQLException e) {
@@ -50,27 +51,27 @@ public class CategoriaSQL extends Conexion {
         }
         return list;
     }
-    
-        
-     public boolean agregar(boolean pass, Categoria categoria) {
+     
+     
+     public boolean agregar(boolean pass, Usuario usr ) {
 
         if (pass) {
             PreparedStatement ps = null;
             Connection con = getConexion();
-            String sql = "INSERT INTO categoria (codCategoria, Nombre) VALUES(?,?)";
+            String sql = "INSERT INTO usuario (codUsuario, correo, pass, cod_Rol) VALUES(?,?,?,?)";
 
             try {
                 int z = 1;
                 ps = con.prepareStatement(sql);
                 ps.setInt(z++, generarCod());
-                ps.setString(z++, categoria.getNombre());
-                
-
+                ps.setString(z++, usr.getCorreo());
+                ps.setString(z++, usr.getPass());
+                ps.setString(z++, usr.getCod_Rol());
                 ps.execute();
 
             } catch (SQLException e) {
                 System.err.println(e);
-                System.out.println("Error en Agregar de la clase AutorSQL");
+                System.out.println("Error en Agregar de la clase RolSQL");
                 return false;
 
             } finally {
@@ -84,24 +85,26 @@ public class CategoriaSQL extends Conexion {
         return true;
     }
     
-    
-     public void actualizar(boolean pass, Categoria categoria) {
+     
+    public void actualizar(boolean pass, Usuario usr) {
         if (pass) {
             PreparedStatement ps = null;
             Connection con = getConexion();
-            String sql = "UPDATE categoria SET Nombre=?, codCategoria=? WHERE codCategoria=? ";
+            String sql = "UPDATE usuario SET codUsuario=?, correo=?, pass=?, cod_Rol=? WHERE codUsuario=? ";
 
             try {
                 ps = con.prepareStatement(sql);
                 int z = 1;
-                ps.setString(z++, categoria.getNombre());
-                ps.setInt(z++, categoria.getCodCategoria());
+                ps.setString(z++, usr.getCorreo());
+                ps.setString(z++, usr.getPass());
+                ps.setString(z++, usr.getCod_Rol());
+                ps.setInt(z++, usr.getCodUsuario());
                 
                 ps.execute();
 
             } catch (SQLException e) {
                 System.err.println(e);
-                System.out.println("Error en Actualizar de la clase CategoriaSQL");
+                System.out.println("Error en Actualizar de la clase UsuarioSQL");
 
             } finally {
                 try {
@@ -112,13 +115,13 @@ public class CategoriaSQL extends Conexion {
             }
         }
     }
-     
     
-    public void eliminar(boolean pass, String codCategoria) {
+    
+     public void eliminar(boolean pass, String codUsuario) {
         if (pass) {
             PreparedStatement ps = null;
             Connection con = getConexion();
-            String sql = "DELETE FROM Categoria WHERE codCategoria=? ";
+            String sql = "DELETE FROM usuario WHERE codUsuario=? ";
 
             try {
                 ps = con.prepareStatement(sql);
@@ -127,7 +130,7 @@ public class CategoriaSQL extends Conexion {
 
             } catch (SQLException e) {
                 System.err.println(e);
-                System.out.println("Error en Eliminar de la clase CategoriaSQL");
+                System.out.println("Error en Eliminar de la clase UsuarioSQL");
 
             } finally {
                 try {
@@ -139,15 +142,13 @@ public class CategoriaSQL extends Conexion {
         }
     }
     
-              
-     ///Genarador de codigo
-     
+        
      public int generarCod() {
         PreparedStatement ps = null;
         ResultSet rs = null;
         Connection con = getConexion();
 
-        String sql = "SELECT MAX(codCategoria) as cantidad FROM categoria";
+        String sql = "SELECT MAX(codUsuario) as cantidad FROM usuario";
         try {
             ps = con.prepareStatement(sql);
             rs = ps.executeQuery();
@@ -166,11 +167,6 @@ public class CategoriaSQL extends Conexion {
                 System.err.println(e);
             }
         }
-    }
-     
-     
-     
-     
+    } 
     
-    
-}// cierre
+}//cierre

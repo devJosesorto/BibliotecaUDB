@@ -3,6 +3,8 @@ package ModeoDAO;
 
 import Conexion.Conexion;
 import Modelo.Categoria;
+import Modelo.Departamento;
+import Modelo.Docente;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -14,28 +16,28 @@ import java.util.List;
  *
  * @author Bolaines
  */
-public class CategoriaSQL extends Conexion {
+public class DepartamentoSQL extends Conexion  {
     
- 
-     public List mostrar() {
+    
+    public List mostrar() {
         PreparedStatement ps = null;
         ResultSet rs = null;
         Connection con = getConexion();
 
-        ArrayList<Categoria> list = new ArrayList<>();
+        ArrayList<Departamento> list = new ArrayList<>();
 
-        String sql = "SELECT* FROM categoria";
+        String sql = "SELECT* FROM departamento";
         try {
             ps = con.prepareStatement(sql);
             rs = ps.executeQuery();
             
             while (rs.next()) {
-                Categoria categoria = new Categoria();
+                Departamento depto = new Departamento();
 
-                categoria.setCodCategoria(rs.getInt(1));
-                categoria.setNombre(rs.getString(2));
+                depto.setCodDepartamento(rs.getString(1));
+                depto.setNombre(rs.getString(2));
                 
-                list.add(categoria);
+                list.add(depto);
             }
 
         } catch (SQLException e) {
@@ -51,26 +53,26 @@ public class CategoriaSQL extends Conexion {
         return list;
     }
     
-        
-     public boolean agregar(boolean pass, Categoria categoria) {
+    
+    public boolean agregar(boolean pass, Departamento dpto) {
 
         if (pass) {
             PreparedStatement ps = null;
             Connection con = getConexion();
-            String sql = "INSERT INTO categoria (codCategoria, Nombre) VALUES(?,?)";
+            String sql = "INSERT INTO departamento (codDepartamento, Nombre) VALUES(?,?)";
 
             try {
                 int z = 1;
                 ps = con.prepareStatement(sql);
-                ps.setInt(z++, generarCod());
-                ps.setString(z++, categoria.getNombre());
-                
+                ps.setString(z++, generarCod());
+                ps.setString(z++, dpto.getNombre());
+                ps.setString(z++, dpto.getCodDepartamento());
 
                 ps.execute();
 
             } catch (SQLException e) {
                 System.err.println(e);
-                System.out.println("Error en Agregar de la clase AutorSQL");
+                System.out.println("Error en Agregar de la clase DepartamentoSQL");
                 return false;
 
             } finally {
@@ -85,23 +87,23 @@ public class CategoriaSQL extends Conexion {
     }
     
     
-     public void actualizar(boolean pass, Categoria categoria) {
+     public void actualizar(boolean pass, Departamento dpto) {
         if (pass) {
             PreparedStatement ps = null;
             Connection con = getConexion();
-            String sql = "UPDATE categoria SET Nombre=?, codCategoria=? WHERE codCategoria=? ";
+            String sql = "UPDATE departamento SET codDepartamento=?, nombre=? WHERE codDepartamento=? ";
 
             try {
                 ps = con.prepareStatement(sql);
-                int z = 1;
-                ps.setString(z++, categoria.getNombre());
-                ps.setInt(z++, categoria.getCodCategoria());
-                
+                int z=1;
+              
+                ps.setString(z++, dpto.getNombre());
+                ps.setString(z++, dpto.getCodDepartamento());
                 ps.execute();
 
             } catch (SQLException e) {
                 System.err.println(e);
-                System.out.println("Error en Actualizar de la clase CategoriaSQL");
+                System.out.println("Error en Actualizar de la clase DepartamentoSQL");
 
             } finally {
                 try {
@@ -113,12 +115,12 @@ public class CategoriaSQL extends Conexion {
         }
     }
      
-    
-    public void eliminar(boolean pass, String codCategoria) {
+     
+     public void eliminar(boolean pass, String carnet) {
         if (pass) {
             PreparedStatement ps = null;
             Connection con = getConexion();
-            String sql = "DELETE FROM Categoria WHERE codCategoria=? ";
+            String sql = "DELETE FROM departamento WHERE codDepartamento=? ";
 
             try {
                 ps = con.prepareStatement(sql);
@@ -127,7 +129,7 @@ public class CategoriaSQL extends Conexion {
 
             } catch (SQLException e) {
                 System.err.println(e);
-                System.out.println("Error en Eliminar de la clase CategoriaSQL");
+                System.out.println("Error en Eliminar de la clase DepartamentoSQL");
 
             } finally {
                 try {
@@ -139,26 +141,27 @@ public class CategoriaSQL extends Conexion {
         }
     }
     
-              
-     ///Genarador de codigo
-     
-     public int generarCod() {
+    
+    
+     public String generarCod() {
         PreparedStatement ps = null;
         ResultSet rs = null;
         Connection con = getConexion();
+        String a = null;
 
-        String sql = "SELECT MAX(codCategoria) as cantidad FROM categoria";
+        String sql = "SELECT MAX(codDepartamento) as cantidad FROM departamento ";
         try {
             ps = con.prepareStatement(sql);
             rs = ps.executeQuery();
 
             if (rs.next()) {
-                return Integer.parseInt(rs.getString("cantidad")) + 1;
+                a = rs.getString(1);
             }
-            return 0;
+
         } catch (SQLException e) {
             System.err.println(e);
-            return 0;
+            System.out.println("Error en generarCod de la clase DepartamentoSQL");
+
         } finally {
             try {
                 con.close();
@@ -166,11 +169,25 @@ public class CategoriaSQL extends Conexion {
                 System.err.println(e);
             }
         }
-    }
-     
-     
-     
-     
+        String string = a;
+        string = string.substring(string.length() - 3);
+
+        int i = 0;
+        i = Integer.parseInt(string) + 1;
+
+        if (i > 9) {
+            if (i > 99) {
+                string = "DP" + i;
+            } else {
+                string = "DPC0" + i;
+            }
+        } else {
+            string = "DP00" + i;
+        }
+
+        return string;
+    }  
+ 
     
     
-}// cierre
+}//CIERRE
