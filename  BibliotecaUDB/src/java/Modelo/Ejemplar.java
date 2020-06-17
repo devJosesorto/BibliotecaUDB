@@ -10,14 +10,14 @@ public class Ejemplar {
     private String cod_Libro;
     private String ubicacion;
     private String estado;
-    private String departamento_codDpto;
+    private String departamento_codDepartamento;
 
-    public Ejemplar(String codEjemplar, String cod_Libro, String ubicacion, String estado, String departamento_codDpto) {
+    public Ejemplar(String codEjemplar, String cod_Libro, String ubicacion, String estado, String departamento_codDepartamento) {
         this.codEjemplar = codEjemplar;
         this.cod_Libro = cod_Libro;
         this.ubicacion = ubicacion;
         this.estado = estado;
-        this.departamento_codDpto = departamento_codDpto;
+        this.departamento_codDepartamento = departamento_codDepartamento;
     }
 
     public Ejemplar() {
@@ -55,12 +55,12 @@ public class Ejemplar {
         this.estado = estado;
     }
 
-    public String getDepartamento_codDpto() {
-        return departamento_codDpto;
+    public String getdepartamento_codDepartamento() {
+        return departamento_codDepartamento;
     }
 
-    public void setDepartamento_codDpto(String departamento_codDpto) {
-        this.departamento_codDpto = departamento_codDpto;
+    public void setdepartamento_codDepartamento(String departamento_codDpto) {
+        this.departamento_codDepartamento = departamento_codDepartamento;
     }
 
 }
