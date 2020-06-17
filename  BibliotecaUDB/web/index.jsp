@@ -17,6 +17,7 @@
             <a class="btn btn-primary btn-sm" href="ControladorLibro?accion=nuevoautor" role="button">Nuevo Autor</a>
             <a class="btn btn-primary btn-sm" href="ControladorLibro?accion=nuevolibro" role="button">Nuevo Libro</a>
             <a class="btn btn-primary btn-sm" href="ControladorLibro?accion=nuevoeditorial" role="button">Nuevo Editorial</a>
+            <a class="btn btn-primary btn-sm" href="ControladorLibro?accion=nuevocategoria" role="button">Nueva Categoria</a>
         </div>
 
     </body>

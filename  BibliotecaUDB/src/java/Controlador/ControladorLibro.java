@@ -12,9 +12,11 @@ import Modelo.Libro;
 import ModeoDAO.LibroSQL;
 
 import Modelo.Autor;
+import Modelo.Categoria;
 import ModeoDAO.AutorSQL;
 
 import Modelo.Editorial;
+import ModeoDAO.CategoriaSQL;
 import ModeoDAO.EditorialSQL;
 /**
  *
@@ -26,6 +28,7 @@ public class ControladorLibro extends HttpServlet {
     String nuevoautor="vistas/AgregarAutor.jsp";
     String nuevolibro="vistas/NuevoLibro.jsp";
     String nuevoeditorial="vistas/AgregarEditorial.jsp";
+    String nuevocategoria="vistas/AgregarCatgoria.jsp";
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -87,7 +90,31 @@ public class ControladorLibro extends HttpServlet {
             libsql.Agregar(true, lib);
             
             acesso=listar;
+            
+            
+        }   // prueba   Categoria
+                
+            else if(action.equalsIgnoreCase("agregarCategoria")){           
+                
+            Categoria categoria =new Categoria();
+            CategoriaSQL categoriaql =new CategoriaSQL();
+            
+            categoria.setNombre(request.getParameter("txtCategoria"));
+            categoriaql.agregar(true, categoria);
+            
+            acesso=listar;
         }
+        
+        
+        
+       
+        
+        
+        //cierre de prueba
+        
+        
+        
+        
         
         
         RequestDispatcher vista=request.getRequestDispatcher(acesso);
