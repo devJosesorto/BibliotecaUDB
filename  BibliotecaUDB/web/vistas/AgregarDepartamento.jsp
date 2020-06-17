@@ -3,7 +3,7 @@
 <html lang="es">
     <head>
         <!CAMBIAR TITULO DE LA PAGINA ##########################################################>
-        <title>Agregar Categoria</title>
+        <title>Buscar libro</title>
 
 
         <meta charset="UTF-8">
@@ -115,7 +115,7 @@
                 <div class="page-header">
 
                  <!CAMBIAR NOMBRE #######################################################################################>
-                    <h1 class="all-tittles">Sistema bibliotecario <small>Agregar Categoria</small></h1>
+                    <h1 class="all-tittles">Sistema bibliotecario <small>Agregar autor</small></h1>
                 </div>
             </div>
 
@@ -123,41 +123,38 @@
 
 
 
-
             <form class="form-padding">
                 <div class="row">
 
                     <div class="col-xs-12">
-                        <div class="title-flat-form title-flat-blue">Nuevo Categoria</div>
-                        <legend><i class="zmdi zmdi-account-box"></i> &nbsp; Datos de la Categoria</legend><br>
-
-
-            <!Botones y cuadros de texto AQUI ##########################################################>
-
-            
-            <div class="col-xs-12 col-sm-6">
+                        <div class="title-flat-form title-flat-blue">Nuevo Departamento</div>
+                        <legend><i class="zmdi zmdi-account-box"></i> &nbsp; Datos del Departamento</legend><br>
+                        
+                        <div class="col-xs-12 col-sm-6">
                             <div class="group-material">
-                                <input type="text" name="txtCategoria" class="material-control tooltips-general" placeholder="Nombre del categoria" required="" maxlength="50" data-toggle="tooltip" data-placement="top" title="Escribe el nombre de la categoria">
+                                <input type="text" name="txtDepartamento" class="material-control tooltips-general" placeholder="Nombre del Departamento" required="" maxlength="50" data-toggle="tooltip" data-placement="top" title="Escribe el nombre del Departamento">
                                 <span class="highlight"></span>
                                 <span class="bar"></span>
-                                <label>Nombre Categoria</label>
+                                <label>Nombre del Departamento</label>
                             </div>
                         </div>
-            
-            
+
 
             <!Botones y cuadros de texto AQUI ##########################################################>
-
 
                          <div class="col-xs-12">
                             <p class="text-center">
                                 <button type="reset" class="btn btn-info" style="margin-right: 20px;"><i class="zmdi zmdi-roller"></i> &nbsp;&nbsp; Limpiar</button>
-                                <button type="submit" name="accion" value="agregarcategoria" class="btn btn-primary"><i class="zmdi zmdi-floppy"></i> &nbsp;&nbsp; Guardar</button>
+                                <button type="submit" name="accion" value="AgregarDepartamento" class="btn btn-primary"><i class="zmdi zmdi-floppy"></i> &nbsp;&nbsp; Guardar</button>
                             </p> 
                          </div>
+              
             
-            
-            
+     
+
+            <!Botones y cuadros de texto AQUI ##########################################################>
+
+
                     </div>
                 </div>
         </div>
