@@ -17,7 +17,7 @@ import java.util.List;
 public class DocenteSQL extends Conexion {
     
     
-        public List Mostrar()  {
+        public List mostrar()  {
         PreparedStatement ps = null;
         ResultSet rs = null;
         Connection con = getConexion();
@@ -52,7 +52,7 @@ public class DocenteSQL extends Conexion {
         return list;
     }
     
-        public boolean Agregar(boolean pass, Docente doc) {
+        public boolean agregar(boolean pass, Docente doc) {
 
         if (pass) {
             PreparedStatement ps = null;
@@ -89,7 +89,7 @@ public class DocenteSQL extends Conexion {
     }
         
         
-         public void Actualizar(boolean pass, Docente doc) {
+         public void actualizar(boolean pass, Docente doc) {
         if (pass) {
             PreparedStatement ps = null;
             Connection con = getConexion();
@@ -120,7 +120,7 @@ public class DocenteSQL extends Conexion {
     }
          
          
-         public void Eliminar(boolean pass, String carnet) {
+         public void eliminar(boolean pass, String carnet) {
         if (pass) {
             PreparedStatement ps = null;
             Connection con = getConexion();

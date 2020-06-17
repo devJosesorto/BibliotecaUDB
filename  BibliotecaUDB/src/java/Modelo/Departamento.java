@@ -6,10 +6,10 @@ package Modelo;
  */
 public class Departamento {
 
-    private int codDepartamento;
+    private String codDepartamento;
     private String Nombre;
 
-    public Departamento(int codDepartamento, String Nombre) {
+    public Departamento(String codDepartamento, String Nombre) {
         this.codDepartamento = codDepartamento;
         this.Nombre = Nombre;
     }
@@ -17,11 +17,11 @@ public class Departamento {
     public Departamento() {
     }
 
-    public int getCodDepartamento() {
+    public String getCodDepartamento() {
         return codDepartamento;
     }
 
-    public void setCodDepartamento(int codDepartamento) {
+    public void setCodDepartamento(String codDepartamento) {
         this.codDepartamento = codDepartamento;
     }
 
