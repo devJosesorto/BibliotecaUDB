@@ -22,6 +22,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class ControladorAutor extends HttpServlet {
 
+    String listar = "vistas/listar/ListarAutores.jsp";
     String nuevoautor = "vistas/AgregarAutor.jsp";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -48,9 +49,18 @@ public class ControladorAutor extends HttpServlet {
         String acesso = "";
         String action = request.getParameter("accion");
 
-        if (action.equalsIgnoreCase("nuevoautor")) {
+        if (action.equalsIgnoreCase("listar")) {
+
+            acesso = listar;
+        } else if (action.equalsIgnoreCase("nuevoautor")) {
             acesso = nuevoautor;
 
+        } else if (action.equalsIgnoreCase("editar")) {
+
+            acesso = "index.jsp";
+        } else if (action.equalsIgnoreCase("eliminar")) {
+
+            acesso = "index.jsp";
         } else if (action.equalsIgnoreCase("agregarautor")) {
 
             Autor autor = new Autor();
@@ -60,10 +70,9 @@ public class ControladorAutor extends HttpServlet {
             autor.setPais(request.getParameter("txtPais"));
             autorsql.Agregar(true, autor);
 
-            acesso = "index.jsp";
+           acesso = listar;
         }
 
-        
         RequestDispatcher vista = request.getRequestDispatcher(acesso);
         vista.forward(request, response);
 

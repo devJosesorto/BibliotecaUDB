@@ -21,6 +21,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class ControladorEjemplar extends HttpServlet {
     
+    String listar = "vistas/listar/ListarEjemplares.jsp";
     String nuevoejemplar = "vistas/AgregarEjemplar.jsp";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -47,22 +48,32 @@ public class ControladorEjemplar extends HttpServlet {
         String acesso = "";
         String action = request.getParameter("accion");
 
-        if (action.equalsIgnoreCase("nuevoejemplar")) {
+        if (action.equalsIgnoreCase("listar")) {
+
+            acesso = listar;
+            
+        } else if (action.equalsIgnoreCase("nuevoejemplar")) {
 
             acesso = nuevoejemplar;
             
         } else if (action.equalsIgnoreCase("agregarejemplar")) {
+            int j=0;
+            j=Integer.parseInt(request.getParameter("txtCantidad"));
+            
+            for (int i = 0; i < j; ++i){
+                
             Ejemplar ejem = new Ejemplar();
             EjemplarSQL ejemsql = new EjemplarSQL();
             
             ejem.setCodEjemplar("");
             ejem.setCod_Libro(request.getParameter("txtCod_Lib"));
-            ejem.setUbicacion(request.getParameter("txtUbicacion"));
-            ejem.setEstado(request.getParameter("txtEstado"));
+            ejem.setUbicacion(request.getParameter("txtUbicacion")+" "+i+1);
+            ejem.setEstado("DISPONIBLE");
             ejem.setCod_Departamento(request.getParameter("txtCod_dpto"));
 
             ejemsql.Agregar(true, ejem);
-
+            
+            }
             acesso = "index.jsp";
 
         }

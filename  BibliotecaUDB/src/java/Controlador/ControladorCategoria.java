@@ -20,8 +20,9 @@ import javax.servlet.http.HttpServletResponse;
  * @author José Sorto
  */
 public class ControladorCategoria extends HttpServlet {
-    
-     String nuevacategoria = "vistas/AgregarCategoria.jsp";
+
+    String listar = "vistas/listar/ListarCategorias.jsp";
+    String nuevacategoria = "vistas/AgregarCategoria.jsp";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -47,9 +48,12 @@ public class ControladorCategoria extends HttpServlet {
         String acesso = "";
         String action = request.getParameter("accion");
 
-        if (action.equalsIgnoreCase("nuevacategoria")) {
+        if (action.equalsIgnoreCase("listar")) {
+            acesso = listar;
+
+        } else  if (action.equalsIgnoreCase("nuevacategoria")) {
             acesso = nuevacategoria;
-            
+
         } else if (action.equalsIgnoreCase("agregarCategoria")) {
 
             Categoria categoria = new Categoria();
@@ -59,8 +63,8 @@ public class ControladorCategoria extends HttpServlet {
             categoriasql.agregar(true, categoria);
 
             acesso = "index.jsp";
-            
-        } 
+
+        }
 
         RequestDispatcher vista = request.getRequestDispatcher(acesso);
         vista.forward(request, response);

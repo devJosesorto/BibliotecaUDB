@@ -1,12 +1,18 @@
-<%@page import="Modelo.Libro"%>
-<%@page import="ModeoDAO.LibroSQL"%>
+<%-- 
+    Document   : ListarEjemplares
+    Created on : 06-18-2020, 02:32:58 PM
+    Author     : José Sorto
+--%>
+
+<%@page import="ModeoDAO.EjemplarSQL"%>
+<%@page import="Modelo.Ejemplar"%>
 <%@page import="java.util.Iterator"%>
 <%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="es">
     <head>
-        <title>Listado de Libros</title>
+        <title>Listado de Ejemplares</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="Shortcut Icon" type="image/x-icon" href="Bootstrap/assets/icons/book.ico" />
@@ -114,7 +120,7 @@
             </nav>
             <div class="container">
                 <div class="page-header">
-                    <h1 class="all-tittles">Sistema bibliotecario <small>Listado de Libros</small></h1>
+                    <h1 class="all-tittles">Sistema bibliotecario <small>Listado de Ejemplares</small></h1>
                 </div>
             </div>
 
@@ -123,7 +129,7 @@
                 <div class="row">
 
                     <div class="col-xs-12">
-                        <div class="title-flat-form title-flat-blue">Listado de Libros</div>
+                        <div class="title-flat-form title-flat-blue">Listado de Ejemplares</div>
 
 
 
@@ -131,11 +137,11 @@
                             <div class="div-table" style="margin:0 !important;">
                                 <div class="div-table-row div-table-row-list" style="background-color:#DFF0D8; font-weight:bold;">
                                     <div class="div-table-cell" style="width: 6%;">Codigo</div>
-                                    <div class="div-table-cell" style="width: 22%;">Titulo</div>
+                                    <div class="div-table-cell" style="width: 22%;">Codigo Libro</div>
 
-                                    <div class="div-table-cell" style="width: 22%;">Autor</div>
-                                    <div class="div-table-cell" style="width: 22%;">Categoria</div>
-                                    <div class="div-table-cell" style="width: 22%;">Editorial</div>
+                                    <div class="div-table-cell" style="width: 22%;">Departamento</div>
+                                    <div class="div-table-cell" style="width: 22%;">Estado</div>
+                                    <div class="div-table-cell" style="width: 22%;">Ubicacion</div>
 
                                     <div class="div-table-cell" style="width: 8%;">Eliminar</div>
                                     <div class="div-table-cell" style="width: 8%;">Editar</div>
@@ -144,28 +150,28 @@
                             </div>
                         </div>
 
-                        <%LibroSQL sql = new LibroSQL();
-                            List<Libro> list = sql.Mostrar();
-                            Iterator<Libro> iter = list.iterator();
-                            Libro obj = null;
+                        <%EjemplarSQL sql = new EjemplarSQL();
+                            List<Ejemplar> list = sql.mostrar();
+                            Iterator<Ejemplar> iter = list.iterator();
+                            Ejemplar obj = null;
                             while (iter.hasNext()) {
                                 obj = iter.next();%>
 
                         <div class="table-responsive">
                             <div class="div-table" style="margin:0 !important;">
                                 <div class="div-table-row div-table-row-list">
-                                    <div class="div-table-cell" style="width: 6%;"><%=obj.getCodLibro()%></div>
-                                    <div class="div-table-cell" style="width: 22%;"><%=obj.getTitulo()%></div>
-                                    <div class="div-table-cell" style="width: 22%;"><%=obj.getCodAutor()%></div>
-                                    <div class="div-table-cell" style="width: 22%;"><%=obj.getCodCategoria()%></div>
-                                    <div class="div-table-cell" style="width: 22%;"><%=obj.getCodEditorial()%></div>
+                                    <div class="div-table-cell" style="width: 6%;"><%=obj.getCodEjemplar()%></div>
+                                    <div class="div-table-cell" style="width: 22%;"><%=obj.getCod_Libro()%></div>
+                                    <div class="div-table-cell" style="width: 22%;"><%=obj.getCod_Departamento()%></div>
+                                    <div class="div-table-cell" style="width: 22%;"><%=obj.getEstado()%></div>
+                                    <div class="div-table-cell" style="width: 22%;"><%=obj.getUbicacion()%></div>
 
 
                                     <div class="div-table-cell" style="width: 8%;">
-                                        <a href="ControladorEditorial?accion=eliminar&id=<%=obj.getCodLibro()%>" class="btn btn-danger"><i class="zmdi zmdi-delete"></i></a>
+                                        <a href="ControladorEditorial?accion=eliminar&id=<%=obj.getCodEjemplar()%>" class="btn btn-danger"><i class="zmdi zmdi-delete"></i></a>
                                     </div>
                                     <div class="div-table-cell" style="width: 8%;">
-                                        <a href="ControladorEditorial?accion=editar&id=<%=obj.getCodLibro()%>" class="btn btn-info"><i class="zmdi zmdi-file-text"></i></a>
+                                        <a href="ControladorEditorial?accion=editar&id=<%=obj.getCodEjemplar()%>" class="btn btn-info"><i class="zmdi zmdi-file-text"></i></a>
                                     </div>
 
                                 </div>
@@ -221,3 +227,4 @@
 </div>
 </body>
 </html>
+

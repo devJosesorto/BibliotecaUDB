@@ -15,6 +15,9 @@ import javax.servlet.http.HttpServletResponse;
  * @author José Sorto
  */
 public class ControladorDepartamento extends HttpServlet {
+    
+     String listar = "vistas/listar/ListarDepartamentos.jsp";
+     String nuevodepartamento = "vistas/AgregarDepartamento.jsp";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -40,9 +43,13 @@ public class ControladorDepartamento extends HttpServlet {
         String acesso = "";
         String action = request.getParameter("accion");
 
-        String nuevodepartamento = "vistas/AgregarDepartamento.jsp";
+       
 
-        if (action.equalsIgnoreCase("nuevodepartamento")) {
+        if (action.equalsIgnoreCase("listar")) {
+
+            acesso = listar;
+
+        } else if (action.equalsIgnoreCase("nuevodepartamento")) {
 
             acesso = nuevodepartamento;
 

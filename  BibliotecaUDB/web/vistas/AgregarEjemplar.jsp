@@ -184,15 +184,15 @@
                     </div>
 
                     <!AGREGANDO  Estado>    
-
-                    <div class="col-xs-12 col-sm-6">
-                        <div class="group-material">
-                            <input type="text" name="txtEstado" class="material-control tooltips-general" placeholder="Estado" required="" maxlength="50" data-toggle="tooltip" data-placement="top" title="Escribe el estado">
-                            <span class="highlight"></span>
-                            <span class="bar"></span>
-                            <label>Estado</label>
-                        </div>
-                    </div>
+                    <%/*
+                                        <div class="col-xs-12 col-sm-6">
+                                            <div class="group-material">
+                                                <input type="text" name="txtEstado" class="material-control tooltips-general" placeholder="Estado" required="" maxlength="50" data-toggle="tooltip" data-placement="top" title="Escribe el estado">
+                                                <span class="highlight"></span>
+                                                <span class="bar"></span>
+                                                <label>Estado</label>
+                                            </div>
+                                        </div> */%>
 
                     <!AGREGANDO  Departamento>
 
@@ -218,6 +218,15 @@
                         <p class="text-center pull-right">
                             <a href="ControladorDepartamento?accion=nuevodepartamento" class="btn btn-info btn-xs" style="margin-right: 10px;"><i class="zmdi zmdi-info-outline"></i> &nbsp;&nbsp; Agregar Departamento</a>
                         </p>
+                    </div>
+
+                    <div class="col-xs-12 col-sm-6">
+                        <div class="group-material">
+                            <input type="text" name="txtCantidad" class="material-control tooltips-general" placeholder="Cantidad de ejemplares a ingresar" required="" pattern="[1-9]{1,2}" maxlength="2" data-toggle="tooltip" data-placement="top" title="Solo números, máximo 2 caracteres">
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label>Cantidad de ejemplares a ingresar</label>
+                        </div>
                     </div>
 
 

@@ -23,7 +23,7 @@ import ModeoDAO.EjemplarSQL;
  */
 public class ControladorLibro extends HttpServlet {
 
-    String listar = "vistas/ListarLibros.jsp";
+    String listar = "vistas/listar/ListarLibros.jsp";
     String nuevolibro = "vistas/AgregarLibro.jsp";
     
 

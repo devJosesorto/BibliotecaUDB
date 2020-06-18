@@ -1,3 +1,9 @@
+<%-- 
+    Document   : ListarLibros
+    Created on : 06-18-2020, 02:35:34 PM
+    Author     : José Sorto
+--%>
+
 <%@page import="Modelo.Libro"%>
 <%@page import="ModeoDAO.LibroSQL"%>
 <%@page import="java.util.Iterator"%>
@@ -221,3 +227,4 @@
 </div>
 </body>
 </html>
+

@@ -21,8 +21,9 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class ControladorEditorial extends HttpServlet {
 
-     String nuevaeditorial = "vistas/AgregarEditorial.jsp";
-    
+    String listar = "vistas/listar/ListarEditoriales.jsp";
+    String nuevaeditorial = "vistas/AgregarEditorial.jsp";
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -47,9 +48,11 @@ public class ControladorEditorial extends HttpServlet {
         String acesso = "";
         String action = request.getParameter("accion");
 
-        if (action.equalsIgnoreCase("nuevaeditorial")) {
+        if (action.equalsIgnoreCase("listar")) {
+            acesso = listar;
+
+        } else if (action.equalsIgnoreCase("nuevaeditorial")) {
             acesso = nuevaeditorial;
-            
         } else if (action.equalsIgnoreCase("agregarEditorial")) {
 
             Editorial editorial = new Editorial();
@@ -59,8 +62,7 @@ public class ControladorEditorial extends HttpServlet {
             editorial.setPais(request.getParameter("txtPais"));
             editosql.agregar(true, editorial);
 
-            acesso = "index.jsp";
-            
+              acesso = listar;
         }
 
         RequestDispatcher vista = request.getRequestDispatcher(acesso);
