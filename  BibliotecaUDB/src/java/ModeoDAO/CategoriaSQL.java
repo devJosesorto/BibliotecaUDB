@@ -1,4 +1,3 @@
-
 package ModeoDAO;
 
 import Conexion.Conexion;
@@ -15,9 +14,8 @@ import java.util.List;
  * @author Bolaines
  */
 public class CategoriaSQL extends Conexion {
-    
- 
-     public List mostrar() {
+
+    public List mostrar() {
         PreparedStatement ps = null;
         ResultSet rs = null;
         Connection con = getConexion();
@@ -28,13 +26,13 @@ public class CategoriaSQL extends Conexion {
         try {
             ps = con.prepareStatement(sql);
             rs = ps.executeQuery();
-            
+
             while (rs.next()) {
                 Categoria categoria = new Categoria();
 
                 categoria.setCodCategoria(rs.getInt(1));
                 categoria.setNombre(rs.getString(2));
-                
+
                 list.add(categoria);
             }
 
@@ -50,9 +48,39 @@ public class CategoriaSQL extends Conexion {
         }
         return list;
     }
-    
-        
-     public boolean agregar(boolean pass, Categoria categoria) {
+
+    public Categoria buscar(String ID) {
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        Connection con = getConexion();
+        Categoria categoria = new Categoria();
+
+        String sql = "SELECT* FROM categoria where codCategoria="+ID;
+        try {
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+
+                categoria.setCodCategoria(rs.getInt(1));
+                categoria.setNombre(rs.getString(2));
+
+            }
+
+        } catch (SQLException e) {
+            System.err.println(e);
+
+        } finally {
+            try {
+                con.close();
+            } catch (SQLException e) {
+                System.err.println(e);
+            }
+        }
+        return categoria;
+    }
+
+    public boolean agregar(boolean pass, Categoria categoria) {
 
         if (pass) {
             PreparedStatement ps = null;
@@ -64,7 +92,6 @@ public class CategoriaSQL extends Conexion {
                 ps = con.prepareStatement(sql);
                 ps.setInt(z++, generarCod());
                 ps.setString(z++, categoria.getNombre());
-                
 
                 ps.execute();
 
@@ -83,20 +110,19 @@ public class CategoriaSQL extends Conexion {
         }
         return true;
     }
-    
-    
-     public void actualizar(boolean pass, Categoria categoria) {
+
+    public void actualizar(boolean pass, Categoria categoria) {
         if (pass) {
             PreparedStatement ps = null;
             Connection con = getConexion();
-            String sql = "UPDATE categoria SET Nombre=?, codCategoria=? WHERE codCategoria=? ";
+            String sql = "UPDATE categoria SET Nombre=? WHERE codCategoria=?";
 
             try {
                 ps = con.prepareStatement(sql);
                 int z = 1;
                 ps.setString(z++, categoria.getNombre());
                 ps.setInt(z++, categoria.getCodCategoria());
-                
+
                 ps.execute();
 
             } catch (SQLException e) {
@@ -112,17 +138,15 @@ public class CategoriaSQL extends Conexion {
             }
         }
     }
-     
-    
+
     public void eliminar(boolean pass, String codCategoria) {
         if (pass) {
             PreparedStatement ps = null;
             Connection con = getConexion();
-            String sql = "DELETE FROM Categoria WHERE codCategoria=? ";
+            String sql = "DELETE FROM Categoria WHERE codCategoria="+codCategoria;
 
             try {
                 ps = con.prepareStatement(sql);
-                ps.setString(1, sql);
                 ps.execute();
 
             } catch (SQLException e) {
@@ -138,11 +162,9 @@ public class CategoriaSQL extends Conexion {
             }
         }
     }
-    
-              
-     ///Genarador de codigo
-     
-     public int generarCod() {
+
+    ///Genarador de codigo
+    public int generarCod() {
         PreparedStatement ps = null;
         ResultSet rs = null;
         Connection con = getConexion();
@@ -167,10 +189,5 @@ public class CategoriaSQL extends Conexion {
             }
         }
     }
-     
-     
-     
-     
-    
-    
+
 }// cierre

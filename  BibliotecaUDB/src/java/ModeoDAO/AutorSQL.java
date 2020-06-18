@@ -47,6 +47,38 @@ public class AutorSQL extends Conexion {
         }
         return list;
     }
+    
+    
+        public Autor buscar(String ID) {
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        Connection con = getConexion();
+
+        String sql = "SELECT* FROM autor where codAutor="+ID;
+        Autor autor = new Autor();
+        try {
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                
+
+                autor.setCodAutor(rs.getInt(1));
+                autor.setNombre(rs.getString(2));
+                autor.setPais(rs.getString(3));
+            }
+
+        } catch (SQLException e) {
+            System.err.println(e);
+
+        } finally {
+            try {
+                con.close();
+            } catch (SQLException e) {
+                System.err.println(e);
+            }
+        }
+        return autor;
+    }
 
     public boolean Agregar(boolean pass, Autor autor) {
 
@@ -84,7 +116,7 @@ public class AutorSQL extends Conexion {
         if (pass) {
             PreparedStatement ps = null;
             Connection con = getConexion();
-            String sql = "UPDATE autor SET Nombre=?, Pais=?, cod_Autor=? WHERE codAutor=? ";
+            String sql = "UPDATE autor SET Nombre=?, Pais=? WHERE codAutor=? ";
 
             try {
                 ps = con.prepareStatement(sql);
@@ -113,11 +145,10 @@ public class AutorSQL extends Conexion {
         if (pass) {
             PreparedStatement ps = null;
             Connection con = getConexion();
-            String sql = "DELETE FROM autor WHERE codAutor=? ";
+            String sql = "DELETE FROM autor WHERE codAutor="+codLibro;
 
             try {
                 ps = con.prepareStatement(sql);
-                ps.setString(1, sql);
                 ps.execute();
 
             } catch (SQLException e) {

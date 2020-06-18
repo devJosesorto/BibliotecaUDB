@@ -23,6 +23,7 @@ public class ControladorCategoria extends HttpServlet {
 
     String listar = "vistas/listar/ListarCategorias.jsp";
     String nuevacategoria = "vistas/AgregarCategoria.jsp";
+    String editar = "vistas/editar/EditarCategoria.jsp";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -51,19 +52,35 @@ public class ControladorCategoria extends HttpServlet {
         if (action.equalsIgnoreCase("listar")) {
             acesso = listar;
 
-        } else  if (action.equalsIgnoreCase("nuevacategoria")) {
+        } else if (action.equalsIgnoreCase("nuevacategoria")) {
             acesso = nuevacategoria;
 
         } else if (action.equalsIgnoreCase("agregarCategoria")) {
 
             Categoria categoria = new Categoria();
             CategoriaSQL categoriasql = new CategoriaSQL();
-
             categoria.setNombre(request.getParameter("txtCategoria"));
             categoriasql.agregar(true, categoria);
-
-            acesso = "index.jsp";
-
+            acesso = listar;
+        } else if (action.equalsIgnoreCase("editar")) {
+            request.setAttribute("id_", request.getParameter("id"));
+            acesso = editar;
+        }else if (action.equalsIgnoreCase("EditarCategoria")) {
+            Categoria categoria = new Categoria();
+            CategoriaSQL categoriasql = new CategoriaSQL();
+            
+            categoria.setCodCategoria(Integer.parseInt(request.getParameter("txtID")));
+            categoria.setNombre(request.getParameter("txtCategoria"));
+            
+            categoriasql.actualizar(true, categoria);
+            acesso = listar;
+        }else if (action.equalsIgnoreCase("eliminar")) {
+           
+            CategoriaSQL categoriasql = new CategoriaSQL();
+            
+            categoriasql.eliminar(true, request.getParameter("id"));
+            
+            acesso = listar;
         }
 
         RequestDispatcher vista = request.getRequestDispatcher(acesso);

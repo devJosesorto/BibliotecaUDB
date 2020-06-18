@@ -24,6 +24,7 @@ public class ControladorAutor extends HttpServlet {
 
     String listar = "vistas/listar/ListarAutores.jsp";
     String nuevoautor = "vistas/AgregarAutor.jsp";
+    String editar = "vistas/editar/EditarAutor.jsp";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -56,11 +57,28 @@ public class ControladorAutor extends HttpServlet {
             acesso = nuevoautor;
 
         } else if (action.equalsIgnoreCase("editar")) {
+            request.setAttribute("id_", request.getParameter("id"));
+            acesso = editar;
+        } else if (action.equalsIgnoreCase("editarautor")) {
 
-            acesso = "index.jsp";
+            Autor autor = new Autor();
+            AutorSQL autorsql = new AutorSQL();
+
+            autor.setCodAutor(Integer.parseInt(request.getParameter("txtID")));
+            autor.setNombre(request.getParameter("txtAutor"));
+            autor.setPais(request.getParameter("txtPais"));
+
+            autorsql.Actualizar(true, autor);
+
+            acesso = listar;
         } else if (action.equalsIgnoreCase("eliminar")) {
 
-            acesso = "index.jsp";
+       
+            AutorSQL autorsql = new AutorSQL();
+            
+            autorsql.Eliminar(true, request.getParameter("id"));
+
+            acesso = listar;
         } else if (action.equalsIgnoreCase("agregarautor")) {
 
             Autor autor = new Autor();
@@ -70,7 +88,7 @@ public class ControladorAutor extends HttpServlet {
             autor.setPais(request.getParameter("txtPais"));
             autorsql.Agregar(true, autor);
 
-           acesso = listar;
+            acesso = listar;
         }
 
         RequestDispatcher vista = request.getRequestDispatcher(acesso);
