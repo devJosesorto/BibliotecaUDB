@@ -13,13 +13,21 @@
         <br><br>
 
         <div>
+            <a class="btn btn-primary btn-sm" href="ControladorDepartamento?accion=test" role="button">Test</a>
+            <br><br><br>
             <a class="btn btn-primary btn-sm" href="ControladorLibro?accion=listar" role="button">Listar libros</a>
-            <a class="btn btn-primary btn-sm" href="ControladorLibro?accion=nuevoautor" role="button">Nuevo Autor</a>
             <a class="btn btn-primary btn-sm" href="ControladorLibro?accion=nuevolibro" role="button">Nuevo Libro</a>
-            <a class="btn btn-primary btn-sm" href="ControladorLibro?accion=nuevaeditorial" role="button">Nuevo Editorial</a>
-            <a class="btn btn-primary btn-sm" href="ControladorLibro?accion=nuevacategoria" role="button">Nueva Categoria</a>
+            <br><br><br>
+            <a class="btn btn-primary btn-sm" href="ControladorAutor?accion=nuevoautor" role="button">Nuevo Autor</a>
+            <br><br><br>
+            
+            <a class="btn btn-primary btn-sm" href="ControladorEditorial?accion=nuevaeditorial" role="button">Nuevo Editorial</a>
+            <br><br><br>
+            <a class="btn btn-primary btn-sm" href="ControladorCategoria?accion=nuevacategoria" role="button">Nueva Categoria</a>
+            <br><br><br>
             <a class="btn btn-primary btn-sm" href="ControladorDepartamento?accion=nuevodepartamento" role="button">Nuevo Departamento</a>
-            <a class="btn btn-primary btn-sm" href="ControladorLibro?accion=nuevoejemplar" role="button">Nuevo Ejemplar</a>
+            <br><br><br>
+            <a class="btn btn-primary btn-sm" href="ControladorEjemplar?accion=nuevoejemplar" role="button">Nuevo Ejemplar</a>
         </div>
 
     </body>

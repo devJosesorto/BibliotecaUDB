@@ -11,16 +11,10 @@ import javax.servlet.http.HttpServletResponse;
 import Modelo.Libro;
 import ModeoDAO.LibroSQL;
 
-import Modelo.Autor;
-import Modelo.Categoria;
-import Modelo.Departamento;
-import ModeoDAO.AutorSQL;
 
-import Modelo.Editorial;
+
+
 import Modelo.Ejemplar;
-import ModeoDAO.CategoriaSQL;
-import ModeoDAO.DepartamentoSQL;
-import ModeoDAO.EditorialSQL;
 import ModeoDAO.EjemplarSQL;
 
 /**
@@ -30,13 +24,8 @@ import ModeoDAO.EjemplarSQL;
 public class ControladorLibro extends HttpServlet {
 
     String listar = "vistas/ListarLibros.jsp";
-
-    String nuevoautor = "vistas/AgregarAutor.jsp";
     String nuevolibro = "vistas/AgregarLibro.jsp";
-    String nuevaeditorial = "vistas/AgregarEditorial.jsp";
-    String nuevacategoria = "vistas/AgregarCategoria.jsp";
-    String nuevodepartamento = "vistas/AgregarDepartamento.jsp";
-    String nuevoejemplar = "vistas/AgregarEjemplar.jsp";
+    
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -77,19 +66,6 @@ public class ControladorLibro extends HttpServlet {
         if (action.equalsIgnoreCase("listar")) {
             acesso = listar;
             
-        } else if (action.equalsIgnoreCase("nuevoautor")) {
-            acesso = nuevoautor;
-            
-        } else if (action.equalsIgnoreCase("agregarautor")) {
-            Autor autor = new Autor();
-            AutorSQL autorsql = new AutorSQL();
-
-            autor.setNombre(request.getParameter("txtAutor"));
-            autor.setPais(request.getParameter("txtPais"));
-            autorsql.Agregar(true, autor);
-
-            acesso = listar;
-            
         } else if (action.equalsIgnoreCase("nuevolibro")) {
 
             acesso = nuevolibro;
@@ -107,51 +83,6 @@ public class ControladorLibro extends HttpServlet {
             libsql.Agregar(true, lib);
 
             acesso = listar;
-
-        } else if (action.equalsIgnoreCase("nuevaeditorial")) {
-            acesso = nuevaeditorial;
-            
-        } else if (action.equalsIgnoreCase("agregarEditorial")) {
-
-            Editorial editorial = new Editorial();
-            EditorialSQL editosql = new EditorialSQL();
-
-            editorial.setNombre(request.getParameter("txtEditorial"));
-            editorial.setPais(request.getParameter("txtPais"));
-            editosql.agregar(true, editorial);
-
-            acesso = listar;
-            
-        } else if (action.equalsIgnoreCase("nuevacategoria")) {
-            acesso = nuevacategoria;
-            
-        } else if (action.equalsIgnoreCase("agregarCategoria")) {
-
-            Categoria categoria = new Categoria();
-            CategoriaSQL categoriasql = new CategoriaSQL();
-
-            categoria.setNombre(request.getParameter("txtCategoria"));
-            categoriasql.agregar(true, categoria);
-
-            acesso = listar;
-            
-        } else if (action.equalsIgnoreCase("nuevoejemplar")) {
-
-            acesso = nuevoejemplar;
-            
-        } else if (action.equalsIgnoreCase("agregarejemplar")) {
-            Ejemplar ejem = new Ejemplar();
-            EjemplarSQL ejemsql = new EjemplarSQL();
-            
-            ejem.setCodEjemplar("");
-            ejem.setCod_Libro(request.getParameter("txtCod_Lib"));
-            ejem.setUbicacion(request.getParameter("txtUbicacion"));
-            ejem.setEstado(request.getParameter("txtEstado"));
-            ejem.setCod_Departamento(request.getParameter("txtCod_dpto"));
-
-            ejemsql.Agregar(true, ejem);
-
-            acesso = "index.jsp";
 
         }
 

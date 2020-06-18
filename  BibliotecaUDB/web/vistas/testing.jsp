@@ -1,3 +1,7 @@
+<%@page import="java.util.Iterator"%>
+<%@page import="Modelo.Autor"%>
+<%@page import="java.util.List"%>
+<%@page import="ModeoDAO.AutorSQL"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="es">
@@ -119,52 +123,96 @@
                 <div class="row">
 
                     <div class="col-xs-12">
-                        <div class="title-flat-form title-flat-blue">Nuevo autor</div>
-                        <legend><i class="zmdi zmdi-account-box"></i> &nbsp; Datos del autor</legend><br>
+                        <div class="title-flat-form title-flat-blue">Registro de autores</div>
+
+
+
+                        <div class="table-responsive">
+                            <div class="div-table" style="margin:0 !important;">
+                                <div class="div-table-row div-table-row-list" style="background-color:#DFF0D8; font-weight:bold;">
+                                    <div class="div-table-cell" style="width: 6%;">Codigo</div>
+                                    <div class="div-table-cell" style="width: 22%;">Nombre del autor</div>
+                                    <div class="div-table-cell" style="width: 22%;">Pais Origen</div>
+                                    <div class="div-table-cell" style="width: 8%;">Eliminar</div>
+                                    
+                                </div>
+                            </div>
+                        </div>
+
+                        <%AutorSQL autorsql = new AutorSQL();
+                            List<Autor> list = autorsql.Mostrar();
+                            Iterator<Autor> iter = list.iterator();
+                            Autor autor = null;
+                            while (iter.hasNext()) {
+                                autor = iter.next();%>
+
+                        <div class="table-responsive">
+                            <div class="div-table" style="margin:0 !important;">
+                                <div class="div-table-row div-table-row-list">
+
+
+
+
+                                    <div class="div-table-cell" style="width: 6%;"><%=autor.getCodAutor()%></div>
+                                    <div class="div-table-cell" style="width: 22%;"><%=autor.getNombre()%></div>
+                                    <div class="div-table-cell" style="width: 22%;"><%=autor.getPais()%></div>
+                                    <div class="div-table-cell" style="width: 8%;">
+                                        <button class="btn btn-danger"><i class="zmdi zmdi-delete"></i></button>
+                                    </div>
+                                   
+
+
+
+                                </div>
+                            </div>
+                        </div>
+                        <%}%>
                     </div>
+
                 </div>
+            </form>
         </div>
-    </form>
 
 
-    <!CUERPO DEL DOCUMENTO #######################################################################################>
 
-<div class="modal fade" tabindex="-1" role="dialog" id="ModalHelp">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title text-center all-tittles">ayuda del sistema</h4>
-            </div>
-            <div class="modal-body">
-                Cominicarse con el administrador.
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-dismiss="modal"><i class="zmdi zmdi-thumb-up"></i> &nbsp; De acuerdo</button>
-            </div>
-        </div>
-    </div>
-</div>
-<footer class="footer full-reset">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-xs-12 col-sm-6">
-                <h4 class="all-tittles">Acerca de</h4>
-                <p>
-                    Sistema en fase de desarollo.
-                </p>
-            </div>
-            <div class="col-xs-12 col-sm-6">
-                <h4 class="all-tittles">Desarrollador</h4>
-                <ul class="list-unstyled">
-                    <li><i class="zmdi zmdi-check zmdi-hc-fw"></i>&nbsp; Jose Sorto <i class="zmdi zmdi-facebook zmdi-hc-fw footer-social"></i><i class="zmdi zmdi-twitter zmdi-hc-fw footer-social"></i></li>
-                    <li><i class="zmdi zmdi-check zmdi-hc-fw"></i>&nbsp; Lilian Recinos <i class="zmdi zmdi-facebook zmdi-hc-fw footer-social"></i><i class="zmdi zmdi-twitter zmdi-hc-fw footer-social"></i></li>
-                </ul>
+        <!CUERPO DEL DOCUMENTO #######################################################################################>
+
+    <div class="modal fade" tabindex="-1" role="dialog" id="ModalHelp">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title text-center all-tittles">ayuda del sistema</h4>
+                </div>
+                <div class="modal-body">
+                    Cominicarse con el administrador.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal"><i class="zmdi zmdi-thumb-up"></i> &nbsp; De acuerdo</button>
+                </div>
             </div>
         </div>
     </div>
-    <div class="footer-copyright full-reset all-tittles">© 2020 Poo UDB Virtual</div>
-</footer>
+    <footer class="footer full-reset">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-xs-12 col-sm-6">
+                    <h4 class="all-tittles">Acerca de</h4>
+                    <p>
+                        Sistema en fase de desarollo.
+                    </p>
+                </div>
+                <div class="col-xs-12 col-sm-6">
+                    <h4 class="all-tittles">Desarrollador</h4>
+                    <ul class="list-unstyled">
+                        <li><i class="zmdi zmdi-check zmdi-hc-fw"></i>&nbsp; Jose Sorto <i class="zmdi zmdi-facebook zmdi-hc-fw footer-social"></i><i class="zmdi zmdi-twitter zmdi-hc-fw footer-social"></i></li>
+                        <li><i class="zmdi zmdi-check zmdi-hc-fw"></i>&nbsp; Lilian Recinos <i class="zmdi zmdi-facebook zmdi-hc-fw footer-social"></i><i class="zmdi zmdi-twitter zmdi-hc-fw footer-social"></i></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer-copyright full-reset all-tittles">© 2020 Poo UDB Virtual</div>
+    </footer>
 </div>
 </body>
 </html>

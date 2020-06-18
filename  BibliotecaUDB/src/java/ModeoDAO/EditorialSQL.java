@@ -53,7 +53,7 @@ public class EditorialSQL extends Conexion {
         if (pass) {
             PreparedStatement ps = null;
             Connection con = getConexion();
-            String sql = "INSERT INTO autor (codEditorial, Nombre, Pais) VALUES(?,?,?)";
+            String sql = "INSERT INTO editorial (codEditorial, Nombre, Pais) VALUES(?,?,?)";
 
             try {
                 int z = 1;
@@ -84,7 +84,7 @@ public class EditorialSQL extends Conexion {
         if (pass) {
             PreparedStatement ps = null;
             Connection con = getConexion();
-            String sql = "UPDATE autor SET Nombre=?, Pais=?, cod_Editorial=? WHERE codEditorial=? ";
+            String sql = "UPDATE editorial SET Nombre=?, Pais=?, cod_Editorial=? WHERE codEditorial=? ";
 
             try {
                 ps = con.prepareStatement(sql);
@@ -113,7 +113,7 @@ public class EditorialSQL extends Conexion {
         if (pass) {
             PreparedStatement ps = null;
             Connection con = getConexion();
-            String sql = "DELETE FROM autor WHERE codEditorial=? ";
+            String sql = "DELETE FROM editorial WHERE codEditorial=? ";
 
             try {
                 ps = con.prepareStatement(sql);
@@ -139,7 +139,7 @@ public class EditorialSQL extends Conexion {
         ResultSet rs = null;
         Connection con = getConexion();
 
-        String sql = "SELECT MAX(codEditorial) as cantidad FROM autor";
+        String sql = "SELECT MAX(codEditorial) as cantidad FROM editorial";
         try {
             ps = con.prepareStatement(sql);
             rs = ps.executeQuery();

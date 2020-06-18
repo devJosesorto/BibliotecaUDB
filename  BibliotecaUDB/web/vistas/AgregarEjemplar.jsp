@@ -216,7 +216,7 @@
                             </select>
                         </div>
                         <p class="text-center pull-right">
-                            <a href="ControladorLibro?accion=nuevoDepartamento" class="btn btn-info btn-xs" style="margin-right: 10px;"><i class="zmdi zmdi-info-outline"></i> &nbsp;&nbsp; Agregar Departamento</a>
+                            <a href="ControladorDepartamento?accion=nuevodepartamento" class="btn btn-info btn-xs" style="margin-right: 10px;"><i class="zmdi zmdi-info-outline"></i> &nbsp;&nbsp; Agregar Departamento</a>
                         </p>
                     </div>
 

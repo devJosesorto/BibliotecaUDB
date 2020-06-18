@@ -58,7 +58,13 @@ public class ControladorDepartamento extends HttpServlet {
 
             acesso = "index.jsp";
 
+        }else if (action.equalsIgnoreCase("test")) {
+
+            acesso = "vistas/testing.jsp";
+
         }
+        
+        
         RequestDispatcher vista = request.getRequestDispatcher(acesso);
         vista.forward(request, response);
     }

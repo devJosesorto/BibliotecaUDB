@@ -166,7 +166,7 @@
                             </select>
                         </div>
                         <p class="text-center pull-right">
-                            <a href="ControladorLibro?accion=nuevoautor" class="btn btn-info btn-xs" style="margin-right: 10px;"><i class="zmdi zmdi-info-outline"></i> &nbsp;&nbsp; Agregar autor</a>
+                            <a href="ControladorAutor?accion=nuevoautor" class="btn btn-info btn-xs" style="margin-right: 10px;"><i class="zmdi zmdi-info-outline"></i> &nbsp;&nbsp; Agregar autor</a>
                         </p>
                     </div>
 
@@ -188,7 +188,7 @@
                             </select>
                         </div>
                         <p class="text-center pull-right">
-                            <a href="#!" class="btn btn-info btn-xs" style="margin-right: 10px;"><i class="zmdi zmdi-info-outline"></i> &nbsp;&nbsp; Agregar Categoria</a>
+                            <a href="ControladorCategoria?accion=nuevacategoria" class="btn btn-info btn-xs" style="margin-right: 10px;"><i class="zmdi zmdi-info-outline"></i> &nbsp;&nbsp; Agregar Categoria</a>
                         </p>
                     </div>
 
@@ -212,7 +212,7 @@
                             </select>
                         </div>
                         <p class="text-center pull-right">
-                            <a href="#!" class="btn btn-info btn-xs" style="margin-right: 10px;"><i class="zmdi zmdi-info-outline"></i> &nbsp;&nbsp; Agregar Editorial</a>
+                            <a href="ControladorEditorial?accion=nuevaeditorial" class="btn btn-info btn-xs" style="margin-right: 10px;"><i class="zmdi zmdi-info-outline"></i> &nbsp;&nbsp; Agregar Editorial</a>
                         </p>
                     </div>
 
