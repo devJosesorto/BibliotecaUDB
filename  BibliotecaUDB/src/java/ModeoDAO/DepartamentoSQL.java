@@ -54,7 +54,7 @@ public class DepartamentoSQL extends Conexion  {
     }
     
     
-    public boolean agregar(boolean pass, Departamento dpto) {
+    public void Agregar(boolean pass, Departamento dpto) {
 
         if (pass) {
             PreparedStatement ps = null;
@@ -66,14 +66,13 @@ public class DepartamentoSQL extends Conexion  {
                 ps = con.prepareStatement(sql);
                 ps.setString(z++, generarCod());
                 ps.setString(z++, dpto.getNombre());
-                ps.setString(z++, dpto.getCodDepartamento());
 
                 ps.execute();
 
             } catch (SQLException e) {
                 System.err.println(e);
                 System.out.println("Error en Agregar de la clase DepartamentoSQL");
-                return false;
+            
 
             } finally {
                 try {
@@ -83,7 +82,7 @@ public class DepartamentoSQL extends Conexion  {
                 }
             }
         }
-        return true;
+      
     }
     
     

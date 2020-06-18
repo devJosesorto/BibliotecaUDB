@@ -35,7 +35,7 @@ public class EjemplarSQL extends Conexion {
                 ejemplar.setCod_Libro(rs.getString(2));
                 ejemplar.setUbicacion(rs.getString(3));
                 ejemplar.setEstado(rs.getString(4));
-                ejemplar.setdepartamento_codDepartamento(rs.getString(5));
+                ejemplar.setCod_Departamento(rs.getString(5));
                 list.add(ejemplar);
             }
 
@@ -53,22 +53,22 @@ public class EjemplarSQL extends Conexion {
     }
     
      
-     public boolean agregar(boolean pass, Ejemplar ejem) {
+     public void Agregar(boolean pass, Ejemplar ejem) {
 
-        if (pass) {
+        if (pass){
             PreparedStatement ps = null;
             Connection con = getConexion();
-            String sql = "INSERT INTO ejemplar (codEjemplar, cod_Libro, ubicacion, estado, departamento_codDepartamento) VALUES(?,?,?,?,?)";
+            String sql = "INSERT INTO ejemplar (codEjemplar, cod_Libro, Ubicacion, Estado, departamento_codDepartamento) VALUES(?,?,?,?,?)";
 
             try {
                 int z = 1;
                 ps = con.prepareStatement(sql);
                 //a cada objeto de tipo Ejemplar en el cod se debe de asignar "EJE" como valor, el metodo generarCod le proporciona el correlativo
-                ps.setString(z++, ejem.getCodEjemplar()+ generarCod());
+                ps.setString(z++, generarCod());
                 ps.setString(z++, ejem.getCod_Libro());
                 ps.setString(z++, ejem.getUbicacion());
                 ps.setString(z++, ejem.getEstado());
-                ps.setString(z++, ejem.getdepartamento_codDepartamento());
+                ps.setString(z++, ejem.getCod_Departamento());
                
 
                 ps.execute();
@@ -76,7 +76,7 @@ public class EjemplarSQL extends Conexion {
             } catch (SQLException e) {
                 System.err.println(e);
                 System.out.println("Error en agregar de la clase EjemplarSQL");
-                return false;
+             
 
             } finally {
                 try {
@@ -86,7 +86,7 @@ public class EjemplarSQL extends Conexion {
                 }
             }
         }
-        return true;
+  
     }
      
      
@@ -94,7 +94,7 @@ public class EjemplarSQL extends Conexion {
         if (pass) {
             PreparedStatement ps = null;
             Connection con = getConexion();
-            String sql = "UPDATE ejemplar SET codEjemplar=?, cod_Libro=?, ubicacion=?, estado=?, departamento_codDepartamento=? WHERE codEjemplar=? ";
+            String sql = "UPDATE ejemplar SET codEjemplar=?, cod_Libro=?, ubicacion=?, estado=?, cod_Departamento=? WHERE codEjemplar=? ";
 
             try {
                 ps = con.prepareStatement(sql);
@@ -102,7 +102,7 @@ public class EjemplarSQL extends Conexion {
                 ps.setString(z++, ejem.getCod_Libro());
                 ps.setString(z++, ejem.getUbicacion());
                 ps.setString(z++, ejem.getEstado());
-                ps.setString(z++, ejem.getdepartamento_codDepartamento());
+                ps.setString(z++, ejem.getCod_Departamento());
                 ps.setString(z++, ejem.getCodEjemplar());
                 ps.execute();
 

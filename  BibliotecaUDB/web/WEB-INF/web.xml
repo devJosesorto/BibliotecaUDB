@@ -4,9 +4,57 @@
         <servlet-name>ControladorLibro</servlet-name>
         <servlet-class>Controlador.ControladorLibro</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ControladorDepartamento</servlet-name>
+        <servlet-class>Controlador.ControladorDepartamento</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ControladorEjemplar</servlet-name>
+        <servlet-class>Controlador.ControladorEjemplar</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ControladorEditorial</servlet-name>
+        <servlet-class>Controlador.ControladorEditorial</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ControladorAutor</servlet-name>
+        <servlet-class>Controlador.ControladorAutor</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ControladorPrestamo</servlet-name>
+        <servlet-class>Controlador.ControladorPrestamo</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ControladorCategoria</servlet-name>
+        <servlet-class>Controlador.ControladorCategoria</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ControladorLibro</servlet-name>
         <url-pattern>/ControladorLibro</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ControladorDepartamento</servlet-name>
+        <url-pattern>/ControladorDepartamento</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ControladorEjemplar</servlet-name>
+        <url-pattern>/ControladorEjemplar</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ControladorEditorial</servlet-name>
+        <url-pattern>/ControladorEditorial</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ControladorAutor</servlet-name>
+        <url-pattern>/ControladorAutor</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ControladorPrestamo</servlet-name>
+        <url-pattern>/ControladorPrestamo</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ControladorCategoria</servlet-name>
+        <url-pattern>/ControladorCategoria</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

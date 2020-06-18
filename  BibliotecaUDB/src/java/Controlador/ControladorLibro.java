@@ -22,21 +22,22 @@ import ModeoDAO.CategoriaSQL;
 import ModeoDAO.DepartamentoSQL;
 import ModeoDAO.EditorialSQL;
 import ModeoDAO.EjemplarSQL;
+
 /**
  *
  * @author José Sorto
  */
 public class ControladorLibro extends HttpServlet {
-    
-    String listar="vistas/ListarLibros.jsp";
-    String nuevoautor="vistas/AgregarAutor.jsp";
-    String nuevolibro="vistas/NuevoLibro.jsp";
-    String nuevaeditorial="vistas/AgregarEditorial.jsp";
-    String nuevacategoria="vistas/AgregarCategoria.jsp";
-    String nuevodepartamento="vistas/AgregarDepartamento.jsp";
-    String nuevoejemplar="vistas/AgregarEjemplar.jsp";
-    
-    
+
+    String listar = "vistas/ListarLibros.jsp";
+
+    String nuevoautor = "vistas/AgregarAutor.jsp";
+    String nuevolibro = "vistas/AgregarLibro.jsp";
+    String nuevaeditorial = "vistas/AgregarEditorial.jsp";
+    String nuevacategoria = "vistas/AgregarCategoria.jsp";
+    String nuevodepartamento = "vistas/AgregarDepartamento.jsp";
+    String nuevoejemplar = "vistas/AgregarEjemplar.jsp";
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -54,7 +55,7 @@ public class ControladorLibro extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ControladorLibro</title>");            
+            out.println("<title>Servlet ControladorLibro</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet ControladorLibro at " + request.getContextPath() + "</h1>");
@@ -62,32 +63,41 @@ public class ControladorLibro extends HttpServlet {
             out.println("</html>");
         }
     }
-    
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String acesso="";
-        String action=request.getParameter("accion");
-        if(action.equalsIgnoreCase("listar")){
-        acesso=listar;
-        }else if(action.equalsIgnoreCase("nuevoautor")){
-            acesso=nuevoautor;
-        }else if(action.equalsIgnoreCase("agregarautor")){
-            Autor autor =new Autor();
-            AutorSQL autorsql =new AutorSQL();
+        String acesso = "";
+        
+        
+        String action = request.getParameter("accion");
+        
+        
+        
+        if (action.equalsIgnoreCase("listar")) {
+            acesso = listar;
             
+        } else if (action.equalsIgnoreCase("nuevoautor")) {
+            acesso = nuevoautor;
+            
+        } else if (action.equalsIgnoreCase("agregarautor")) {
+            Autor autor = new Autor();
+            AutorSQL autorsql = new AutorSQL();
+
             autor.setNombre(request.getParameter("txtAutor"));
             autor.setPais(request.getParameter("txtPais"));
             autorsql.Agregar(true, autor);
+
+            acesso = listar;
             
-            acesso=listar;
-        }else if(action.equalsIgnoreCase("nuevolibro")){
+        } else if (action.equalsIgnoreCase("nuevolibro")) {
+
+            acesso = nuevolibro;
             
-            acesso=nuevolibro;
-        }else if(action.equalsIgnoreCase("agregarlibro")){
-            Libro lib =new Libro();
+        } else if (action.equalsIgnoreCase("agregarlibro")) {
+            Libro lib = new Libro();
             LibroSQL libsql = new LibroSQL();
-            
+
             lib.setTitulo(request.getParameter("txtTitulo"));
             lib.setCodCategoria(request.getParameter("txtCategoria"));
             lib.setCodAutor(request.getParameter("txtAutor"));
@@ -95,97 +105,58 @@ public class ControladorLibro extends HttpServlet {
             lib.setCodISBN(request.getParameter("txtISBN"));
             lib.setDescripcion(request.getParameter("txtDescripcion"));
             libsql.Agregar(true, lib);
+
+            acesso = listar;
+
+        } else if (action.equalsIgnoreCase("nuevaeditorial")) {
+            acesso = nuevaeditorial;
             
-            acesso=listar;
-            
-            
-        }  
-            // prueba     Editorial / Categoria / Departamento
-        
-        
-                    // EDITORIAL
-           else if (action.equalsIgnoreCase("nuevaeditorial")){
-            acesso=nuevaeditorial;
-            }
-           
-           else if(action.equalsIgnoreCase("agregarEditorial")){           
-                
+        } else if (action.equalsIgnoreCase("agregarEditorial")) {
+
             Editorial editorial = new Editorial();
             EditorialSQL editosql = new EditorialSQL();
-            
+
             editorial.setNombre(request.getParameter("txtEditorial"));
             editorial.setPais(request.getParameter("txtPais"));
             editosql.agregar(true, editorial);
+
+            acesso = listar;
             
-            acesso=listar;
-            }
-        
-                    //  CATEGORIA
-            else if(action.equalsIgnoreCase("nuevacategoria")){
-            acesso=nuevacategoria;
-            }
-              
-            else if(action.equalsIgnoreCase("agregarCategoria")){           
-                
+        } else if (action.equalsIgnoreCase("nuevacategoria")) {
+            acesso = nuevacategoria;
+            
+        } else if (action.equalsIgnoreCase("agregarCategoria")) {
+
             Categoria categoria = new Categoria();
             CategoriaSQL categoriasql = new CategoriaSQL();
-            
+
             categoria.setNombre(request.getParameter("txtCategoria"));
             categoriasql.agregar(true, categoria);
+
+            acesso = listar;
             
-            acesso=listar;
-            }
-        
-                        //DEPARTAMENTO
-           else if(action.equalsIgnoreCase("nuevodepartamento")){
-            acesso=nuevodepartamento;
-            }
-              
-            else if(action.equalsIgnoreCase("agregarDepartamento")){           
-                
-            Departamento dpto = new Departamento();
-            DepartamentoSQL dptosql = new DepartamentoSQL();
+        } else if (action.equalsIgnoreCase("nuevoejemplar")) {
+
+            acesso = nuevoejemplar;
             
-            dpto.setNombre(request.getParameter("txtDepartamento"));
-            dptosql.agregar(true, dpto);
-            
-            acesso=listar;
-            }
-        
-                            //EJEMPLAR
-            else if(action.equalsIgnoreCase("nuevoejemplar")){
-            
-            acesso=nuevoejemplar;
-            }
-            else if(action.equalsIgnoreCase("agregarejemplar")){
-                
-            Ejemplar ejem =new Ejemplar();
+        } else if (action.equalsIgnoreCase("agregarejemplar")) {
+            Ejemplar ejem = new Ejemplar();
             EjemplarSQL ejemsql = new EjemplarSQL();
             
+            ejem.setCodEjemplar("");
             ejem.setCod_Libro(request.getParameter("txtCod_Lib"));
             ejem.setUbicacion(request.getParameter("txtUbicacion"));
             ejem.setEstado(request.getParameter("txtEstado"));
-            ejem.setdepartamento_codDepartamento(request.getParameter("txtCod_dpto"));
-         
-            ejemsql.agregar(true, ejem);
-            
-            acesso=listar;
-            
-            
-        }  
-             
-        
-        
-                
-        
+            ejem.setCod_Departamento(request.getParameter("txtCod_dpto"));
+
+            ejemsql.Agregar(true, ejem);
+
+            acesso = "index.jsp";
+
+        }
+
         //cierre de prueba
-        
-        
-        
-        
-        
-        
-        RequestDispatcher vista=request.getRequestDispatcher(acesso);
+        RequestDispatcher vista = request.getRequestDispatcher(acesso);
         vista.forward(request, response);
     }
 
