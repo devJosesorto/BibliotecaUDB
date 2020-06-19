@@ -141,15 +141,14 @@ public class EditorialSQL extends Conexion {
         }
     }
 
-    public void eliminar(boolean pass, String codEditorial) {
+    public void eliminar(boolean pass, String s) {
         if (pass) {
             PreparedStatement ps = null;
             Connection con = getConexion();
-            String sql = "DELETE FROM editorial WHERE codEditorial="+codEditorial;
+            String sql = "DELETE FROM editorial WHERE codEditorial="+s;
 
             try {
                 ps = con.prepareStatement(sql);
-                ps.setString(1, sql);
                 ps.execute();
 
             } catch (SQLException e) {
