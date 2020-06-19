@@ -54,6 +54,39 @@ public class DepartamentoSQL extends Conexion  {
     }
     
     
+    
+    public Departamento buscar(String ID) {
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        Connection con = getConexion();
+        Departamento dpto = new Departamento();
+
+        String sql = "SELECT * FROM departamento where codDepartamento="+ID;
+        try {
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+
+                dpto.setCodDepartamento(rs.getString(1));
+                dpto.setNombre(rs.getString(2));
+
+            }
+
+        } catch (SQLException e) {
+            System.err.println(e);
+
+        } finally {
+            try {
+                con.close();
+            } catch (SQLException e) {
+                System.err.println(e);
+            }
+        }
+        return dpto;
+    }
+    
+    
     public void Agregar(boolean pass, Departamento dpto) {
 
         if (pass) {
@@ -86,11 +119,11 @@ public class DepartamentoSQL extends Conexion  {
     }
     
     
-     public void actualizar(boolean pass, Departamento dpto) {
+     public void Actualizar(boolean pass, Departamento dpto) {
         if (pass) {
             PreparedStatement ps = null;
             Connection con = getConexion();
-            String sql = "UPDATE departamento SET codDepartamento=?, nombre=? WHERE codDepartamento=? ";
+            String sql = "UPDATE departamento SET Nombre=? WHERE codDepartamento=? ";
 
             try {
                 ps = con.prepareStatement(sql);
@@ -115,15 +148,14 @@ public class DepartamentoSQL extends Conexion  {
     }
      
      
-     public void eliminar(boolean pass, String carnet) {
+     public void eliminar(boolean pass, String codDepartamento) {
         if (pass) {
             PreparedStatement ps = null;
             Connection con = getConexion();
-            String sql = "DELETE FROM departamento WHERE codDepartamento=? ";
+            String sql = "DELETE FROM departamento WHERE codDepartamento="+codDepartamento;
 
             try {
-                ps = con.prepareStatement(sql);
-                ps.setString(1, sql);
+               ps = con.prepareStatement(sql);
                 ps.execute();
 
             } catch (SQLException e) {

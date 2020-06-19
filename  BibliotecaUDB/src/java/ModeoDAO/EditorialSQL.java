@@ -47,8 +47,40 @@ public class EditorialSQL extends Conexion {
         }
         return list;
     }
+    
+    
+     public Editorial buscar(String ID) {
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        Connection con = getConexion();
 
-    public boolean agregar(boolean pass, Editorial autor) {
+        String sql = "SELECT * FROM editorial where codEditorial="+ID;
+        Editorial editorial = new Editorial();
+        try {
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                
+
+                editorial.setCodEditorial(rs.getInt(1));
+                editorial.setNombre(rs.getString(2));
+                editorial.setPais(rs.getString(3));
+            }
+
+        } catch (SQLException e) {
+            System.err.println(e);
+
+        } finally {
+            try {
+                con.close();
+            } catch (SQLException e) {
+                System.err.println(e);
+            }
+        }
+        return editorial;
+    }
+
+    public boolean agregar(boolean pass, Editorial editorial) {
 
         if (pass) {
             PreparedStatement ps = null;
@@ -59,8 +91,8 @@ public class EditorialSQL extends Conexion {
                 int z = 1;
                 ps = con.prepareStatement(sql);
                 ps.setInt(z++, generarCod());
-                ps.setString(z++, autor.getNombre());
-                ps.setString(z++, autor.getPais());
+                ps.setString(z++, editorial.getNombre());
+                ps.setString(z++, editorial.getPais());
 
                 ps.execute();
 
@@ -80,18 +112,18 @@ public class EditorialSQL extends Conexion {
         return true;
     }
 
-    public void actualizar(boolean pass, Editorial autor) {
+    public void actualizar(boolean pass, Editorial editorial) {
         if (pass) {
             PreparedStatement ps = null;
             Connection con = getConexion();
-            String sql = "UPDATE editorial SET Nombre=?, Pais=?, cod_Editorial=? WHERE codEditorial=? ";
+            String sql = "UPDATE editorial SET Nombre=?, Pais=? WHERE codEditorial=? ";
 
             try {
                 ps = con.prepareStatement(sql);
                 int z = 1;
-                ps.setString(z++, autor.getNombre());
-                ps.setString(z++, autor.getPais());
-                ps.setInt(z++, autor.getCodEditorial());
+                ps.setString(z++, editorial.getNombre());
+                ps.setString(z++, editorial.getPais());
+                ps.setInt(z++, editorial.getCodEditorial());
                 
                 ps.execute();
 
@@ -109,11 +141,11 @@ public class EditorialSQL extends Conexion {
         }
     }
 
-    public void eliminar(boolean pass, String codLibro) {
+    public void eliminar(boolean pass, String codEditorial) {
         if (pass) {
             PreparedStatement ps = null;
             Connection con = getConexion();
-            String sql = "DELETE FROM editorial WHERE codEditorial=? ";
+            String sql = "DELETE FROM editorial WHERE codEditorial="+codEditorial;
 
             try {
                 ps = con.prepareStatement(sql);

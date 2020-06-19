@@ -23,6 +23,7 @@ public class ControladorEditorial extends HttpServlet {
 
     String listar = "vistas/listar/ListarEditoriales.jsp";
     String nuevaeditorial = "vistas/AgregarEditorial.jsp";
+    String editar = "vistas/editar/EditarEditorial.jsp";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -53,7 +54,33 @@ public class ControladorEditorial extends HttpServlet {
 
         } else if (action.equalsIgnoreCase("nuevaeditorial")) {
             acesso = nuevaeditorial;
-        } else if (action.equalsIgnoreCase("agregarEditorial")) {
+            
+        }   else if (action.equalsIgnoreCase("editar")) {
+            request.setAttribute("id_", request.getParameter("id"));
+            acesso = editar;
+        } else if (action.equalsIgnoreCase("editareditorial")) {
+
+            Editorial editorial = new Editorial();
+            EditorialSQL editorialsql = new EditorialSQL();
+
+            editorial.setCodEditorial(Integer.parseInt(request.getParameter("txtID")));
+            editorial.setNombre(request.getParameter("txtEditorial"));
+            editorial.setPais(request.getParameter("txtPais"));
+
+            editorialsql.actualizar(true, editorial);
+
+            acesso = listar;
+            
+        }else if (action.equalsIgnoreCase("eliminar")) {
+
+       
+             EditorialSQL editorialsql = new EditorialSQL();
+            
+            editorialsql.eliminar(true, request.getParameter("id"));
+
+            acesso = listar;
+            
+        }else if (action.equalsIgnoreCase("agregareditorial")) {
 
             Editorial editorial = new Editorial();
             EditorialSQL editosql = new EditorialSQL();
@@ -63,7 +90,12 @@ public class ControladorEditorial extends HttpServlet {
             editosql.agregar(true, editorial);
 
               acesso = listar;
+              
         }
+        
+        
+        
+        
 
         RequestDispatcher vista = request.getRequestDispatcher(acesso);
         vista.forward(request, response);

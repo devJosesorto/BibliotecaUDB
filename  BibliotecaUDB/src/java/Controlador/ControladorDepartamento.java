@@ -18,7 +18,9 @@ public class ControladorDepartamento extends HttpServlet {
     
      String listar = "vistas/listar/ListarDepartamentos.jsp";
      String nuevodepartamento = "vistas/AgregarDepartamento.jsp";
-
+     String editar = "vistas/editar/EditarDepartamento.jsp";
+     
+     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -63,9 +65,37 @@ public class ControladorDepartamento extends HttpServlet {
             
             dptosql.Agregar(true, dpto);
 
-            acesso = "index.jsp";
+            acesso = listar;
 
-        }else if (action.equalsIgnoreCase("test")) {
+        }      
+            else if (action.equalsIgnoreCase("editar")) {
+            request.setAttribute("id_", request.getParameter("id"));
+            acesso = editar;
+            
+        } else if (action.equalsIgnoreCase("editardepartamento")) {
+
+            Departamento departamento = new Departamento();
+            DepartamentoSQL departamentosql = new DepartamentoSQL();
+
+            departamento.setCodDepartamento(request.getParameter("txtID"));
+            departamento.setNombre(request.getParameter("txtDepartamento"));           
+
+            departamentosql.Actualizar(true, departamento);
+            
+            acesso = listar;
+            
+        } else if (action.equalsIgnoreCase("eliminar")) {
+
+       
+            DepartamentoSQL departamentosql = new DepartamentoSQL(); 
+            
+            departamentosql.eliminar(true, request.getParameter("id"));
+
+            acesso = listar;    
+            
+            
+            
+        } else if (action.equalsIgnoreCase("test")) {
 
             acesso = "vistas/testing.jsp";
 

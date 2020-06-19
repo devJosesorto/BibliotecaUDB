@@ -131,7 +131,7 @@
                 <div class="row">
 
                     <div class="col-xs-12">
-                        <div class="title-flat-form title-flat-blue">Nuevo autor</div>
+                        <div class="title-flat-form title-flat-blue">Editar Autor</div>
                         <legend><i class="zmdi zmdi-account-box"></i> &nbsp; Datos del autor</legend><br>
 
 

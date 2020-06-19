@@ -146,25 +146,25 @@
                             </div>
                         </div>
 
-                        <%EditorialSQL autorsql = new EditorialSQL();
-                            List<Editorial> list = autorsql.mostrar();
+                        <%EditorialSQL editorialsql = new EditorialSQL();
+                            List<Editorial> list = editorialsql.mostrar();
                             Iterator<Editorial> iter = list.iterator();
-                            Editorial autor = null;
+                            Editorial obj = null;
                             while (iter.hasNext()) {
-                                autor = iter.next();%>
+                                obj = iter.next();%>
 
                         <div class="table-responsive">
                             <div class="div-table" style="margin:0 !important;">
                                 <div class="div-table-row div-table-row-list">
-                                    <div class="div-table-cell" style="width: 6%;"><%=autor.getCodEditorial()%></div>
-                                    <div class="div-table-cell" style="width: 22%;"><%=autor.getNombre()%></div>
-                                    <div class="div-table-cell" style="width: 22%;"><%=autor.getPais()%></div>
+                                    <div class="div-table-cell" style="width: 6%;"><%=obj.getCodEditorial()%></div>
+                                    <div class="div-table-cell" style="width: 22%;"><%=obj.getNombre()%></div>
+                                    <div class="div-table-cell" style="width: 22%;"><%=obj.getPais()%></div>
 
                                     <div class="div-table-cell" style="width: 8%;">
-                                        <a href="ControladorEditorial?accion=eliminar&id=<%=autor.getCodEditorial()%>" class="btn btn-danger"><i class="zmdi zmdi-delete"></i></a>
+                                        <a href="ControladorEditorial?accion=eliminar&id=<%=obj.getCodEditorial()%>" class="btn btn-danger"><i class="zmdi zmdi-delete"></i></a>
                                     </div>
                                     <div class="div-table-cell" style="width: 8%;">
-                                        <a href="ControladorEditorial?accion=editar&id=<%=autor.getCodEditorial()%>" class="btn btn-info"><i class="zmdi zmdi-file-text"></i></a>
+                                        <a href="ControladorEditorial?accion=editar&id=<%=obj.getCodEditorial()%>" class="btn btn-info"><i class="zmdi zmdi-file-text"></i></a>
                                     </div>
 
                                 </div>

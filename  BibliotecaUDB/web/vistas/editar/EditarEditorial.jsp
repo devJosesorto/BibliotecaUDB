@@ -1,18 +1,10 @@
-<%-- 
-    Document   : ListarDepartamentos
-    Created on : 06-18-2020, 02:04:41 PM
-    Author     : José Sorto
---%>
-
-<%@page import="Modelo.Departamento"%>
-<%@page import="ModeoDAO.DepartamentoSQL"%>
-<%@page import="java.util.Iterator"%>
-<%@page import="java.util.List"%>
+<%@page import="ModeoDAO.EditorialSQL"%>
+<%@page import="Modelo.Editorial"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="es">
     <head>
-        <title>Listado departamentos</title>
+        <title>Agregar Editorial</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="Shortcut Icon" type="image/x-icon" href="Bootstrap/assets/icons/book.ico" />
@@ -120,102 +112,104 @@
             </nav>
             <div class="container">
                 <div class="page-header">
-                    <h1 class="all-tittles">Sistema bibliotecario <small>Listado de departamentos</small></h1>
+                    <h1 class="all-tittles">Sistema bibliotecario <small>Agregar editorial</small></h1>
                 </div>
             </div>
 
             <!CUERPO DEL DOCUMENTO #######################################################################################>
             <form class="form-padding">
+                <%
+                    Editorial editorial = new Editorial();
+                    EditorialSQL editosql = new EditorialSQL();
+                    String id =(String)request.getAttribute("id_");
+                    editorial=editosql.buscar(id);
+
+                %>
+
+                <input type="hidden" name="txtID" value="<%=editorial.getCodEditorial()%>" >
+
                 <div class="row">
 
                     <div class="col-xs-12">
-                        <div class="title-flat-form title-flat-blue">Listado de departamentos</div>
+                        <div class="title-flat-form title-flat-blue">Editar Editorial</div>
+                        <legend><i class="zmdi zmdi-account-box"></i> &nbsp; Datos de la Editorial</legend><br>
 
 
-
-                        <div class="table-responsive">
-                            <div class="div-table" style="margin:0 !important;">
-                                <div class="div-table-row div-table-row-list" style="background-color:#DFF0D8; font-weight:bold;">
-                                    <div class="div-table-cell" style="width: 6%;">Codigo</div>
-                                    <div class="div-table-cell" style="width: 22%;">Nombre departamento</div>
-                                    <div class="div-table-cell" style="width: 8%;">Eliminar</div>
-                                    <div class="div-table-cell" style="width: 8%;">Editar</div>
-
-                                </div>
+                        <div class="col-xs-12 col-sm-6">
+                            <div class="group-material">
+                                <input type="text" name="txtEditorial" value="<%=editorial.getNombre()%>" class="material-control tooltips-general" placeholder="Nombre de la Editorial" required="" maxlength="50" data-toggle="tooltip" data-placement="top" title="Escribe el nombre de la Editorial">
+                                <span class="highlight"></span>
+                                <span class="bar"></span>
+                                <label>Nombre la editorial</label>
                             </div>
                         </div>
 
-                        <%DepartamentoSQL sql = new DepartamentoSQL();
-                            List<Departamento> list = sql.mostrar();
-                            Iterator<Departamento> iter = list.iterator();
-                            Departamento obj = null;
-                            while (iter.hasNext()) {
-                                obj = iter.next();%>
 
-                        <div class="table-responsive">
-                            <div class="div-table" style="margin:0 !important;">
-                                <div class="div-table-row div-table-row-list">
-                                    <div class="div-table-cell" style="width: 6%;"><%=obj.getCodDepartamento()%></div>
-                                    <div class="div-table-cell" style="width: 22%;"><%=obj.getNombre()%></div>
-
-
-                                    <div class="div-table-cell" style="width: 8%;">
-                                        <a href="ControladorDepartamento?accion=eliminar&id=<%=obj.getCodDepartamento()%>" class="btn btn-danger"><i class="zmdi zmdi-delete"></i></a>
-                                    </div>
-                                    <div class="div-table-cell" style="width: 8%;">
-                                        <a href="ControladorDepartamento?accion=editar&id=<%=obj.getCodDepartamento()%>" class="btn btn-info"><i class="zmdi zmdi-file-text"></i></a>
-                                    </div>
-
-                                </div>
+                        <div class="col-xs-12 col-sm-6">
+                            <div class="group-material">
+                                <input type="text" name="txtPais" value="<%=editorial.getPais()%>" class="material-control tooltips-general" placeholder="Pais de origen" required="" maxlength="50" data-toggle="tooltip" data-placement="top" title="Escribe el pais de origen">
+                                <span class="highlight"></span>
+                                <span class="bar"></span>
+                                <label>Pais de origen</label>
                             </div>
                         </div>
-                        <%}%>
-                        <div class="title-flat-form title-flat-blue"></div>
+
+
+
+
+                        <div class="col-xs-12">
+                            <p class="text-center">
+                                <button type="reset" class="btn btn-info" style="margin-right: 20px;"><i class="zmdi zmdi-roller"></i> &nbsp;&nbsp; Limpiar</button>
+                                <button type="submit" name="accion" value="editareditorial" class="btn btn-primary"><i class="zmdi zmdi-floppy"></i> &nbsp;&nbsp; Guardar</button>
+                            </p> 
+                        </div>
+
+
+
+
                     </div>
                 </div>
             </form>
         </div>
 
+    <!CUERPO DEL DOCUMENTO #######################################################################################>
 
-
-        <!CUERPO DEL DOCUMENTO #######################################################################################>
-
-    <div class="modal fade" tabindex="-1" role="dialog" id="ModalHelp">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title text-center all-tittles">ayuda del sistema</h4>
-                </div>
-                <div class="modal-body">
-                    Cominicarse con el administrador.
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" data-dismiss="modal"><i class="zmdi zmdi-thumb-up"></i> &nbsp; De acuerdo</button>
-                </div>
+<div class="modal fade" tabindex="-1" role="dialog" id="ModalHelp">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title text-center all-tittles">ayuda del sistema</h4>
+            </div>
+            <div class="modal-body">
+                Cominicarse con el administrador.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal"><i class="zmdi zmdi-thumb-up"></i> &nbsp; De acuerdo</button>
             </div>
         </div>
     </div>
-    <footer class="footer full-reset">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-xs-12 col-sm-6">
-                    <h4 class="all-tittles">Acerca de</h4>
-                    <p>
-                        Sistema en fase de desarollo.
-                    </p>
-                </div>
-                <div class="col-xs-12 col-sm-6">
-                    <h4 class="all-tittles">Desarrollador</h4>
-                    <ul class="list-unstyled">
-                        <li><i class="zmdi zmdi-check zmdi-hc-fw"></i>&nbsp; Jose Sorto <i class="zmdi zmdi-facebook zmdi-hc-fw footer-social"></i><i class="zmdi zmdi-twitter zmdi-hc-fw footer-social"></i></li>
-                        <li><i class="zmdi zmdi-check zmdi-hc-fw"></i>&nbsp; Lilian Recinos <i class="zmdi zmdi-facebook zmdi-hc-fw footer-social"></i><i class="zmdi zmdi-twitter zmdi-hc-fw footer-social"></i></li>
-                    </ul>
-                </div>
+</div>
+<footer class="footer full-reset">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-12 col-sm-6">
+                <h4 class="all-tittles">Acerca de</h4>
+                <p>
+                    Sistema en fase de desarollo.
+                </p>
+            </div>
+            <div class="col-xs-12 col-sm-6">
+                <h4 class="all-tittles">Desarrollador</h4>
+                <ul class="list-unstyled">
+                    <li><i class="zmdi zmdi-check zmdi-hc-fw"></i>&nbsp; Jose Sorto <i class="zmdi zmdi-facebook zmdi-hc-fw footer-social"></i><i class="zmdi zmdi-twitter zmdi-hc-fw footer-social"></i></li>
+                    <li><i class="zmdi zmdi-check zmdi-hc-fw"></i>&nbsp; Lilian Recinos <i class="zmdi zmdi-facebook zmdi-hc-fw footer-social"></i><i class="zmdi zmdi-twitter zmdi-hc-fw footer-social"></i></li>
+                </ul>
             </div>
         </div>
-        <div class="footer-copyright full-reset all-tittles">© 2020 Poo UDB Virtual</div>
-    </footer>
+    </div>
+    <div class="footer-copyright full-reset all-tittles">© 2020 Poo UDB Virtual</div>
+</footer>
 </div>
 </body>
 </html>
