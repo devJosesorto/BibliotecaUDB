@@ -28,6 +28,10 @@
         <servlet-name>ControladorCategoria</servlet-name>
         <servlet-class>Controlador.ControladorCategoria</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ControladorUsuario</servlet-name>
+        <servlet-class>Controlador.ControladorUsuario</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ControladorLibro</servlet-name>
         <url-pattern>/ControladorLibro</url-pattern>
@@ -55,6 +59,10 @@
     <servlet-mapping>
         <servlet-name>ControladorCategoria</servlet-name>
         <url-pattern>/ControladorCategoria</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ControladorUsuario</servlet-name>
+        <url-pattern>/ControladorUsuario</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

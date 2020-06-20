@@ -1,4 +1,3 @@
-
 package ModeoDAO;
 
 import Conexion.Conexion;
@@ -16,9 +15,8 @@ import java.util.List;
  *
  * @author Bolaines
  */
-public class DepartamentoSQL extends Conexion  {
-    
-    
+public class DepartamentoSQL extends Conexion {
+
     public List mostrar() {
         PreparedStatement ps = null;
         ResultSet rs = null;
@@ -30,13 +28,13 @@ public class DepartamentoSQL extends Conexion  {
         try {
             ps = con.prepareStatement(sql);
             rs = ps.executeQuery();
-            
+
             while (rs.next()) {
                 Departamento depto = new Departamento();
 
                 depto.setCodDepartamento(rs.getString(1));
                 depto.setNombre(rs.getString(2));
-                
+
                 list.add(depto);
             }
 
@@ -52,16 +50,14 @@ public class DepartamentoSQL extends Conexion  {
         }
         return list;
     }
-    
-    
-    
+
     public Departamento buscar(String ID) {
         PreparedStatement ps = null;
         ResultSet rs = null;
         Connection con = getConexion();
         Departamento dpto = new Departamento();
 
-        String sql = "SELECT * FROM departamento WHERE codDepartamento="+ID;
+        String sql = "SELECT * FROM departamento WHERE codDepartamento='"+ID+"'";
         try {
             ps = con.prepareStatement(sql);
             rs = ps.executeQuery();
@@ -85,8 +81,7 @@ public class DepartamentoSQL extends Conexion  {
         }
         return dpto;
     }
-    
-    
+
     public void Agregar(boolean pass, Departamento dpto) {
 
         if (pass) {
@@ -105,7 +100,6 @@ public class DepartamentoSQL extends Conexion  {
             } catch (SQLException e) {
                 System.err.println(e);
                 System.out.println("Error en Agregar de la clase DepartamentoSQL");
-            
 
             } finally {
                 try {
@@ -115,11 +109,10 @@ public class DepartamentoSQL extends Conexion  {
                 }
             }
         }
-      
+
     }
-    
-    
-     public void Actualizar(boolean pass, Departamento depa) {
+
+    public void Actualizar(boolean pass, Departamento depa) {
         if (pass) {
             PreparedStatement ps = null;
             Connection con = getConexion();
@@ -127,10 +120,10 @@ public class DepartamentoSQL extends Conexion  {
 
             try {
                 ps = con.prepareStatement(sql);
-                int z = 1;              
+                int z = 1;
                 ps.setString(z++, depa.getNombre());
                 ps.setString(z++, depa.getCodDepartamento());
-                
+
                 ps.execute();
 
             } catch (SQLException e) {
@@ -146,18 +139,17 @@ public class DepartamentoSQL extends Conexion  {
             }
         }
     }
-     
-     
-     public void eliminar(boolean pass, String s) {
+
+    public void eliminar(boolean pass, String s) {
         if (pass) {
             PreparedStatement ps = null;
             Connection con = getConexion();
-            String sql = "DELETE FROM departamento WHERE codDepartamento="+s;
+            String sql = "DELETE FROM departamento WHERE codDepartamento=" + s;
 
             try {
-                
-               ps = con.prepareStatement(sql);
-               ps.execute();
+
+                ps = con.prepareStatement(sql);
+                ps.execute();
 
             } catch (SQLException e) {
                 System.err.println(e);
@@ -172,10 +164,8 @@ public class DepartamentoSQL extends Conexion  {
             }
         }
     }
-    
-    
-    
-     public String generarCod() {
+
+    public String generarCod() {
         PreparedStatement ps = null;
         ResultSet rs = null;
         Connection con = getConexion();
@@ -218,8 +208,6 @@ public class DepartamentoSQL extends Conexion  {
         }
 
         return string;
-    }  
- 
-    
-    
+    }
+
 }//CIERRE
