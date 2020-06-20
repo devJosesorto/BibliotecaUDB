@@ -9,7 +9,7 @@
 <!DOCTYPE html>
 <html lang="es">
     <head>
-        <title>Inicio de sesión</title>
+        <title>Agregar autor</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="Shortcut Icon" type="image/x-icon" href="Bootstrap/assets/icons/book.ico" />
@@ -17,13 +17,13 @@
         <link rel="stylesheet" href="Bootstrap/css/sweet-alert.css">
         <link rel="stylesheet" href="Bootstrap/css/material-design-iconic-font.min.css">
         <link rel="stylesheet" href="Bootstrap/css/normalize.css">
-        <link rel="stylesheet" href="Bootstrap/css/Bootstrap.min.css">
+        <link rel="stylesheet" href="Bootstrap/css/bootstrap.min.css">
         <link rel="stylesheet" href="Bootstrap/css/jquery.mCustomScrollbar.css">
         <link rel="stylesheet" href="Bootstrap/css/style.css">
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
         <script>window.jQuery || document.write('<script src="Bootstrap/js/jquery-1.11.2.min.js"><\/script>')</script>
         <script src="Bootstrap/js/modernizr.js"></script>
-        <script src="Bootstrap/js/Bootstrap.min.js"></script>
+        <script src="Bootstrap/js/bootstrap.min.js"></script>
         <script src="Bootstrap/js/jquery.mCustomScrollbar.concat.min.js"></script>
         <script src="Bootstrap/js/main.js"></script>
     </head>
@@ -68,7 +68,7 @@
                                 } else if (nivel == 2) {
                                     sesion.setAttribute("Nombre", request.getAttribute("username"));
                                     sesion.setAttribute("nivel", nivel);
-                                    response.sendRedirect("Vistas/Docente.jsp");
+                                    response.sendRedirect("ControladorUsuario?accion=home");
                                 }
 
                             }

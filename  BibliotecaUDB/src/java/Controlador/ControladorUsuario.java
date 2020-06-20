@@ -48,7 +48,16 @@ public class ControladorUsuario extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String acesso = "";
+        String action = request.getParameter("accion");
+
+        if (action.equalsIgnoreCase("home")) {
+            acesso = "vistas/Usuarios/home.jsp";
+
+        }
+
+        RequestDispatcher vista = request.getRequestDispatcher(acesso);
+        vista.forward(request, response);
     }
 
     @Override
