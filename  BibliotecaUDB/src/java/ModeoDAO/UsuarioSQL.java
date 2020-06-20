@@ -168,5 +168,42 @@ public class UsuarioSQL extends Conexion {
             }
         }
     } 
+     
+     public int Login(String user, String pass) {
+        
+        int nivel=0;
+        
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        Connection con = getConexion();
+
+        String sql = "SELECT cod_Rol FROM biblioteca.usuario\n"
+                + "where correo ='"+user+"' and pass='"+pass+"'";
+        try {
+            int z = 1;
+            ps = con.prepareStatement(sql);
+            //ps.setString(z++, user);
+            //ps.setString(z++, pass);
+
+            rs = ps.executeQuery();
+
+            if (rs.next()) {
+                nivel=Integer.parseInt(rs.getString("cod_Rol"));
+               
+            }
+           
+        } catch (SQLException e) {
+            System.err.println(e);
+            return 0;
+        } finally {
+            try {
+                con.close();
+            } catch (SQLException e) {
+                System.err.println(e);
+            }
+        }
+        
+         return nivel;
+    }
     
 }//cierre

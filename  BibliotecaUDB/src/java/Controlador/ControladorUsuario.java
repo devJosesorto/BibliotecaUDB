@@ -1,7 +1,10 @@
 package Controlador;
 
+import Modelo.Usuario;
+import ModeoDAO.UsuarioSQL;
 import java.io.IOException;
 import java.io.PrintWriter;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -18,15 +21,27 @@ public class ControladorUsuario extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet ControladorUsuario</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet ControladorUsuario at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+            String username, pass;
+            int nivel;
+            RequestDispatcher rd = null;
+
+            if (request.getParameter("btnInicar") != null) {
+                username = request.getParameter("txtUser");
+                pass = request.getParameter("txtPass");
+
+                Usuario user = new Usuario();
+                UsuarioSQL usersql = new UsuarioSQL();
+
+                nivel = usersql.Login(username, pass);
+
+                request.setAttribute("nivel", nivel);
+                request.setAttribute("username", username);
+                request.setAttribute("pass", pass);
+
+                rd = request.getRequestDispatcher("index.jsp");
+            }
+
+            rd.forward(request, response);
         }
     }
 

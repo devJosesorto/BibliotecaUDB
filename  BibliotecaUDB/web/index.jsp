@@ -1,57 +1,85 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-    <head>
+<%-- 
+    Document   : index
+    Created on : 06-20-2020, 10:38:24 AM
+    Author     : José Sorto
+--%>
 
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
-        <link href="Bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
-        <link href="Bootstrap/css/estilo.css" rel="stylesheet" type="text/css"/>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page session="true" %>
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <title>Inicio de sesión</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="Shortcut Icon" type="image/x-icon" href="Bootstrap/assets/icons/book.ico" />
+        <script src="Bootstrap/js/sweet-alert.min.js"></script>
+        <link rel="stylesheet" href="Bootstrap/css/sweet-alert.css">
+        <link rel="stylesheet" href="Bootstrap/css/material-design-iconic-font.min.css">
+        <link rel="stylesheet" href="Bootstrap/css/normalize.css">
+        <link rel="stylesheet" href="Bootstrap/css/Bootstrap.min.css">
+        <link rel="stylesheet" href="Bootstrap/css/jquery.mCustomScrollbar.css">
+        <link rel="stylesheet" href="Bootstrap/css/style.css">
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="Bootstrap/js/jquery-1.11.2.min.js"><\/script>')</script>
+        <script src="Bootstrap/js/modernizr.js"></script>
+        <script src="Bootstrap/js/Bootstrap.min.js"></script>
+        <script src="Bootstrap/js/jquery.mCustomScrollbar.concat.min.js"></script>
+        <script src="Bootstrap/js/main.js"></script>
     </head>
     <body>
-        <h1>Inicio Prueba git!</h1>
-        <br><br>
+        <div class="login-container full-cover-background">
+            <div class="form-container">
+                <p class="text-center" style="margin-top: 17px;">
+                    <i class="zmdi zmdi-account-circle zmdi-hc-5x"></i>
+                </p>
+                <h4 class="text-center all-tittles" style="margin-bottom: 30px;">inicia sesión con tu cuenta</h4>
+                <form action="ControladorUsuario" method="POST">
+                    <div class="group-material-login">
 
-        <div>
-            <a class="btn btn-primary btn-sm" href="ControladorDepartamento?accion=test" role="button">Test</a>
-            <br><br><br>            
-            <a class="btn btn-primary btn-sm" href="ControladorLibro?accion=nuevolibro" role="button">Nuevo Libro</a>
-            <a class="btn btn-primary btn-sm" href="ControladorLibro?accion=listar" role="button">Listar libros</a>
-            <br><br><br>
-            <a class="btn btn-primary btn-sm" href="ControladorAutor?accion=nuevoautor" role="button">Nuevo Autor</a>
-            <a class="btn btn-primary btn-sm" href="ControladorAutor?accion=listar" role="button">Listar Autor</a>
-            <br><br><br>
-            
-            <a class="btn btn-primary btn-sm" href="ControladorEditorial?accion=nuevaeditorial" role="button">Nuevo Editorial</a>
-            <a class="btn btn-primary btn-sm" href="ControladorEditorial?accion=listar" role="button">Listar Editorial</a>
-            <br><br><br>
-            <a class="btn btn-primary btn-sm" href="ControladorCategoria?accion=nuevacategoria" role="button">Nueva Categoria</a>
-            <a class="btn btn-primary btn-sm" href="ControladorCategoria?accion=listar" role="button">Listar Categoria</a>
-            <br><br><br>
-            <a class="btn btn-primary btn-sm" href="ControladorDepartamento?accion=nuevodepartamento" role="button">Nuevo Departamento</a>
-             <a class="btn btn-primary btn-sm" href="ControladorDepartamento?accion=listar" role="button">Listar Departamento</a>
-            <br><br><br>
-            <a class="btn btn-primary btn-sm" href="ControladorEjemplar?accion=nuevoejemplar" role="button">Nuevo Ejemplar</a>
-            <a class="btn btn-primary btn-sm" href="ControladorEjemplar?accion=listar" role="button">Listar Ejemplar</a>
-             <br><br><br>
-            <a class="btn btn-primary btn-sm" href="ControladorDocente?accion=nuevousuario" role="button">Nuevo Usuario</a>
-            <a class="btn btn-primary btn-sm" href="ControladorDocente?accion=listar" role="button">Listar Usuarios</a>
-            
-            
-            
-            
-            <%/*
-               editar editorial.JSP - OK 
-               departamento, ejemplar y libros, no logre editar ni borrar (no se si el generador de ID, por que en id que
-               son numeros si edita y borra
-               Avance con el registro, lista y vista de usuario docente
-               Hice una vista general para agregar usuarios.
-               Controlador de departamento, ejemplar y libros completo
-               
+                        <input type="text" name="txtUser" class="material-login-control" required="" maxlength="70">
 
-             */%>
-            
+
+                        <span class="highlight-login"></span>
+                        <span class="bar-login"></span>
+                        <label><i class="zmdi zmdi-account"></i> &nbsp; Nombres</label>
+                    </div><br>
+                    <div class="group-material-login">
+
+                        <input type="password" name="txtPass" class="material-login-control" required="" maxlength="70">
+
+                        <span class="highlight-login"></span>
+                        <span class="bar-login"></span>
+                        <label><i class="zmdi zmdi-lock"></i> &nbsp; Contraseña</label>
+                    </div>
+
+                    <button class="btn-login" name="btnInicar" type="submit">Ingresar al sistema &nbsp; <i class="zmdi zmdi-arrow-right"></i></button>
+                        <%
+                            HttpSession sesion = request.getSession();
+                            int nivel = 0;
+
+                            if (request.getAttribute("nivel") != null) {
+                                nivel = (Integer) request.getAttribute("nivel");
+
+                                if (nivel == 3) {
+                                    sesion.setAttribute("Nombre", request.getAttribute("username"));
+                                    sesion.setAttribute("nivel", nivel);
+                                    response.sendRedirect("testing.jsp");
+                                } else if (nivel == 2) {
+                                    sesion.setAttribute("Nombre", request.getAttribute("username"));
+                                    sesion.setAttribute("nivel", nivel);
+                                    response.sendRedirect("Vistas/Docente.jsp");
+                                }
+
+                            }
+
+                            if (request.getParameter("cerrar")!= null) {
+                                session.invalidate();
+                                response.sendRedirect("index.jsp");
+                            }
+                        %>    
+                </form>
+            </div>   
         </div>
-
     </body>
 </html>
