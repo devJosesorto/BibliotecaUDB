@@ -17,14 +17,14 @@ import java.util.List;
 public class EjemplarSQL extends Conexion {
     
     
-     public List mostrar()  {
+     public List Mostrar()  {
         PreparedStatement ps = null;
         ResultSet rs = null;
         Connection con = getConexion();
 
         ArrayList<Ejemplar> list = new ArrayList<>();
 
-        String sql = "SELECT* FROM ejemplar";
+        String sql = "SELECT * FROM ejemplar";
         try {
             ps = con.prepareStatement(sql);
             rs = ps.executeQuery();
@@ -50,6 +50,39 @@ public class EjemplarSQL extends Conexion {
             }
         }
         return list;
+    }
+     
+     public Ejemplar buscar(String ID) {
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        Connection con = getConexion();
+
+        String sql = "SELECT * FROM ejemplar WHERE codEjemplar="+ID;
+        Ejemplar ejemplar = new Ejemplar();
+        try {
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                
+
+                ejemplar.setCodEjemplar(rs.getString(1));
+                ejemplar.setCod_Libro(rs.getString(2));
+                ejemplar.setUbicacion(rs.getString(3));
+                ejemplar.setEstado(rs.getString(4));
+                ejemplar.setCod_Departamento(rs.getString(5));
+            }
+
+        } catch (SQLException e) {
+            System.err.println(e);
+
+        } finally {
+            try {
+                con.close();
+            } catch (SQLException e) {
+                System.err.println(e);
+            }
+        }
+        return ejemplar;
     }
     
      
@@ -90,11 +123,11 @@ public class EjemplarSQL extends Conexion {
     }
      
      
-     public void actualizar(boolean pass, Ejemplar ejem) {
+     public void Actualizar(boolean pass, Ejemplar ejem) {
         if (pass) {
             PreparedStatement ps = null;
             Connection con = getConexion();
-            String sql = "UPDATE ejemplar SET codEjemplar=?, cod_Libro=?, ubicacion=?, estado=?, cod_Departamento=? WHERE codEjemplar=? ";
+            String sql = "UPDATE ejemplar SET cod_Libro=?, ubicacion=?, estado=?, cod_Departamento=? WHERE codEjemplar=? ";
 
             try {
                 ps = con.prepareStatement(sql);
@@ -121,15 +154,16 @@ public class EjemplarSQL extends Conexion {
     }
     
      
-     public void eliminar(boolean pass, String carnet) {
+     public void Eliminar(boolean pass, String s) {
         if (pass) {
             PreparedStatement ps = null;
             Connection con = getConexion();
-            String sql = "DELETE FROM ejemplar WHERE codEjemplar=? ";
-
+            String sql = "DELETE FROM ejemplar WHERE codEjemplar="+s;
+            //String sql = "DELETE FROM `ejemplar` WHERE `ejemplar`.`codEjemplar`="+s;
+                   
             try {
                 ps = con.prepareStatement(sql);
-                ps.setString(1, sql);
+                //ps.setString(1, sql);
                 ps.execute();
 
             } catch (SQLException e) {

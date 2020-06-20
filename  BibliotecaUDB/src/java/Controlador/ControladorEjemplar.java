@@ -23,6 +23,8 @@ public class ControladorEjemplar extends HttpServlet {
     
     String listar = "vistas/listar/ListarEjemplares.jsp";
     String nuevoejemplar = "vistas/AgregarEjemplar.jsp";
+    String editar = "vistas/editar/EditarEjemplar.jsp";
+    
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -74,13 +76,51 @@ public class ControladorEjemplar extends HttpServlet {
             ejemsql.Agregar(true, ejem);
             
             }
-            acesso = "index.jsp";
+            
+            acesso = listar;
 
+            
+            } else if (action.equalsIgnoreCase("editar")) {
+            request.setAttribute("id_", request.getParameter("id"));
+            acesso = editar;
+            } else if (action.equalsIgnoreCase("editarejemplar")) {
+                
+            int j=0;
+            //j=Integer.parseInt(request.getParameter("txtCantidad"));
+                
+            Ejemplar ejemplar = new Ejemplar();
+            EjemplarSQL ejemplarsql = new EjemplarSQL();
+
+            
+            ejemplar.setCod_Libro(request.getParameter("txtCod_Lib"));
+            ejemplar.setCod_Departamento(request.getParameter("txtCod_dpto"));
+            ejemplar.setUbicacion(request.getParameter("txtUbicacion"));            
+            ejemplar.setEstado(request.getParameter("DISPONIBLE"));
+            ejemplar.setCodEjemplar(request.getParameter("txtID"));
+            
+            
+            ejemplarsql.Actualizar(true, ejemplar);
+            
+            
+            acesso = listar;
+            
+            } else if (action.equalsIgnoreCase("eliminar")) {
+
+       
+            EjemplarSQL ejemplarsql = new EjemplarSQL();
+            ejemplarsql.Eliminar(true, request.getParameter("id"));
+
+            acesso = listar;
+            
+            
+            
         }
 
+        
         RequestDispatcher vista = request.getRequestDispatcher(acesso);
         vista.forward(request, response);
-
+            
+        
     }
 
     @Override

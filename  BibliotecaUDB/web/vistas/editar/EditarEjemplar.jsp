@@ -1,12 +1,22 @@
-<%@page import="ModeoDAO.DepartamentoSQL"%>
+<%@page import="ModeoDAO.EjemplarSQL"%>
+<%@page import="Modelo.Ejemplar"%>
 <%@page import="Modelo.Departamento"%>
+<%@page import="ModeoDAO.DepartamentoSQL"%>
+
+
+<%@page import="java.util.Iterator"%>
+<%@page import="java.util.List"%>
+
+<%@page import="Modelo.Libro"%>
+<%@page import="ModeoDAO.LibroSQL"%>
+
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="es">
     <head>
         <!CAMBIAR TITULO DE LA PAGINA ##########################################################>
-    <title>Agregar Departamento</title>
+    <title>Agregar ejemplar</title>
 
 
     <meta charset="UTF-8">
@@ -118,77 +128,145 @@
             <div class="page-header">
 
                 <!CAMBIAR NOMBRE #######################################################################################>
-                <h1 class="all-tittles">Sistema bibliotecario <small>Agregar Departamento</small></h1>
+                <h1 class="all-tittles">Sistema bibliotecario <small>Agregar Ejemplar</small></h1>
             </div>
         </div>
 
         <!CUERPO DEL DOCUMENTO #######################################################################################>
 
-                    <form class="form-padding">
-                      <div class="row">
-        
-        
-                    <div class="col-xs-12">
-                        <div class="title-flat-form title-flat-blue">Editar Departamento</div>
-                        <legend><i class="zmdi zmdi-account-box"></i> &nbsp; Datos del departamento</legend><br>
-        
 
-                   <!Botones y cuadros de texto ##########################################################>
-                   
+
+
+        <form class="form-padding">
+            <div class="row">
+
+                <div class="col-xs-12">
+                    <div class="title-flat-form title-flat-blue">Editar Ejemplar</div>
+                    <legend><i class="zmdi zmdi-account-box"></i> &nbsp; Datos del nuevo Ejemplar</legend><br>
+
+
+                    <!Botones y cuadros de texto AQUI ##########################################################>
+
+                     <form class="form-padding">
                          
-                    <%
-                        Departamento obj = new Departamento();
-                        DepartamentoSQL sql = new DepartamentoSQL();
-                        String id = (String)request.getAttribute("id_");
-                        obj = sql.buscar(id);
- 
-                    %>
-                    
-                     <input type="hidden" name="txtID" value="<%=obj.getCodDepartamento()%>" >
+                     <%
+                    Ejemplar ejemplar = new Ejemplar();
+                    EjemplarSQL ejemplarsql = new EjemplarSQL();
+                    String id =(String)request.getAttribute("id_");
+                    ejemplar=ejemplarsql.buscar(id);
 
-                        <div class="col-xs-12 col-sm-6">
-                            <div class="group-material">
-                            <input type="text" name="txtNombre" value="<%=obj.getNombre()%>" class="material-control tooltips-general" placeholder="Nombre del Departamento" required="" maxlength="50" data-toggle="tooltip" data-placement="top" title="Escribe el nombre del Departamento">
+                    %>
+
+                  <input type="hidden" name="txtID" value="<%=ejemplar.getCodEjemplar()%>" >
+
+                    <div class="col-xs-12">
+                        <div class="group-material">
+                            <span>Codigo de Ejemplar</span>
+                            <select name="txtCod_Lib" class="tooltips-general material-control" data-toggle="tooltip" data-placement="top" title="Elige el Codigo del Libro" required>
+                                <option value="" disabled="" selected="">Selecciona el codigo del Libro</option>
+
+                                <%
+                                    LibroSQL librosql = new LibroSQL();
+                                    List<Libro> list = librosql.Mostrar();
+                                    Iterator<Libro> iter = list.iterator();
+                                    Libro libro = null;
+                                    while (iter.hasNext()) {
+                                        libro = iter.next();
+                                %>
+                                <option value="<%=libro.getCodLibro()%>"><%=libro.getCodLibro()%></option>                              
+                                <%}%>
+
+                            </select>
+                        </div>
+                        <p class="text-center pull-right">
+                            <a href="ControladorLibro?accion=nuevolibro" class="btn btn-info btn-xs" style="margin-right: 10px;"><i class="zmdi zmdi-info-outline"></i> &nbsp;&nbsp; Agregar Libro</a>
+                        </p>
+                    </div>
+
+
+                    <!AGREGANDO  Ubicacion>
+                    <div class="col-xs-12 col-sm-6">
+                        <div class="group-material">
+                            <input type="text" name="txtUbicacion" class="material-control tooltips-general" placeholder="Ubicacion" required="" maxlength="50" data-toggle="tooltip" data-placement="top" title="Ubicacion del libro">
                             <span class="highlight"></span>
                             <span class="bar"></span>
-                            <label>Nombre del Departamento</label>
-                            </div>
+                            <label>Ubicacion del libro</label>
                         </div>
-
-
-                        <div class="col-xs-12">
-                            <p class="text-center">
-                                <button type="reset" class="btn btn-info" style="margin-right: 20px;"><i class="zmdi zmdi-roller"></i> &nbsp;&nbsp; Limpiar</button>
-                                <button type="submit" name="accion" value="editardepartamento" class="btn btn-primary"><i class="zmdi zmdi-floppy"></i> &nbsp;&nbsp; Guardar</button>
-                            </p> 
-                        </div>
-
-
-
-
                     </div>
-                </div>
-            </form>
-        </div>
+
+                    <!AGREGANDO  Estado>    
+                    <%/*
+                                        <div class="col-xs-12 col-sm-6">
+                                            <div class="group-material">
+                                                <input type="text" name="txtEstado" class="material-control tooltips-general" placeholder="Estado" required="" maxlength="50" data-toggle="tooltip" data-placement="top" title="Escribe el estado">
+                                                <span class="highlight"></span>
+                                                <span class="bar"></span>
+                                                <label>Estado</label>
+                                            </div>
+                                        </div> */%>
+
+                    <!AGREGANDO  Departamento>
+
+                    <div class="col-xs-12">
+                        <div class="group-material">
+                            <span>Codigo de Departamento</span>
+                            <select name="txtCod_dpto" class="tooltips-general material-control" data-toggle="tooltip" data-placement="top" title="Elige el Codigo del Departamento" required>
+                                <option value="" disabled="" selected="">Selecciona el codigo del Departamento</option>
+
+                                <%
+                                    DepartamentoSQL dptosql = new DepartamentoSQL();
+                                    List<Departamento> listDpto = dptosql.mostrar();
+                                    Iterator<Departamento> iterDpto = listDpto.iterator();
+                                    Departamento dpto = null;
+                                    while (iterDpto.hasNext()) {
+                                        dpto = iterDpto.next();
+                                %>
+                                <option value="<%=dpto.getCodDepartamento()%>"><%=dpto.getNombre()%></option>                              
+                                <%}%>
+
+                            </select>
+                        </div>
+                        <p class="text-center pull-right">
+                            <a href="ControladorDepartamento?accion=nuevodepartamento" class="btn btn-info btn-xs" style="margin-right: 10px;"><i class="zmdi zmdi-info-outline"></i> &nbsp;&nbsp; Agregar Departamento</a>
+                        </p>
+                    </div>
+
+                    <% /*           
+                    <div class="col-xs-12 col-sm-6">
+                        <div class="group-material">
+                            <input type="text" name="txtCantidad" class="material-control tooltips-general" placeholder="Cantidad de ejemplares a ingresar" required="" pattern="[1-9]{1,2}" maxlength="2" data-toggle="tooltip" data-placement="top" title="Solo números, máximo 2 caracteres">
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label>Cantidad de ejemplares a ingresar</label>
+                        </div>
+                    </div>
+                    */ %>
 
 
-                    <!Botones y cuadros de texto ##########################################################>
+                    <!Botones y cuadros de texto AQUI ##########################################################>
 
 
-                  
+                    <div class="col-xs-12">
+                        <p class="text-center">
+                            <button type="reset" class="btn btn-info" style="margin-right: 20px;"><i class="zmdi zmdi-roller"></i> &nbsp;&nbsp; Limpiar</button>
+                            <button type="submit" name="accion" value="editarejemplar" class="btn btn-primary"><i class="zmdi zmdi-floppy"></i> &nbsp;&nbsp; Guardar</button>
+                        </p> 
+                    </div>
+
 
 
                 </div>
             </div>
+        </form>
+
     </div>
-</form>
 
 
 
 
 
 
-<!CUERPO DEL DOCUMENTO #######################################################################################>
+    <!CUERPO DEL DOCUMENTO #######################################################################################>
 
 <div class="modal fade" tabindex="-1" role="dialog" id="ModalHelp">
     <div class="modal-dialog modal-lg">

@@ -26,7 +26,7 @@ public class DepartamentoSQL extends Conexion  {
 
         ArrayList<Departamento> list = new ArrayList<>();
 
-        String sql = "SELECT* FROM departamento";
+        String sql = "SELECT * FROM departamento";
         try {
             ps = con.prepareStatement(sql);
             rs = ps.executeQuery();
@@ -61,7 +61,7 @@ public class DepartamentoSQL extends Conexion  {
         Connection con = getConexion();
         Departamento dpto = new Departamento();
 
-        String sql = "SELECT * FROM departamento where codDepartamento="+ID;
+        String sql = "SELECT * FROM departamento WHERE codDepartamento="+ID;
         try {
             ps = con.prepareStatement(sql);
             rs = ps.executeQuery();
@@ -119,18 +119,18 @@ public class DepartamentoSQL extends Conexion  {
     }
     
     
-     public void Actualizar(boolean pass, Departamento dpto) {
+     public void Actualizar(boolean pass, Departamento depa) {
         if (pass) {
             PreparedStatement ps = null;
             Connection con = getConexion();
-            String sql = "UPDATE departamento SET Nombre=? WHERE codDepartamento=? ";
+            String sql = "UPDATE departamento SET nombre=? WHERE codDepartamento=? ";
 
             try {
                 ps = con.prepareStatement(sql);
-                int z=1;
-              
-                ps.setString(z++, dpto.getNombre());
-                ps.setString(z++, dpto.getCodDepartamento());
+                int z = 1;              
+                ps.setString(z++, depa.getNombre());
+                ps.setString(z++, depa.getCodDepartamento());
+                
                 ps.execute();
 
             } catch (SQLException e) {
@@ -148,15 +148,16 @@ public class DepartamentoSQL extends Conexion  {
     }
      
      
-     public void eliminar(boolean pass, String codDepartamento) {
+     public void eliminar(boolean pass, String s) {
         if (pass) {
             PreparedStatement ps = null;
             Connection con = getConexion();
-            String sql = "DELETE FROM departamento WHERE codDepartamento="+codDepartamento;
+            String sql = "DELETE FROM departamento WHERE codDepartamento="+s;
 
             try {
+                
                ps = con.prepareStatement(sql);
-                ps.execute();
+               ps.execute();
 
             } catch (SQLException e) {
                 System.err.println(e);

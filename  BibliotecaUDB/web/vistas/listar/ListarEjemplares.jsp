@@ -151,7 +151,7 @@
                         </div>
 
                         <%EjemplarSQL sql = new EjemplarSQL();
-                            List<Ejemplar> list = sql.mostrar();
+                            List<Ejemplar> list = sql.Mostrar();
                             Iterator<Ejemplar> iter = list.iterator();
                             Ejemplar obj = null;
                             while (iter.hasNext()) {
@@ -168,10 +168,10 @@
 
 
                                     <div class="div-table-cell" style="width: 8%;">
-                                        <a href="ControladorEditorial?accion=eliminar&id=<%=obj.getCodEjemplar()%>" class="btn btn-danger"><i class="zmdi zmdi-delete"></i></a>
+                                        <a href="ControladorEjemplar?accion=eliminar&id=<%=obj.getCodEjemplar()%>" class="btn btn-danger"><i class="zmdi zmdi-delete"></i></a>
                                     </div>
                                     <div class="div-table-cell" style="width: 8%;">
-                                        <a href="ControladorEditorial?accion=editar&id=<%=obj.getCodEjemplar()%>" class="btn btn-info"><i class="zmdi zmdi-file-text"></i></a>
+                                        <a href="ControladorEjemplar?accion=editar&id=<%=obj.getCodEjemplar()%>" class="btn btn-info"><i class="zmdi zmdi-file-text"></i></a>
                                     </div>
 
                                 </div>

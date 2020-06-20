@@ -62,9 +62,11 @@ public class ControladorCategoria extends HttpServlet {
             categoria.setNombre(request.getParameter("txtCategoria"));
             categoriasql.agregar(true, categoria);
             acesso = listar;
+            
         } else if (action.equalsIgnoreCase("editar")) {
             request.setAttribute("id_", request.getParameter("id"));
             acesso = editar;
+            
         }else if (action.equalsIgnoreCase("EditarCategoria")) {
             Categoria categoria = new Categoria();
             CategoriaSQL categoriasql = new CategoriaSQL();
@@ -74,10 +76,11 @@ public class ControladorCategoria extends HttpServlet {
             
             categoriasql.actualizar(true, categoria);
             acesso = listar;
+            
+            
         }else if (action.equalsIgnoreCase("eliminar")) {
            
-            CategoriaSQL categoriasql = new CategoriaSQL();
-            
+            CategoriaSQL categoriasql = new CategoriaSQL();            
             categoriasql.eliminar(true, request.getParameter("id"));
             
             acesso = listar;

@@ -48,7 +48,6 @@ public class ControladorDepartamento extends HttpServlet {
        
 
         if (action.equalsIgnoreCase("listar")) {
-
             acesso = listar;
 
         } else if (action.equalsIgnoreCase("nuevodepartamento")) {
@@ -78,7 +77,7 @@ public class ControladorDepartamento extends HttpServlet {
             DepartamentoSQL departamentosql = new DepartamentoSQL();
 
             departamento.setCodDepartamento(request.getParameter("txtID"));
-            departamento.setNombre(request.getParameter("txtDepartamento"));           
+            departamento.setNombre(request.getParameter("txtNombre"));           
 
             departamentosql.Actualizar(true, departamento);
             
@@ -96,7 +95,6 @@ public class ControladorDepartamento extends HttpServlet {
             
             
         } else if (action.equalsIgnoreCase("test")) {
-
             acesso = "vistas/testing.jsp";
 
         }
@@ -109,7 +107,6 @@ public class ControladorDepartamento extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
         processRequest(request, response);
     }
 
