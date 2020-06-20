@@ -129,29 +129,33 @@
             <h3 class="text-center all-tittles">Editar libro</h3>
 
             <!CUERPO DEL DOCUMENTO #######################################################################################>
+           
+            
+            
             <form class="form-padding">
-                
-                 <form class="form-padding">
-                <%
-                    Libro libro = new Libro();
-                    LibroSQL librosql = new LibroSQL();
-                    String id =(String)request.getAttribute("id_");
-                    libro=librosql.buscar(id);
-
-                %>
-
-                <input type="hidden" name="txtID" value="<%=libro.getCodLibro()%>" >
                 
                 <div class="row">
 
-                    <div class="col-xs-12">
-                        <div class="title-flat-form title-flat-blue">Editar libro</div>
-                        <legend><i class="zmdi zmdi-account-box"></i> &nbsp; Datos del libro</legend><br>
-                    </div>
+                <div class="col-xs-12">
+                    <div class="title-flat-form title-flat-blue">Editar Libro</div>
+                    <legend><i class="zmdi zmdi-account-box"></i> &nbsp; Datos del Libro</legend><br>
+                
+                 <form class="form-padding">
+                <%
+                    Libro obj = new Libro();
+                    LibroSQL librosql = new LibroSQL();
+                    String id =(String)request.getAttribute("id_");
+                    obj = librosql.buscar(id);
 
-                    <div class="col-xs-12 col-sm-6">
-                        <div class="group-material">
-                            <input type="text" name="txtTitulo" class="material-control tooltips-general" placeholder="Nombre del titulo" required="" maxlength="50" data-toggle="tooltip" data-placement="top" title="Escribe el nombre del titulo">
+                %>
+
+                <input type="hidden" name="txtID" value="<%=obj.getCodLibro()%>" >
+                
+                <div class="row">
+
+             <div class="col-xs-12">                        
+                   <div class="group-material">
+                            <input type="text" name="txtTitulo" value="<%=obj.getTitulo()%>" class="material-control tooltips-general" placeholder="Nombre del titulo" required="" maxlength="50" data-toggle="tooltip" data-placement="top" title="Escribe el nombre del titulo">
                             <span class="highlight"></span>
                             <span class="bar"></span>
                             <label> Titulo </label>
@@ -161,7 +165,7 @@
                     <div class="col-xs-12">
                         <div class="group-material">
                             <span>Autor</span>
-                            <select name="txtAutor" class="tooltips-general material-control" data-toggle="tooltip" data-placement="top" title="Elige un autor" required>
+                            <select name="txtAutor" value="<%=obj.getCodAutor()%>" class="tooltips-general material-control" data-toggle="tooltip" data-placement="top" title="Elige un autor" required>
                                 <option value="" disabled="" selected="">Selecciona un autor</option>
 
                                 <%
@@ -185,7 +189,7 @@
                     <div class="col-xs-12">
                         <div class="group-material">
                             <span>Categoria</span>
-                            <select name="txtCategoria" class="tooltips-general material-control" data-toggle="tooltip" data-placement="top" title="Elige la categoria del libro" required>
+                            <select name="txtCategoria" value="<%=obj.getCodCategoria()%>" class="tooltips-general material-control" data-toggle="tooltip" data-placement="top" title="Elige la categoria del libro" required>
                                 <option value="" disabled="" selected="">Selecciona una categoria</option>
                                 <%
                                     CategoriaSQL categoriasql = new CategoriaSQL();
@@ -200,7 +204,7 @@
                             </select>
                         </div>
                         <p class="text-center pull-right">
-                            <a href="ControladorCategoria?accion=editarlibro" class="btn btn-info btn-xs" style="margin-right: 10px;"><i class="zmdi zmdi-info-outline"></i> &nbsp;&nbsp; Editar Libro</a>
+                            <a href="ControladorCategoria?accion=nuevacategoria" class="btn btn-info btn-xs" style="margin-right: 10px;"><i class="zmdi zmdi-info-outline"></i> &nbsp;&nbsp; Editar Libro</a>
                         </p>
                     </div>
 
@@ -209,7 +213,7 @@
                     <div class="col-xs-12">
                         <div class="group-material">
                             <span>Editorial</span>
-                            <select name="txtEditorial" class="tooltips-general material-control" data-toggle="tooltip" data-placement="top" title="Elige una editorial" required>
+                            <select name="txtEditorial" value="<%=obj.getCodEditorial()%>" class="tooltips-general material-control" data-toggle="tooltip" data-placement="top" title="Elige una editorial" required>
                                 <option value="" disabled="" selected="">Selecciona una Editorial</option>
                                 <%
                                     EditorialSQL editorialsql = new EditorialSQL();
@@ -230,7 +234,7 @@
 
                     <div class="col-xs-12 col-sm-6">
                         <div class="group-material">
-                            <input type="text" name="txtDescripcion" class="material-control tooltips-general" placeholder="Escribe una breve descripcion" required="" maxlength="150" data-toggle="tooltip" data-placement="top" title="Escribe una breve descripcion">
+                            <input type="text" name="txtDescripcion" value="<%=obj.getDescripcion()%>" class="material-control tooltips-general" placeholder="Escribe una breve descripcion" required="" maxlength="150" data-toggle="tooltip" data-placement="top" title="Escribe una breve descripcion">
                             <span class="highlight"></span>
                             <span class="bar"></span>
                             <label>Descripcion del libro</label>
@@ -240,7 +244,7 @@
 
                     <div class="col-xs-12 col-sm-6">
                         <div class="group-material">
-                            <input type="text" name="txtISBN" class="material-control tooltips-general" placeholder="Escribe el ISBN" required="" maxlength="150" data-toggle="tooltip" data-placement="top" title="Escribe el ISBN">
+                            <input type="text" name="txtISBN" value="<%=obj.getCodISBN()%>" class="material-control tooltips-general" placeholder="Escribe el ISBN" required="" maxlength="150" data-toggle="tooltip" data-placement="top" title="Escribe el ISBN">
                             <span class="highlight"></span>
                             <span class="bar"></span>
                             <label>ISBN</label>

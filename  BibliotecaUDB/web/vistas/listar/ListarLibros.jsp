@@ -150,12 +150,13 @@
                             </div>
                         </div>
 
-                        <%LibroSQL sql = new LibroSQL();
+                        <% LibroSQL sql = new LibroSQL();
                             List<Libro> list = sql.Mostrar();
                             Iterator<Libro> iter = list.iterator();
                             Libro obj = null;
                             while (iter.hasNext()) {
-                                obj = iter.next();%>
+                                obj = iter.next(); 
+                        %>
 
                         <div class="table-responsive">
                             <div class="div-table" style="margin:0 !important;">

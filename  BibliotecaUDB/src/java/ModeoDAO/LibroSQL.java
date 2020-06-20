@@ -61,9 +61,10 @@ public class LibroSQL extends Conexion {
         PreparedStatement ps = null;
         ResultSet rs = null;
         Connection con = getConexion();
-
-        String sql = "SELECT * FROM libro WHERE codLibro="+ID;
         Libro libro = new Libro();
+        
+        String sql = "SELECT * FROM libro WHERE codLibro='"+ID+"'";
+        
         try {
             ps = con.prepareStatement(sql);
             rs = ps.executeQuery();
@@ -162,11 +163,11 @@ public class LibroSQL extends Conexion {
         }
     }
 
-    public void Eliminar(boolean pass, String s) {
+    public void Eliminar(boolean pass, String id) {
         if (pass) {
             PreparedStatement ps = null;
             Connection con = getConexion();
-            String sql = "DELETE FROM libro WHERE codLibro="+s;
+            String sql = "DELETE FROM libro WHERE codLibro='"+id+"'";
 
             try {
                 ps = con.prepareStatement(sql);

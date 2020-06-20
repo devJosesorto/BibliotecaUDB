@@ -140,11 +140,11 @@ public class DepartamentoSQL extends Conexion {
         }
     }
 
-    public void eliminar(boolean pass, String s) {
+    public void eliminar(boolean pass, String id) {
         if (pass) {
             PreparedStatement ps = null;
             Connection con = getConexion();
-            String sql = "DELETE FROM departamento WHERE codDepartamento='"+s+"'";
+            String sql = "DELETE FROM departamento WHERE codDepartamento='"+id+"'";
 
             try {
 

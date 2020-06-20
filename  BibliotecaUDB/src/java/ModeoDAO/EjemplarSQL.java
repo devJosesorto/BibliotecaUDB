@@ -161,8 +161,7 @@ public class EjemplarSQL extends Conexion {
             PreparedStatement ps = null;
             Connection con = getConexion();
             String sql = "DELETE FROM ejemplar WHERE codEjemplar='"+id+"'";
-            //String sql = "DELETE FROM `ejemplar` WHERE `ejemplar`.`codEjemplar`="+s;
-                   
+                              
             try {
                 ps = con.prepareStatement(sql);
                //ps.setString(1, sql);

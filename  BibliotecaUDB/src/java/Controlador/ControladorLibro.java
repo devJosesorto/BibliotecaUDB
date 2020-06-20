@@ -92,7 +92,7 @@ public class ControladorLibro extends HttpServlet {
             Libro lib = new Libro();
             LibroSQL libsql = new LibroSQL();
 
-            //lib.setCodLibro(request.getParameter("txtID"));
+            lib.setCodLibro(request.getParameter("txtID"));
             lib.setTitulo(request.getParameter("txtTitulo"));
             lib.setCodCategoria(request.getParameter("txtCategoria"));
             lib.setCodAutor(request.getParameter("txtAutor"));
@@ -106,17 +106,11 @@ public class ControladorLibro extends HttpServlet {
             
         } else if (action.equalsIgnoreCase("eliminar")) {
            
-           LibroSQL libsql = new LibroSQL();            
+            LibroSQL librosql = new LibroSQL();         
             
-            libsql.Eliminar(true, request.getParameter("id"));
-
+            librosql.Eliminar(true, request.getParameter("id"));
             acesso = listar;
         }
-        
-        
-        
-        
-        
         
         
 
