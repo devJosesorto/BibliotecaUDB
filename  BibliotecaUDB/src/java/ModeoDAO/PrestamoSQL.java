@@ -56,6 +56,43 @@ public class PrestamoSQL extends Conexion {
         }
         return list;
     }
+     
+     
+      public Prestamo buscar(String ID) {
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        Connection con = getConexion();
+        Prestamo obj = new Prestamo();
+
+        String sql = "SELECT* FROM Prestamo where codPrestamo="+ID;
+        try {
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+
+                obj.setCodPrestamo(rs.getInt(1));
+                obj.setFecha_entrega(rs.getString(2));
+                obj.setFecha_devolucion(rs.getString(3));
+                obj.setEjemplar_codEjemplar(rs.getString(4));
+                obj.setUsuario(rs.getInt(5));
+                obj.setMora(rs.getString(6));
+
+            }
+
+        } catch (SQLException e) {
+            System.err.println(e);
+
+        } finally {
+            try {
+                con.close();
+            } catch (SQLException e) {
+                System.err.println(e);
+            }
+        }
+        return obj;
+    }
+     
     
      public boolean agregar(boolean pass, Prestamo prest ) {
 
@@ -127,11 +164,11 @@ public class PrestamoSQL extends Conexion {
     }
      
      
-     public void eliminar(boolean pass, String codPrestamo) {
+     public void eliminar(boolean pass, String id ) {
         if (pass) {
             PreparedStatement ps = null;
             Connection con = getConexion();
-            String sql = "DELETE FROM prestamo WHERE codPrestamo=? ";
+            String sql = "DELETE FROM prestamo WHERE codPrestamo="+id;
 
             try {
                 ps = con.prepareStatement(sql);

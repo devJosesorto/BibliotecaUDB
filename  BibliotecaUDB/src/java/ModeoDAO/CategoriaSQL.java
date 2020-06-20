@@ -139,11 +139,11 @@ public class CategoriaSQL extends Conexion {
         }
     }
 
-    public void eliminar(boolean pass, String codCategoria) {
+    public void eliminar(boolean pass, String id) {
         if (pass) {
             PreparedStatement ps = null;
             Connection con = getConexion();
-            String sql = "DELETE FROM Categoria WHERE codCategoria="+codCategoria;
+            String sql = "DELETE FROM Categoria WHERE codCategoria="+id;
 
             try {
                 ps = con.prepareStatement(sql);

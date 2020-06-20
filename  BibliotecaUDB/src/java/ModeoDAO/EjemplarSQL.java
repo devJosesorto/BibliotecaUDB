@@ -29,6 +29,7 @@ public class EjemplarSQL extends Conexion {
             ps = con.prepareStatement(sql);
             rs = ps.executeQuery();
             while (rs.next()) {
+                
                 Ejemplar ejemplar = new Ejemplar();
 
                 ejemplar.setCodEjemplar(rs.getString(1));

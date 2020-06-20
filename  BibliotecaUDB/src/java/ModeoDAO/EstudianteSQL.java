@@ -4,6 +4,7 @@ package ModeoDAO;
 import java.sql.Connection;
 import Conexion.Conexion;
 import Modelo.Estudiante;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -51,6 +52,43 @@ public class EstudianteSQL extends Conexion {
         }
         return list;
     }
+        
+        
+        public Estudiante buscar(String ID) {
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        Connection con = getConexion();
+        Estudiante usr = new Estudiante();
+        
+        String sql = "SELECT * FROM estudiante WHERE carnet='"+ID+"'";
+        
+        try {
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            
+            while (rs.next()) {
+                
+               
+                usr.setCarnet(rs.getString(1));
+                usr.setNombre(rs.getString(2));
+                usr.setApellido(rs.getString(3));
+                usr.setSexo(rs.getString(4));
+                usr.setCarrera(rs.getString(5));
+            }
+
+        } catch (SQLException e) {
+            System.err.println(e);
+
+        } finally {
+            try {
+                con.close();
+            } catch (SQLException e) {
+                System.err.println(e);
+            }
+        }
+        return usr;
+    }
+        
     
         public boolean agregar(boolean pass, Estudiante est) {
 
@@ -120,11 +158,11 @@ public class EstudianteSQL extends Conexion {
     }
          
          
-         public void eliminar(boolean pass, String carnet) {
+         public void eliminar(boolean pass, String id) {
         if (pass) {
             PreparedStatement ps = null;
             Connection con = getConexion();
-            String sql = "DELETE FROM estudiante WHERE carnet=? ";
+            String sql = "DELETE FROM estudiante WHERE carnet='"+id+"'";
 
             try {
                 ps = con.prepareStatement(sql);

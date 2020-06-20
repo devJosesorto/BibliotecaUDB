@@ -51,6 +51,43 @@ public class DocenteSQL extends Conexion {
         }
         return list;
     }
+        
+        
+        public Docente buscar(String ID) {
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        Connection con = getConexion();
+        Docente usr = new Docente();
+        
+        String sql = "SELECT * FROM Docente WHERE carnet='"+ID+"'";
+        
+        try {
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            
+            while (rs.next()) {
+                
+               
+                usr.setCarnet(rs.getString(1));
+                usr.setNombre(rs.getString(2));
+                usr.setApellido(rs.getString(3));
+                usr.setSexo(rs.getString(4));
+                usr.setDepartamento(rs.getString(5));
+            }
+
+        } catch (SQLException e) {
+            System.err.println(e);
+
+        } finally {
+            try {
+                con.close();
+            } catch (SQLException e) {
+                System.err.println(e);
+            }
+        }
+        return usr;
+    }
+        
     
         public boolean agregar(boolean pass, Docente doc) {
 
@@ -120,11 +157,11 @@ public class DocenteSQL extends Conexion {
     }
          
          
-         public void eliminar(boolean pass, String carnet) {
+         public void eliminar(boolean pass, String id) {
         if (pass) {
             PreparedStatement ps = null;
             Connection con = getConexion();
-            String sql = "DELETE FROM docente WHERE carnet=? ";
+            String sql = "DELETE FROM docente WHERE carnet='"+id+"'";
 
             try {
                 ps = con.prepareStatement(sql);
