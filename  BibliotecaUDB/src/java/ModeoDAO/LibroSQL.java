@@ -55,6 +55,43 @@ public class LibroSQL extends Conexion {
         }
         return list;
     }
+    
+    
+    public Libro buscar(String ID) {
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        Connection con = getConexion();
+
+        String sql = "SELECT * FROM libro WHERE codLibro="+ID;
+        Libro libro = new Libro();
+        try {
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                
+
+                libro.setCodLibro(rs.getString(1));
+                libro.setTitulo(rs.getString(2));
+                libro.setCodCategoria(rs.getString(3));
+                libro.setCodAutor(rs.getString(4));
+                libro.setCodEditorial(rs.getString(5));
+                libro.setCodISBN(rs.getString(6));
+                libro.setDescripcion(rs.getString(7));
+            }
+
+        } catch (SQLException e) {
+            System.err.println(e);
+
+        } finally {
+            try {
+                con.close();
+            } catch (SQLException e) {
+                System.err.println(e);
+            }
+        }
+        return libro;
+    }
+    
 
     public boolean Agregar(boolean pass, Libro lib) {
 
@@ -125,15 +162,15 @@ public class LibroSQL extends Conexion {
         }
     }
 
-    public void Eliminar(boolean pass, String codLibro) {
+    public void Eliminar(boolean pass, String s) {
         if (pass) {
             PreparedStatement ps = null;
             Connection con = getConexion();
-            String sql = "DELETE FROM desktop WHERE codigo_desktop=? ";
+            String sql = "DELETE FROM libro WHERE codLibro="+s;
 
             try {
                 ps = con.prepareStatement(sql);
-                ps.setString(1, sql);
+                //ps.setString(1, sql);
                 ps.execute();
 
             } catch (SQLException e) {

@@ -13,10 +13,6 @@ import ModeoDAO.LibroSQL;
 
 
 
-
-import Modelo.Ejemplar;
-import ModeoDAO.EjemplarSQL;
-
 /**
  *
  * @author José Sorto
@@ -25,8 +21,11 @@ public class ControladorLibro extends HttpServlet {
 
     String listar = "vistas/listar/ListarLibros.jsp";
     String nuevolibro = "vistas/AgregarLibro.jsp";
-    
+    String editar = "vistas/editar/EditarLibro.jsp";
 
+    
+  
+    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -84,7 +83,42 @@ public class ControladorLibro extends HttpServlet {
 
             acesso = listar;
 
+        }  else if (action.equalsIgnoreCase("editar")) {
+            request.setAttribute("id_", request.getParameter("id"));
+            acesso = editar;
+            
+        } else if (action.equalsIgnoreCase("editarlibro")) {
+
+            Libro lib = new Libro();
+            LibroSQL libsql = new LibroSQL();
+
+            //lib.setCodLibro(request.getParameter("txtID"));
+            lib.setTitulo(request.getParameter("txtTitulo"));
+            lib.setCodCategoria(request.getParameter("txtCategoria"));
+            lib.setCodAutor(request.getParameter("txtAutor"));
+            lib.setCodEditorial(request.getParameter("txtEditorial"));
+            lib.setCodISBN(request.getParameter("txtISBN"));
+            lib.setDescripcion(request.getParameter("txtDescripcion"));
+
+            libsql.Actualizar(true, lib);
+
+            acesso = listar;
+            
+        } else if (action.equalsIgnoreCase("eliminar")) {
+           
+           LibroSQL libsql = new LibroSQL();            
+            
+            libsql.Eliminar(true, request.getParameter("id"));
+
+            acesso = listar;
         }
+        
+        
+        
+        
+        
+        
+        
 
         //cierre de prueba
         RequestDispatcher vista = request.getRequestDispatcher(acesso);

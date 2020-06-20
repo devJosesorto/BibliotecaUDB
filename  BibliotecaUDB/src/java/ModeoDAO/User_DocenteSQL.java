@@ -52,6 +52,41 @@ public class User_DocenteSQL extends Conexion {
     }
     
      
+       public Docente buscar(String ID) {
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        Connection con = getConexion();
+
+        String sql = "SELECT * FROM docente WHERE carnet="+ID;
+        Docente doc = new Docente();
+        try {
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                
+
+                doc.setCarnet(rs.getString(1));
+                doc.setNombre(rs.getString(2));
+                doc.setApellido(rs.getString(3));
+                doc.setSexo(rs.getString(4));
+                doc.setDepartamento(rs.getString(5));
+              
+            }
+
+        } catch (SQLException e) {
+            System.err.println(e);
+
+        } finally {
+            try {
+                con.close();
+            } catch (SQLException e) {
+                System.err.println(e);
+            }
+        }
+        return doc;
+    }
+     
+     
     public boolean agregar(boolean pass, User_Docente doc) {
 
         if (pass) {

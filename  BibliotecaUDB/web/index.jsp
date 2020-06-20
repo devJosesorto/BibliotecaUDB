@@ -33,6 +33,24 @@
             <br><br><br>
             <a class="btn btn-primary btn-sm" href="ControladorEjemplar?accion=nuevoejemplar" role="button">Nuevo Ejemplar</a>
             <a class="btn btn-primary btn-sm" href="ControladorEjemplar?accion=listar" role="button">Listar Ejemplar</a>
+             <br><br><br>
+            <a class="btn btn-primary btn-sm" href="ControladorDocente?accion=nuevousuario" role="button">Nuevo Usuario</a>
+            <a class="btn btn-primary btn-sm" href="ControladorDocente?accion=listar" role="button">Listar Usuarios</a>
+            
+            
+            
+            
+            <%/*
+               editar editorial.JSP - OK 
+               departamento, ejemplar y libros, no logre editar ni borrar (no se si el generador de ID, por que en id que
+               son numeros si edita y borra
+               Avance con el registro, lista y vista de usuario docente
+               Hice una vista general para agregar usuarios.
+               Controlador de departamento, ejemplar y libros completo
+               
+
+             */%>
+            
         </div>
 
     </body>
