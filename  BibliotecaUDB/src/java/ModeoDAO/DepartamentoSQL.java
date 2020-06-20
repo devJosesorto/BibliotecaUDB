@@ -144,7 +144,7 @@ public class DepartamentoSQL extends Conexion {
         if (pass) {
             PreparedStatement ps = null;
             Connection con = getConexion();
-            String sql = "DELETE FROM departamento WHERE codDepartamento=" + s;
+            String sql = "DELETE FROM departamento WHERE codDepartamento='"+s+"'";
 
             try {
 

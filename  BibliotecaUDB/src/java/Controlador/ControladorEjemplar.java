@@ -83,20 +83,22 @@ public class ControladorEjemplar extends HttpServlet {
             } else if (action.equalsIgnoreCase("editar")) {
             request.setAttribute("id_", request.getParameter("id"));
             acesso = editar;
+            
             } else if (action.equalsIgnoreCase("editarejemplar")) {
                 
-            int j=0;
+            //int j=0;
             //j=Integer.parseInt(request.getParameter("txtCantidad"));
                 
             Ejemplar ejemplar = new Ejemplar();
             EjemplarSQL ejemplarsql = new EjemplarSQL();
 
-            
+            ejemplar.setCodEjemplar(request.getParameter("txtID"));
             ejemplar.setCod_Libro(request.getParameter("txtCod_Lib"));
             ejemplar.setCod_Departamento(request.getParameter("txtCod_dpto"));
-            ejemplar.setUbicacion(request.getParameter("txtUbicacion"));            
             ejemplar.setEstado(request.getParameter("DISPONIBLE"));
-            ejemplar.setCodEjemplar(request.getParameter("txtID"));
+            ejemplar.setUbicacion(request.getParameter("txtUbicacion"));            
+            
+            
             
             
             ejemplarsql.Actualizar(true, ejemplar);

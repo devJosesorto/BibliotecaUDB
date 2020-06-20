@@ -150,19 +150,21 @@
                      <form class="form-padding">
                          
                      <%
-                    Ejemplar ejemplar = new Ejemplar();
+                    Ejemplar obj = new Ejemplar();
                     EjemplarSQL ejemplarsql = new EjemplarSQL();
                     String id =(String)request.getAttribute("id_");
-                    ejemplar=ejemplarsql.buscar(id);
+                    obj = ejemplarsql.buscar(id);
 
                     %>
 
-                  <input type="hidden" name="txtID" value="<%=ejemplar.getCodEjemplar()%>" >
+                  <input type="hidden" name="txtID" value="<%=obj.getCodEjemplar()%>" >
+                  <input type="hidden" name="DISPONIBLE" value="<%=obj.getEstado()%>" >
+                  
 
                     <div class="col-xs-12">
                         <div class="group-material">
                             <span>Codigo de Ejemplar</span>
-                            <select name="txtCod_Lib" class="tooltips-general material-control" data-toggle="tooltip" data-placement="top" title="Elige el Codigo del Libro" required>
+                            <select name="txtCod_Lib" value="<%=obj.getCod_Libro()%>" class="tooltips-general material-control" data-toggle="tooltip" data-placement="top" title="Elige el Codigo del Libro" required>
                                 <option value="" disabled="" selected="">Selecciona el codigo del Libro</option>
 
                                 <%
@@ -187,7 +189,7 @@
                     <!AGREGANDO  Ubicacion>
                     <div class="col-xs-12 col-sm-6">
                         <div class="group-material">
-                            <input type="text" name="txtUbicacion" class="material-control tooltips-general" placeholder="Ubicacion" required="" maxlength="50" data-toggle="tooltip" data-placement="top" title="Ubicacion del libro">
+                            <input type="text" name="txtUbicacion" value="<%=obj.getUbicacion()%>" class="material-control tooltips-general" placeholder="Ubicacion" required="" maxlength="50" data-toggle="tooltip" data-placement="top" title="Ubicacion del libro">
                             <span class="highlight"></span>
                             <span class="bar"></span>
                             <label>Ubicacion del libro</label>
@@ -195,6 +197,9 @@
                     </div>
 
                     <!AGREGANDO  Estado>    
+                    
+                    
+                    
                     <%/*
                                         <div class="col-xs-12 col-sm-6">
                                             <div class="group-material">
@@ -210,7 +215,7 @@
                     <div class="col-xs-12">
                         <div class="group-material">
                             <span>Codigo de Departamento</span>
-                            <select name="txtCod_dpto" class="tooltips-general material-control" data-toggle="tooltip" data-placement="top" title="Elige el Codigo del Departamento" required>
+                            <select name="txtCod_dpto" value="<%=obj.getCod_Departamento()%>" class="tooltips-general material-control" data-toggle="tooltip" data-placement="top" title="Elige el Codigo del Departamento" required>
                                 <option value="" disabled="" selected="">Selecciona el codigo del Departamento</option>
 
                                 <%
