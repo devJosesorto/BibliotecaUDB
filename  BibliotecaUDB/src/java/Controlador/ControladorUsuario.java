@@ -53,7 +53,8 @@ public class ControladorUsuario extends HttpServlet {
 
         if (action.equalsIgnoreCase("home")) {
             acesso = "vistas/Usuarios/home.jsp";
-
+        } else if (action.equalsIgnoreCase("prestamo")) {
+            acesso = "vistas/Usuarios/RealizarPrestamo.jsp";
         }
 
         RequestDispatcher vista = request.getRequestDispatcher(acesso);

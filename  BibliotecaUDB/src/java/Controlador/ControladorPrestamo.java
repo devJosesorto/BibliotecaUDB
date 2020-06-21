@@ -13,6 +13,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import ModeoDAO.PrestamoSQL;
+import Modelo.Prestamo;
+
 /**
  *
  * @author José Sorto
@@ -43,11 +46,23 @@ public class ControladorPrestamo extends HttpServlet {
         String acesso = "";
         String action = request.getParameter("accion");
 
-        if (action.equalsIgnoreCase("listar")) {
-            acesso = "index.jsp";
+        if (action.equalsIgnoreCase("prestamo")) {
+            acesso = "vistas/Usuarios/RealizarPrestamo.jsp";
 
-        } else if (action.equalsIgnoreCase("nuevoautor")) {
-            acesso = "index.jsp";
+        } else if (action.equalsIgnoreCase("realizarprestamo")) {
+
+            PrestamoSQL sql = new PrestamoSQL();
+            Prestamo prest = new Prestamo();
+
+            prest.setFecha_entrega(request.getParameter("txtFecha"));
+            prest.setFecha_devolucion("");
+            prest.setEjemplar_codEjemplar(request.getParameter("txtEjemplar"));
+            prest.setUsuario(Integer.parseInt(request.getParameter("txtID")));
+            prest.setMora("0");
+            
+            sql.agregar(true, prest);
+            
+             acesso = "vistas/Usuarios/RealizarPrestamo.jsp";
 
         }
 

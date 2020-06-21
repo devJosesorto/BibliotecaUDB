@@ -1,4 +1,3 @@
-
 package ModeoDAO;
 
 import Conexion.Conexion;
@@ -16,9 +15,8 @@ import java.util.List;
  * @author Bolaines
  */
 public class PrestamoSQL extends Conexion {
-    
-   
-     public List mostrar() {
+
+    public List mostrar() {
         PreparedStatement ps = null;
         ResultSet rs = null;
         Connection con = getConexion();
@@ -29,7 +27,7 @@ public class PrestamoSQL extends Conexion {
         try {
             ps = con.prepareStatement(sql);
             rs = ps.executeQuery();
-            
+
             while (rs.next()) {
                 Prestamo prestamo = new Prestamo();
 
@@ -39,8 +37,7 @@ public class PrestamoSQL extends Conexion {
                 prestamo.setEjemplar_codEjemplar(rs.getString(4));
                 prestamo.setUsuario(rs.getInt(5));
                 prestamo.setMora(rs.getString(6));
-                
-                
+
                 list.add(prestamo);
             }
 
@@ -56,15 +53,14 @@ public class PrestamoSQL extends Conexion {
         }
         return list;
     }
-     
-     
-      public Prestamo buscar(String ID) {
+
+    public Prestamo buscar(String ID) {
         PreparedStatement ps = null;
         ResultSet rs = null;
         Connection con = getConexion();
         Prestamo obj = new Prestamo();
 
-        String sql = "SELECT* FROM Prestamo where codPrestamo="+ID;
+        String sql = "SELECT* FROM Prestamo where codPrestamo=" + ID;
         try {
             ps = con.prepareStatement(sql);
             rs = ps.executeQuery();
@@ -92,9 +88,8 @@ public class PrestamoSQL extends Conexion {
         }
         return obj;
     }
-     
-    
-     public boolean agregar(boolean pass, Prestamo prest ) {
+
+    public boolean agregar(boolean pass, Prestamo prest) {
 
         if (pass) {
             PreparedStatement ps = null;
@@ -109,8 +104,7 @@ public class PrestamoSQL extends Conexion {
                 ps.setString(z++, prest.getFecha_devolucion());
                 ps.setString(z++, prest.getEjemplar_codEjemplar());
                 ps.setInt(z++, prest.getUsuario());
-                ps.setString(z++, prest.getMora());
-                                
+                ps.setInt(z++, Integer.parseInt(prest.getMora()));
 
                 ps.execute();
 
@@ -129,9 +123,8 @@ public class PrestamoSQL extends Conexion {
         }
         return true;
     }
-     
-    
-     public void actualizar(boolean pass, Prestamo prest ) {
+
+    public void actualizar(boolean pass, Prestamo prest) {
         if (pass) {
             PreparedStatement ps = null;
             Connection con = getConexion();
@@ -146,7 +139,7 @@ public class PrestamoSQL extends Conexion {
                 ps.setInt(z++, prest.getUsuario());
                 ps.setString(z++, prest.getMora());
                 ps.setInt(z++, prest.getCodPrestamo());
-                
+
                 ps.execute();
 
             } catch (SQLException e) {
@@ -162,13 +155,12 @@ public class PrestamoSQL extends Conexion {
             }
         }
     }
-     
-     
-     public void eliminar(boolean pass, String id ) {
+
+    public void eliminar(boolean pass, String id) {
         if (pass) {
             PreparedStatement ps = null;
             Connection con = getConexion();
-            String sql = "DELETE FROM prestamo WHERE codPrestamo="+id;
+            String sql = "DELETE FROM prestamo WHERE codPrestamo=" + id;
 
             try {
                 ps = con.prepareStatement(sql);
@@ -188,12 +180,9 @@ public class PrestamoSQL extends Conexion {
             }
         }
     }
-     
-    
-               
-     ///Genarador de codigo
-     
-     public int generarCod() {
+
+    ///Genarador de codigo
+    public int generarCod() {
         PreparedStatement ps = null;
         ResultSet rs = null;
         Connection con = getConexion();
@@ -218,7 +207,43 @@ public class PrestamoSQL extends Conexion {
             }
         }
     }
-    
-    
-    
+
+    public List seleccionarEjemplar(String ID) {
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        Connection con = getConexion();
+   
+        List<String> objeto = new ArrayList<String>();
+
+        String sql = "SELECT max(codEjemplar),cod_Libro,Titulo,Ubicacion "
+                + "FROM ejemplar "
+                + "inner join libro on cod_Libro=codLibro "
+                + "where Estado='DISPONIBLE' AND cod_Libro=?";
+        try {
+            ps = con.prepareStatement(sql);
+             ps.setString(1, ID);
+            
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                int z=1;
+                objeto.add(rs.getString(z++)+"");
+                objeto.add(rs.getString(z++));
+                objeto.add(rs.getString(z++));
+                objeto.add(rs.getString(z++));
+            }
+
+        } catch (SQLException e) {
+            System.err.println(e);
+
+        } finally {
+            try {
+                con.close();
+            } catch (SQLException e) {
+                System.err.println(e);
+            }
+        }
+        return objeto;
+    }
+
 }// cierre

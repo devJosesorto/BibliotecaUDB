@@ -1,4 +1,3 @@
-
 package ModeoDAO;
 
 import Conexion.Conexion;
@@ -15,9 +14,8 @@ import java.util.List;
  * @author Bolaines
  */
 public class UsuarioSQL extends Conexion {
-    
-    
-     public List mostrar() {
+
+    public List mostrar() {
         PreparedStatement ps = null;
         ResultSet rs = null;
         Connection con = getConexion();
@@ -28,7 +26,7 @@ public class UsuarioSQL extends Conexion {
         try {
             ps = con.prepareStatement(sql);
             rs = ps.executeQuery();
-            
+
             while (rs.next()) {
                 Usuario usr = new Usuario();
 
@@ -51,9 +49,8 @@ public class UsuarioSQL extends Conexion {
         }
         return list;
     }
-     
-     
-     public boolean agregar(boolean pass, Usuario usr ) {
+
+    public boolean agregar(boolean pass, Usuario usr) {
 
         if (pass) {
             PreparedStatement ps = null;
@@ -84,8 +81,7 @@ public class UsuarioSQL extends Conexion {
         }
         return true;
     }
-    
-     
+
     public void actualizar(boolean pass, Usuario usr) {
         if (pass) {
             PreparedStatement ps = null;
@@ -99,7 +95,7 @@ public class UsuarioSQL extends Conexion {
                 ps.setString(z++, usr.getPass());
                 ps.setString(z++, usr.getCod_Rol());
                 ps.setInt(z++, usr.getCodUsuario());
-                
+
                 ps.execute();
 
             } catch (SQLException e) {
@@ -115,9 +111,8 @@ public class UsuarioSQL extends Conexion {
             }
         }
     }
-    
-    
-     public void eliminar(boolean pass, String codUsuario) {
+
+    public void eliminar(boolean pass, String codUsuario) {
         if (pass) {
             PreparedStatement ps = null;
             Connection con = getConexion();
@@ -141,9 +136,8 @@ public class UsuarioSQL extends Conexion {
             }
         }
     }
-    
-        
-     public int generarCod() {
+
+    public int generarCod() {
         PreparedStatement ps = null;
         ResultSet rs = null;
         Connection con = getConexion();
@@ -167,18 +161,18 @@ public class UsuarioSQL extends Conexion {
                 System.err.println(e);
             }
         }
-    } 
-     
-     public int Login(String user, String pass) {
-        
-        int nivel=0;
-        
+    }
+
+    public int Login(String user, String pass) {
+
+        int nivel = 0;
+
         PreparedStatement ps = null;
         ResultSet rs = null;
         Connection con = getConexion();
 
         String sql = "SELECT cod_Rol FROM biblioteca.usuario\n"
-                + "where correo ='"+user+"' and pass='"+pass+"'";
+                + "where correo ='" + user + "' and pass='" + pass + "'";
         try {
             int z = 1;
             ps = con.prepareStatement(sql);
@@ -188,10 +182,10 @@ public class UsuarioSQL extends Conexion {
             rs = ps.executeQuery();
 
             if (rs.next()) {
-                nivel=Integer.parseInt(rs.getString("cod_Rol"));
-               
+                nivel = Integer.parseInt(rs.getString("cod_Rol"));
+
             }
-           
+
         } catch (SQLException e) {
             System.err.println(e);
             return 0;
@@ -202,8 +196,59 @@ public class UsuarioSQL extends Conexion {
                 System.err.println(e);
             }
         }
-        
-         return nivel;
+
+        return nivel;
     }
-    
+
+    public List BuscarporCorreo(String user, int nivel) {
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        Connection con = getConexion();
+
+        List<String> objeto = new ArrayList<String>();
+        String sql = "";
+
+        if (nivel == 1) {
+            //estudiante
+            sql = "SELECT codUsuario,correo,Carnet,Nombre,Apellido \n"
+                    + "FROM usuario\n"
+                    + "inner join user_estudiante as ud on codUsuario=ud.usuario_codUsuario\n"
+                    + "inner join estudiante as d on ud.estudiante_Carnet=d.Carnet\n"
+                    + "where correo='"+user+"'";
+        } else {
+            sql = "SELECT codUsuario,correo,Carnet,Nombre,Apellido \n"
+                    + "FROM usuario\n"
+                    + "inner join user_docente as ud on codUsuario=ud.usuario_codUsuario\n"
+                    + "inner join docente as d on ud.docente_carnet=d.Carnet\n"
+                    + "where correo='"+user+"'";
+
+        }
+
+        try {
+            ps = con.prepareStatement(sql);
+
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                int z = 1;
+                objeto.add(rs.getString(z++));
+                objeto.add(rs.getString(z++));
+                objeto.add(rs.getString(z++));
+                objeto.add(rs.getString(z++));
+                objeto.add(rs.getString(z++));
+            }
+
+        } catch (SQLException e) {
+            System.err.println(e);
+
+        } finally {
+            try {
+                con.close();
+            } catch (SQLException e) {
+                System.err.println(e);
+            }
+        }
+        return objeto;
+    }
+
 }//cierre

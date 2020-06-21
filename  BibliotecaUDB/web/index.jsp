@@ -65,7 +65,7 @@
                                     sesion.setAttribute("Nombre", request.getAttribute("username"));
                                     sesion.setAttribute("nivel", nivel);
                                     response.sendRedirect("testing.jsp");
-                                } else if (nivel == 2) {
+                                } else if (nivel == 1||nivel == 2) {
                                     sesion.setAttribute("Nombre", request.getAttribute("username"));
                                     sesion.setAttribute("nivel", nivel);
                                     response.sendRedirect("ControladorUsuario?accion=home");
