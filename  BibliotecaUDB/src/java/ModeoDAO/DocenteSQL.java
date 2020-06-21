@@ -94,13 +94,13 @@ public class DocenteSQL extends Conexion {
         if (pass) {
             PreparedStatement ps = null;
             Connection con = getConexion();
-            String sql = "INSERT INTO docente (carnet, nombre, apellido, sexo, departamento) VALUES(?,?,?,?,?)";
+            String sql = "INSERT INTO docente (Carnet, Nombre, Apellido, Sexo, Departamento_cod) VALUES(?,?,?,?,?)";
 
             try {
                 int z = 1;
                 ps = con.prepareStatement(sql);
                 //a cada objeto de tipo docente en el cod se debe de asignar "DOC" como valor, el metodo generarCod le proporciona el coorelativo
-                ps.setString(z++, doc.getCarnet() + generarCod());
+                ps.setString(z++, generarCod());
                 ps.setString(z++, doc.getNombre());
                 ps.setString(z++, doc.getApellido());
                 ps.setString(z++, doc.getSexo());
@@ -213,7 +213,7 @@ public class DocenteSQL extends Conexion {
             }
         }
         String string = a;
-        string = string.substring(string.length() - 3);
+        string = string.substring(string.length() - 2);
 
         int i = 0;
         i = Integer.parseInt(string) + 1;
@@ -231,6 +231,37 @@ public class DocenteSQL extends Conexion {
         return string;
     }   
            
+            public String ObtenerCod() {
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        Connection con = getConexion();
+        String a = null;
+
+        String sql = "SELECT MAX(carnet) as cantidad FROM docente";
+        try {
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+
+            if (rs.next()) {
+                a = rs.getString(1);
+            }
+
+        } catch (SQLException e) {
+            System.err.println(e);
+            System.out.println("Error en generarCod de la clase DocenteSQL");
+
+        } finally {
+            try {
+                con.close();
+            } catch (SQLException e) {
+                System.err.println(e);
+            }
+        }
+        String string = a;
+
+        return string;
+    }   
+        
            
            
     

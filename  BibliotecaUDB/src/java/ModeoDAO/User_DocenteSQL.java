@@ -1,4 +1,3 @@
-
 package ModeoDAO;
 
 import Conexion.Conexion;
@@ -16,9 +15,8 @@ import java.util.List;
  * @author Bolaines
  */
 public class User_DocenteSQL extends Conexion {
-    
-    
-     public List mostrar()  {
+
+    public List mostrar() {
         PreparedStatement ps = null;
         ResultSet rs = null;
         Connection con = getConexion();
@@ -34,7 +32,7 @@ public class User_DocenteSQL extends Conexion {
 
                 usrD.setDocente_carnet(rs.getString(1));
                 usrD.setUsuario_codUsuario(rs.getString(2));
-                
+
                 list.add(usrD);
             }
 
@@ -50,27 +48,25 @@ public class User_DocenteSQL extends Conexion {
         }
         return list;
     }
-    
-     
-       public Docente buscar(String ID) {
+
+    public Docente buscar(String ID) {
         PreparedStatement ps = null;
         ResultSet rs = null;
         Connection con = getConexion();
 
-        String sql = "SELECT * FROM docente WHERE carnet="+ID;
+        String sql = "SELECT * FROM docente WHERE carnet=" + ID;
         Docente doc = new Docente();
         try {
             ps = con.prepareStatement(sql);
             rs = ps.executeQuery();
             while (rs.next()) {
-                
 
                 doc.setCarnet(rs.getString(1));
                 doc.setNombre(rs.getString(2));
                 doc.setApellido(rs.getString(3));
                 doc.setSexo(rs.getString(4));
                 doc.setDepartamento(rs.getString(5));
-              
+
             }
 
         } catch (SQLException e) {
@@ -85,23 +81,20 @@ public class User_DocenteSQL extends Conexion {
         }
         return doc;
     }
-     
-     
+
     public boolean agregar(boolean pass, User_Docente doc) {
 
         if (pass) {
             PreparedStatement ps = null;
             Connection con = getConexion();
-            String sql = "INSERT INTO user_docente (Docente_carnet, Usuario_codUsuario) VALUES(?,?,)";
+            String sql = "INSERT INTO user_docente (docente_carnet, usuario_codUsuario) VALUES(?,?)";
 
             try {
                 int z = 1;
                 ps = con.prepareStatement(sql);
                 //a cada objeto de tipo docente en el cod se debe de asignar "DOC" como valor, el metodo generarCod le proporciona el coorelativo
-                ps.setString(z++, doc.getDocente_carnet()+ generarCod());
-                ps.setString(z++, doc.getUsuario_codUsuario());
-               
-               
+                ps.setString(z++, doc.getDocente_carnet() + generarCod());
+                ps.setInt(z++, Integer.parseInt(doc.getUsuario_codUsuario()));
 
                 ps.execute();
 
@@ -119,9 +112,8 @@ public class User_DocenteSQL extends Conexion {
             }
         }
         return true;
-    } 
-     
-    
+    }
+
     public void actualizar(boolean pass, User_Docente doc) {
         if (pass) {
             PreparedStatement ps = null;
@@ -130,7 +122,7 @@ public class User_DocenteSQL extends Conexion {
 
             try {
                 ps = con.prepareStatement(sql);
-                int z=1;
+                int z = 1;
                 ps.setString(z++, doc.getUsuario_codUsuario());
                 ps.setString(z++, doc.getDocente_carnet());
                 ps.execute();
@@ -148,9 +140,8 @@ public class User_DocenteSQL extends Conexion {
             }
         }
     }
-    
-    
-     public void eliminar(boolean pass, String docente_carnet) {
+
+    public void eliminar(boolean pass, String docente_carnet) {
         if (pass) {
             PreparedStatement ps = null;
             Connection con = getConexion();
@@ -174,9 +165,8 @@ public class User_DocenteSQL extends Conexion {
             }
         }
     }
-    
-    
-   public String generarCod() {
+
+    public String generarCod() {
         PreparedStatement ps = null;
         ResultSet rs = null;
         Connection con = getConexion();
@@ -219,6 +209,22 @@ public class User_DocenteSQL extends Conexion {
         }
 
         return string;
-    }   
-    
+    }
+
+    public void Enlazar(Boolean pass,String a, String b) {
+        if (pass) {      
+            User_DocenteSQL test=new User_DocenteSQL();
+            
+            User_Docente test2 =new User_Docente();
+            
+            
+            test2.setDocente_carnet(a);
+            test2.setUsuario_codUsuario(b);
+            
+            
+            test.agregar(true,test2);   
+        }
+
+    }
+
 }//Cierre

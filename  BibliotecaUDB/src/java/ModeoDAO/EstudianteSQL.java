@@ -95,13 +95,13 @@ public class EstudianteSQL extends Conexion {
         if (pass) {
             PreparedStatement ps = null;
             Connection con = getConexion();
-            String sql = "INSERT INTO estudiante (carnet, nombre, apellido, sexo, carrera) VALUES(?,?,?,?,?)";
+            String sql = "INSERT INTO estudiante (Carnet, Nombre, Apellido, Sexo, Carrera) VALUES(?,?,?,?,?)";
 
             try {
                 int z = 1;
                 ps = con.prepareStatement(sql);
                 //a cada objeto de tipo Estudiante en el cod se debe de asignar "EST" como valor, el metodo generarCod le proporciona el correlativo
-                ps.setString(z++, est.getCarnet() + generarCod());
+                ps.setString(z++, generarCod());
                 ps.setString(z++, est.getNombre());
                 ps.setString(z++, est.getApellido());
                 ps.setString(z++, est.getSexo());
@@ -214,7 +214,7 @@ public class EstudianteSQL extends Conexion {
             }
         }
         String string = a;
-        string = string.substring(string.length() - 3);
+        string = string.substring(string.length() - 2);
 
         int i = 0;
         i = Integer.parseInt(string) + 1;

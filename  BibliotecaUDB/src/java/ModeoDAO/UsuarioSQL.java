@@ -250,5 +250,33 @@ public class UsuarioSQL extends Conexion {
         }
         return objeto;
     }
+    
+    
+    
+        public int ObtenerCod() {
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        Connection con = getConexion();
+
+        String sql = "SELECT MAX(codUsuario) as cantidad FROM usuario";
+        try {
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+
+            if (rs.next()) {
+                return Integer.parseInt(rs.getString("cantidad")) + 1;
+            }
+            return 0;
+        } catch (SQLException e) {
+            System.err.println(e);
+            return 0;
+        } finally {
+            try {
+                con.close();
+            } catch (SQLException e) {
+                System.err.println(e);
+            }
+        }
+    }
 
 }//cierre
