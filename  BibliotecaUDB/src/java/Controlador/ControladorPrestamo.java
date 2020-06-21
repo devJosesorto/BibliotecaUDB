@@ -78,6 +78,10 @@ public class ControladorPrestamo extends HttpServlet {
             
          acesso = "vistas/Usuarios/NoEjemplares.jsp";
         
+        }else  if (action.equalsIgnoreCase("pendientes")) {
+            
+         acesso = "vistas/Usuarios/PrestamosPendientes.jsp";
+        
         }
         
         

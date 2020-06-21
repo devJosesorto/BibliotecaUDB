@@ -1,22 +1,15 @@
 <%-- 
-    Document   : RealizarPrestamo
-    Created on : 06-20-2020, 04:14:18 PM
+    Document   : PrestamosPendientes
+    Created on : 06-21-2020, 11:39:57 AM
     Author     : José Sorto
 --%>
-
-<%@page import="ModeoDAO.UsuarioSQL"%>
-<%@page import="java.util.List"%>
-<%@page import="java.util.ArrayList"%>
-<%@page import="ModeoDAO.PrestamoSQL"%>
-
-<%@ page import="java.util.*" %>
-<%@ page import="java.text.SimpleDateFormat"%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page session="true"  %>
 
 <%
     HttpSession sesion = request.getSession();
+    String user = "";
 
     if (sesion.getAttribute("nivel") == null) {
         response.sendRedirect("index.jsp");
@@ -28,6 +21,14 @@
 
             response.sendRedirect("../index.jsp");
 
+        } else {
+
+            if (nivel.equals("1")) {
+                user = "ESTUDIANTE";
+            } else {
+                user = "DOCENTE";
+            }
+
         }
     }
 %>
@@ -37,7 +38,7 @@
 <html lang="es">
     <head>
         <!CAMBIAR TITULO DE LA PAGINA ##########################################################>
-    <title>Prestar libro</title>
+    <title>Prestamos Pendientes</title>
 
 
     <meta charset="UTF-8">
@@ -82,7 +83,7 @@
                         <div class="dropdown-menu-button"><i class="zmdi zmdi-assignment-o zmdi-hc-fw"></i>&nbsp;&nbsp; Libros y catálogo <i class="zmdi zmdi-chevron-down pull-right zmdi-hc-fw icon-sub-menu"></i></div>
                         <ul class="list-unstyled">
 
-                            <li><a href="catalog.html"><i class="zmdi zmdi-bookmark-outline zmdi-hc-fw"></i>&nbsp;&nbsp; Catálogo</a></li>
+                            <li><a href="ControladorPrestamo?accion=listar"><i class="zmdi zmdi-bookmark-outline zmdi-hc-fw"></i>&nbsp;&nbsp; Catálogo</a></li>
                         </ul>
                     </li>
                     <li>
@@ -91,7 +92,7 @@
                             <li><a href="ControladorPrestamo?accion=prestamo"><i class="zmdi zmdi-calendar zmdi-hc-fw"></i>&nbsp;&nbsp; Realizar Prestamo</a></li>
                             <li><a href="loan.html"><i class="zmdi zmdi-calendar zmdi-hc-fw"></i>&nbsp;&nbsp; Todos los préstamos</a></li>
                             <li>
-                                <a href="ControladorPrestamo?accion=pendiente"><i class="zmdi zmdi-time-restore zmdi-hc-fw"></i>&nbsp;&nbsp; Devoluciones pendientes <span class="label label-danger pull-right label-mhover">7</span></a>
+                                <a href="loanpending.html"><i class="zmdi zmdi-time-restore zmdi-hc-fw"></i>&nbsp;&nbsp; Devoluciones pendientes <span class="label label-danger pull-right label-mhover">7</span></a>
                             </li>
                             <li>
 
@@ -115,7 +116,7 @@
                 <li  class="tooltips-general exit-system-button" data-href="index.jsp?cerrar=true" data-placement="bottom" title="Salir del sistema">
                     <i class="zmdi zmdi-power"></i>
                 </li>
-                <li  class="tooltips-general search-book-button" data-href="searchbook.html" data-placement="bottom" title="Buscar libro">
+                <li  class="tooltips-general search-book-button" data-href="searchbook.jsp" data-placement="bottom" title="Buscar libro">
                     <i class="zmdi zmdi-search"></i>
                 </li>
                 <li  class="tooltips-general btn-help" data-placement="bottom" title="Ayuda">
@@ -133,7 +134,7 @@
             <div class="page-header">
 
                 <!CAMBIAR NOMBRE #######################################################################################>
-                <h1 class="all-tittles">Sistema bibliotecario |<small>Bienvenido</small></h1>
+                <h1 class="all-tittles">Sistema bibliotecario |<small>Bienvenido <%=user%></small></h1>
             </div>
         </div>
 
@@ -149,56 +150,53 @@
 
 
                     <!Botones y cuadros de texto AQUI ##########################################################>
-                    <div class="title-flat-form title-flat-blue">Realizar Prestamo</div>
-                    <legend><i class="zmdi zmdi-account-box"></i> &nbsp; Ejemplar a prestar</legend><br>
-                    <%
-                        Date dNow = new Date();
-                        SimpleDateFormat ft = new SimpleDateFormat("yyyy-MM-dd");
-                        String currentDate = ft.format(dNow);
-                    %>
-                    <%
-                        PrestamoSQL sql = new PrestamoSQL();
-                        UsuarioSQL sql2 = new UsuarioSQL();
-                        List<String> obj = new ArrayList<String>();
-                        List<String> pers = new ArrayList<String>();
+                    <div class="title-flat-form title-flat-blue">Listado de autores</div>
 
-                        int nivel = (Integer) sesion.getAttribute("nivel");
-                        String user = (String) sesion.getAttribute("Nombre");
 
-                        obj = sql.seleccionarEjemplar("LIB003");
-                        if (obj.size()>1) {
 
-                            response.sendRedirect("ControladorPrestamo?accion=noejemplares");
-                        }
+                    <div class="table-responsive">
+                        <div class="div-table" style="margin:0 !important;">
+                            <div class="div-table-row div-table-row-list" style="background-color:#DFF0D8; font-weight:bold;">
+                                <div class="div-table-cell" style="width: 6%;">Codigo</div>
+                                <div class="div-table-cell" style="width: 22%;">Nombre del autor</div>
+                                <div class="div-table-cell" style="width: 22%;">Pais Origen</div>
+                                <div class="div-table-cell" style="width: 8%;">Eliminar</div>
+                                <div class="div-table-cell" style="width: 8%;">Editar</div>
 
-                        pers = sql2.BuscarporCorreo(user, nivel);
-
-                        obj.add(currentDate);
-
-                    %>
-
-                    <div class="col-xs-12 col-sm-8 col-md-8 text-justify lead">
-
-                        Hola has escogido el libro con el nombre de: <%=obj.get(2)%> <br><br>
-                        Numero de ejemplar: <%=obj.get(0)%> <br><br>
-                        Fecha del prestamo: <%=currentDate%> <br><br>
-                        Prestamo a nombre de: <%=pers.get(3)%> <%=pers.get(4)%><br><br><br><br>
-
+                            </div>
+                        </div>
                     </div>
 
+                    <% /* AutorSQL autorsql = new AutorSQL();
+                        List<Autor> list = autorsql.Mostrar();
+                        Iterator<Autor> iter = list.iterator();
+                        Autor autor = null;
+                        while (iter.hasNext()) {
+                            autor = iter.next();%>
 
+                    <div class="table-responsive">
+                        <div class="div-table" style="margin:0 !important;">
+                            <div class="div-table-row div-table-row-list">
+                                <div class="div-table-cell" style="width: 6%;"><%=autor.getCodAutor()%></div>
+                                <div class="div-table-cell" style="width: 22%;"><%=autor.getNombre()%></div>
+                                <div class="div-table-cell" style="width: 22%;"><%=autor.getPais()%></div>
 
-                    <input type="hidden" name="txtFecha" value="<%=currentDate%>" >
-                    <input type="hidden" name="txtEjemplar" value="<%=obj.get(0)%>" >
-                    <input type="hidden" name="txtID" value="<%=pers.get(0)%>" >
+                                <div class="div-table-cell" style="width: 8%;">
+                                    <a href="ControladorAutor?accion=eliminar&id=<%=autor.getCodAutor()%>" class="btn btn-danger"><i class="zmdi zmdi-delete"></i></a>
+                                </div>
+                                <div class="div-table-cell" style="width: 8%;">
+                                    <a href="ControladorAutor?accion=editar&id=<%=autor.getCodAutor()%>" class="btn btn-info"><i class="zmdi zmdi-file-text"></i></a>
+                                </div>
 
-
-
-                    <div class="col-xs-12">
-                        <p class="text-center">
-                            <button type="submit" name="accion" value="realizarprestamo" class="btn btn-primary"><i class="zmdi zmdi-floppy"></i> &nbsp;&nbsp; Guardar</button>
-                        </p> 
+                            </div>
+                        </div>
                     </div>
+                    <%} */ %>
+                    <div class="title-flat-form title-flat-blue"></div>
+
+
+
+
                     <!Botones y cuadros de texto AQUI ##########################################################>
 
 
@@ -254,3 +252,5 @@
 </div>
 </body>
 </html>
+
+

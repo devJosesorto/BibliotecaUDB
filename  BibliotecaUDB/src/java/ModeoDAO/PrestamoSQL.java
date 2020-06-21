@@ -13,7 +13,7 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
-import java.util.Date;  
+import java.util.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -101,23 +101,23 @@ public class PrestamoSQL extends Conexion {
         if (pass) {
             PreparedStatement ps = null;
             Connection con = getConexion();
-            
-            ConvertirFecha convert =new ConvertirFecha();
-            
+
+            ConvertirFecha convert = new ConvertirFecha();
+
             String sql = "INSERT INTO prestamo (codPrestamo, fecha_entrega, fecha_devolucion, ejemplar_codEjemplar, usuario, mora ) VALUES(?,?,?,?,?,?)";
-            
-            String sDate1=prest.getFecha_entrega();
-            String sDate2=prest.getFecha_devolucion();
-            
-            Date date1=new SimpleDateFormat("yyyy-MM-dd").parse(sDate1);  
-            Date date2=new SimpleDateFormat("yyyy-MM-dd").parse(sDate2);  
-            
+
+            String sDate1 = prest.getFecha_entrega();
+            String sDate2 = prest.getFecha_devolucion();
+
+            Date date1 = new SimpleDateFormat("yyyy-MM-dd").parse(sDate1);
+            Date date2 = new SimpleDateFormat("yyyy-MM-dd").parse(sDate2);
+
             try {
                 int z = 1;
                 ps = con.prepareStatement(sql);
                 ps.setInt(z++, generarCod());
-                ps.setDate(z++,convert.convertUtilToSql(date1) );
-                ps.setDate(z++,null );
+                ps.setDate(z++, convert.convertUtilToSql(date1));
+                ps.setDate(z++, null);
                 ps.setString(z++, prest.getEjemplar_codEjemplar());
                 ps.setInt(z++, prest.getUsuario());
                 ps.setInt(z++, Integer.parseInt(prest.getMora()));
@@ -137,10 +137,10 @@ public class PrestamoSQL extends Conexion {
                 }
             }
         }
-        EjemplarSQL ejemsql =new EjemplarSQL();
-        
+        EjemplarSQL ejemsql = new EjemplarSQL();
+
         ejemsql.ActualizarEstado(false, prest.getEjemplar_codEjemplar());
-        
+
         return true;
     }
 
@@ -232,9 +232,8 @@ public class PrestamoSQL extends Conexion {
         PreparedStatement ps = null;
         ResultSet rs = null;
         Connection con = getConexion();
-   
+
         List<String> objeto = new ArrayList<String>();
-        
 
         String sql = "SELECT max(codEjemplar),cod_Libro,Titulo,Ubicacion "
                 + "FROM ejemplar "
@@ -242,13 +241,57 @@ public class PrestamoSQL extends Conexion {
                 + "where Estado='DISPONIBLE' AND cod_Libro=?";
         try {
             ps = con.prepareStatement(sql);
-             ps.setString(1, ID);
-            
+            ps.setString(1, ID);
+
             rs = ps.executeQuery();
 
             while (rs.next()) {
-                int z=1;
-                objeto.add(rs.getString(z++)+"");
+                int z = 1;
+                objeto.add(rs.getString(z++) + "");
+                objeto.add(rs.getString(z++));
+                objeto.add(rs.getString(z++));
+                objeto.add(rs.getString(z++));
+            }
+
+        } catch (SQLException e) {
+            System.err.println(e);
+
+        } finally {
+            try {
+                con.close();
+            } catch (SQLException e) {
+                System.err.println(e);
+            }
+        }
+        return objeto;
+    }
+
+    public List InfoPrestamosUsuario(String user, boolean nivel) {
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        Connection con = getConexion();
+
+        List<String> objeto = new ArrayList<String>();
+        String sql = "";
+
+        if (nivel) {
+            //estudiante
+            sql = "SELECT codPrestamo,Fecha_entrega,ejemplar_codEjemplar,Titulo,Usuario \n"
+                    + "FROM biblioteca.prestamo\n"
+                    + "inner join ejemplar as e on e.codEjemplar=ejemplar_codEjemplar\n"
+                    + "inner join libro as l on e.cod_Libro=l.codLibro\n"
+                    + "inner join usuario as u on u.codUsuario=Usuario\n"
+                    + "where Fecha_devolucion is null and correo='"+user+"'";
+        } 
+        try {
+            ps = con.prepareStatement(sql);
+
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                int z = 1;
+                objeto.add(rs.getString(z++));
+                objeto.add(rs.getString(z++));
                 objeto.add(rs.getString(z++));
                 objeto.add(rs.getString(z++));
                 objeto.add(rs.getString(z++));
