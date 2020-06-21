@@ -1,8 +1,19 @@
+<%-- 
+    Document   : searchbook
+    Created on : 06-20-2020, 10:46:22 PM
+    Author     : Bolaines
+--%>
+
+
+<%@page import="java.sql.ResultSet"%>
+<%@page import="java.sql.Statement"%>
+<%@page import="Conexion.Conexion"%>
 <%@page import="Modelo.Libro"%>
 <%@page import="ModeoDAO.LibroSQL"%>
 <%@page import="java.util.Iterator"%>
 <%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html lang="es">
     <head>
@@ -17,6 +28,7 @@
         <link rel="stylesheet" href="Bootstrap/css/bootstrap.min.css">
         <link rel="stylesheet" href="Bootstrap/css/jquery.mCustomScrollbar.css">
         <link rel="stylesheet" href="Bootstrap/css/style.css">
+        <link href="../../Bootstrap/css/test.css" rel="stylesheet" type="text/css"/>
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
         <script>window.jQuery || document.write('<script src="Bootstrap/js/jquery-1.11.2.min.js"><\/script>')</script>
         <script src="Bootstrap/js/modernizr.js"></script>
@@ -43,31 +55,17 @@
                 <div class="full-reset nav-lateral-list-menu">
                     <ul class="list-unstyled">
                         <li><a href="index.jsp"><i class="zmdi zmdi-home zmdi-hc-fw"></i>&nbsp;&nbsp; Inicio</a></li>
+                       
+                        
                         <li>
-                            <div class="dropdown-menu-button"><i class="zmdi zmdi-case zmdi-hc-fw"></i>&nbsp;&nbsp; Administración <i class="zmdi zmdi-chevron-down pull-right zmdi-hc-fw icon-sub-menu"></i></div>
-                            <ul class="list-unstyled">
-                                <li><a href="institution.html"><i class="zmdi zmdi-balance zmdi-hc-fw"></i>&nbsp;&nbsp; Datos institución</a></li>
-                                <li><a href="provider.html"><i class="zmdi zmdi-truck zmdi-hc-fw"></i>&nbsp;&nbsp; Nuevo proveedor</a></li>
-                                <li><a href="category.html"><i class="zmdi zmdi-bookmark-outline zmdi-hc-fw"></i>&nbsp;&nbsp; Nueva categoría</a></li>
-                                <li><a href="section.html"><i class="zmdi zmdi-assignment-account zmdi-hc-fw"></i>&nbsp;&nbsp; Nueva sección</a></li>
-                            </ul>
-                        </li>
-                        <li>
-                            <div class="dropdown-menu-button"><i class="zmdi zmdi-account-add zmdi-hc-fw"></i>&nbsp;&nbsp; Registro de usuarios <i class="zmdi zmdi-chevron-down pull-right zmdi-hc-fw icon-sub-menu"></i></div>
-                            <ul class="list-unstyled">
-                                <li><a href="admin.html"><i class="zmdi zmdi-face zmdi-hc-fw"></i>&nbsp;&nbsp; Nuevo administrador</a></li>
-                                <li><a href="teacher.html"><i class="zmdi zmdi-male-alt zmdi-hc-fw"></i>&nbsp;&nbsp; Nuevo docente</a></li>
-                                <li><a href="student.html"><i class="zmdi zmdi-accounts zmdi-hc-fw"></i>&nbsp;&nbsp; Nuevo estudiante</a></li>
-                                <li><a href="personal.html"><i class="zmdi zmdi-male-female zmdi-hc-fw"></i>&nbsp;&nbsp; Nuevo personal administrativo</a></li>
-                            </ul>
-                        </li>
-                        <li>
-                            <div class="dropdown-menu-button"><i class="zmdi zmdi-assignment-o zmdi-hc-fw"></i>&nbsp;&nbsp; Libros y catálogo <i class="zmdi zmdi-chevron-down pull-right zmdi-hc-fw icon-sub-menu"></i></div>
-                            <ul class="list-unstyled">
-                                <li><a href="book.html"><i class="zmdi zmdi-book zmdi-hc-fw"></i>&nbsp;&nbsp; Nuevo libro</a></li>
-                                <li><a href="catalog.html"><i class="zmdi zmdi-bookmark-outline zmdi-hc-fw"></i>&nbsp;&nbsp; Catálogo</a></li>
-                            </ul>
-                        </li>
+                        <div class="dropdown-menu-button"><i class="zmdi zmdi-assignment-o zmdi-hc-fw"></i>&nbsp;&nbsp; Libros y catálogo <i class="zmdi zmdi-chevron-down pull-right zmdi-hc-fw icon-sub-menu"></i></div>
+                          
+                        <ul class="list-unstyled">
+
+                            <li><a href="ControladorPrestamo?accion=listar" ><i class="zmdi zmdi-bookmark-outline zmdi-hc-fw"></i>&nbsp;&nbsp; Catálogo</a></li>
+                        </ul>
+                       </li>
+                        
                         <li>
                             <div class="dropdown-menu-button"><i class="zmdi zmdi-alarm zmdi-hc-fw"></i>&nbsp;&nbsp; Préstamos y reservaciones <i class="zmdi zmdi-chevron-down pull-right zmdi-hc-fw icon-sub-menu"></i></div>
                             <ul class="list-unstyled">
@@ -80,8 +78,7 @@
                                 </li>
                             </ul>
                         </li>
-                        <li><a href="report.html"><i class="zmdi zmdi-trending-up zmdi-hc-fw"></i>&nbsp;&nbsp; Reportes y estadísticas</a></li>
-                        <li><a href="advancesettings.html"><i class="zmdi zmdi-wrench zmdi-hc-fw"></i>&nbsp;&nbsp; Configuraciones avanzadas</a></li>
+                       
                     </ul>
                 </div>
             </div>
@@ -117,17 +114,39 @@
                     <h1 class="all-tittles">Sistema bibliotecario <small>Listado de Libros</small></h1>
                 </div>
             </div>
+            
+            
+            
 
             <!CUERPO DEL DOCUMENTO #######################################################################################>
-            <form class="form-padding">
-                <div class="row">
-
-                    <div class="col-xs-12">
+            
+                        
+                        
                         <div class="title-flat-form title-flat-blue">Listado de Libros</div>
+ 
+                        
+                        
+                                <!Metodo de busqueda>
+                                
+                   <div class="col-xs-12 col-sm-6">
+                        <div class="group-material">
+                            <input type="text" name="txtBuscar" class="material-control tooltips-general" placeholder="Escribe el titulo a buscar" >
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label>Escribe el titulo a buscar</label>
+                        </div>
+                    </div> 
+            
+                   <div class="col-xs-12">
+                        <p class="text-left">
+                         <button type="submit" name="accion" value="agregarlibro" class="btn btn-primary"><i class="zmdi zmdi-floppy"></i> &nbsp;&nbsp; Buscar</button>
+                        </p> 
+                    </div> 
+                        
+                              
+                               
 
-
-
-                        <div class="table-responsive">
+                        <div class="table-responsive">                             
                             <div class="div-table" style="margin:0 !important;">
                                 <div class="div-table-row div-table-row-list" style="background-color:#DFF0D8; font-weight:bold;">
                                     <div class="div-table-cell" style="width: 6%;">Codigo</div>
@@ -137,20 +156,26 @@
                                     <div class="div-table-cell" style="width: 22%;">Categoria</div>
                                     <div class="div-table-cell" style="width: 22%;">Editorial</div>
 
-                                    <div class="div-table-cell" style="width: 8%;">Eliminar</div>
-                                    <div class="div-table-cell" style="width: 8%;">Editar</div>
-
+                                    <div class="div-table-cell" style="width: 8%;">Solicitar</div>
+                                   
+                                    
+                                    
                                 </div>
                             </div>
                         </div>
+                      
+                      
+                        
 
-                        <%LibroSQL sql = new LibroSQL();
-                            List<Libro> list = sql.Mostrar();
-                            Iterator<Libro> iter = list.iterator();
-                            Libro obj = null;
-                            while (iter.hasNext()) {
-                                obj = iter.next();%>
+                      <%                        
+                            Libro obj = new Libro();
+                            LibroSQL librosql = new LibroSQL();
+                            String titulo =(String)request.getAttribute("titulo_");
+                            obj = librosql.buscar2(titulo);
+                        %>
 
+                        <input type="hidden" name="titulo" value="<%=obj.getTitulo()%>" >
+                                               
                         <div class="table-responsive">
                             <div class="div-table" style="margin:0 !important;">
                                 <div class="div-table-row div-table-row-list">
@@ -160,14 +185,13 @@
                                     <div class="div-table-cell" style="width: 22%;"><%=obj.getCodCategoria()%></div>
                                     <div class="div-table-cell" style="width: 22%;"><%=obj.getCodEditorial()%></div>
 
-
+            
+                                    
                                     <div class="div-table-cell" style="width: 8%;">
-                                        <a href="ControladorEditorial?accion=eliminar&id=<%=obj.getCodLibro()%>" class="btn btn-danger"><i class="zmdi zmdi-delete"></i></a>
+                                        <a href="ControladorPrestamo?accion=listar<%=obj.getTitulo()%>" class="btn btn-info"><i class="zmdi zmdi-file-text"></i></a>
+                                        
                                     </div>
-                                    <div class="div-table-cell" style="width: 8%;">
-                                        <a href="ControladorEditorial?accion=editar&id=<%=obj.getCodLibro()%>" class="btn btn-info"><i class="zmdi zmdi-file-text"></i></a>
-                                    </div>
-
+                                                                        
                                 </div>
                             </div>
                         </div>
@@ -198,6 +222,10 @@
             </div>
         </div>
     </div>
+        
+        
+        
+        
     <footer class="footer full-reset">
         <div class="container-fluid">
             <div class="row">
@@ -217,7 +245,12 @@
             </div>
         </div>
         <div class="footer-copyright full-reset all-tittles">© 2020 Poo UDB Virtual</div>
-    </footer>
+        
+        </footer>
+        
+ 
 </div>
-</body>
+                  
+
+ </body>
 </html>

@@ -57,6 +57,44 @@ public class LibroSQL extends Conexion {
     }
     
     
+    public void buscar2(boolean pass, String titulo) {
+        if (pass) {           
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        Connection con = getConexion();
+        Libro libro = new Libro();
+        
+        String sql = "SELECT * FROM libro WHERE titulo='"+titulo+"'";
+        
+        try {
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                
+                libro.setCodLibro(rs.getString(1));
+                libro.setTitulo(rs.getString(2));
+                libro.setCodCategoria(rs.getString(3));
+                libro.setCodAutor(rs.getString(4));
+                libro.setCodEditorial(rs.getString(5));
+                libro.setCodISBN(rs.getString(6));
+                libro.setDescripcion(rs.getString(7));
+            }
+
+        } catch (SQLException e) {
+            System.err.println(e);
+
+        } finally {
+            try {
+                con.close();
+            } catch (SQLException e) {
+                System.err.println(e);
+            }
+        }
+       
+        }
+        
+        }
+    
     public Libro buscar(String ID) {
         PreparedStatement ps = null;
         ResultSet rs = null;

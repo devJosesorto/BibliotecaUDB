@@ -5,6 +5,7 @@
  */
 package Controlador;
 
+import ModeoDAO.LibroSQL;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
@@ -13,15 +14,16 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import ModeoDAO.PrestamoSQL;
-import Modelo.Prestamo;
-
 /**
  *
  * @author José Sorto
  */
 public class ControladorPrestamo extends HttpServlet {
 
+    String listar = "vistas/Usuarios/ListarLibrosPrestamo.jsp";
+    String listar2 = "searchbook.jsp";
+    
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -46,26 +48,18 @@ public class ControladorPrestamo extends HttpServlet {
         String acesso = "";
         String action = request.getParameter("accion");
 
-        if (action.equalsIgnoreCase("prestamo")) {
-            acesso = "vistas/Usuarios/RealizarPrestamo.jsp";
+        if (action.equalsIgnoreCase("listar")) {
+            acesso = listar;
 
-        } else if (action.equalsIgnoreCase("realizarprestamo")) {
+        } else if (action.equalsIgnoreCase("nuevoprestamo")) {
+            acesso = "index.jsp";
 
-            PrestamoSQL sql = new PrestamoSQL();
-            Prestamo prest = new Prestamo();
-
-            prest.setFecha_entrega(request.getParameter("txtFecha"));
-            prest.setFecha_devolucion("");
-            prest.setEjemplar_codEjemplar(request.getParameter("txtEjemplar"));
-            prest.setUsuario(Integer.parseInt(request.getParameter("txtID")));
-            prest.setMora("0");
+        } else if (action.equalsIgnoreCase("buscar")) {
+             LibroSQL librosql = new LibroSQL();         
             
-            sql.agregar(true, prest);
-            
-             acesso = "vistas/Usuarios/RealizarPrestamo.jsp";
-
+            librosql.buscar2(true, request.getParameter("titulo"));
+            acesso = listar2;
         }
-
         RequestDispatcher vista = request.getRequestDispatcher(acesso);
         vista.forward(request, response);
 
@@ -82,4 +76,8 @@ public class ControladorPrestamo extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
+    
+    
+    
+    
 }

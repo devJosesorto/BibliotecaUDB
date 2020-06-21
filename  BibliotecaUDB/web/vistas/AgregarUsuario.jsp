@@ -103,7 +103,7 @@
                     <li  class="tooltips-general exit-system-button" data-href="index.jsp" data-placement="bottom" title="Salir del sistema">
                         <i class="zmdi zmdi-power"></i>
                     </li>
-                    <li  class="tooltips-general search-book-button" data-href="searchbook.html" data-placement="bottom" title="Buscar libro">
+                    <li  class="tooltips-general search-book-button" data-href="searchbook.jsp" data-placement="bottom" title="Buscar libro">
                         <i class="zmdi zmdi-search"></i>
                     </li>
                     <li  class="tooltips-general btn-help" data-placement="bottom" title="Ayuda">
