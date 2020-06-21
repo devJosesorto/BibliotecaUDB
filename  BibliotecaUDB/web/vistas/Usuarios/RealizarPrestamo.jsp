@@ -166,14 +166,15 @@
                         String user = (String) sesion.getAttribute("Nombre");
 
                         obj = sql.seleccionarEjemplar("LIB003");
-                        if (obj.size()>1) {
-
-                            response.sendRedirect("ControladorPrestamo?accion=noejemplares");
-                        }
-
                         pers = sql2.BuscarporCorreo(user, nivel);
 
-                        obj.add(currentDate);
+                        if (obj.get(2) == null || obj.size() == 0) {
+
+                            response.sendRedirect("ControladorPrestamo?accion=noejemplares");
+                        } else {
+                            obj.add(currentDate);
+                        }
+
 
                     %>
 

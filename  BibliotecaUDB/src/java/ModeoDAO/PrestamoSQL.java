@@ -228,11 +228,11 @@ public class PrestamoSQL extends Conexion {
         }
     }
 
-    public List seleccionarEjemplar(String ID) {
+   public List seleccionarEjemplar(String ID) {
         PreparedStatement ps = null;
         ResultSet rs = null;
         Connection con = getConexion();
-
+   
         List<String> objeto = new ArrayList<String>();
 
         String sql = "SELECT max(codEjemplar),cod_Libro,Titulo,Ubicacion "
@@ -241,13 +241,13 @@ public class PrestamoSQL extends Conexion {
                 + "where Estado='DISPONIBLE' AND cod_Libro=?";
         try {
             ps = con.prepareStatement(sql);
-            ps.setString(1, ID);
-
+             ps.setString(1, ID);
+            
             rs = ps.executeQuery();
 
             while (rs.next()) {
-                int z = 1;
-                objeto.add(rs.getString(z++) + "");
+                int z=1;
+                objeto.add(rs.getString(z++)+"");
                 objeto.add(rs.getString(z++));
                 objeto.add(rs.getString(z++));
                 objeto.add(rs.getString(z++));
