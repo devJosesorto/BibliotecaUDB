@@ -146,7 +146,8 @@
                             </div>
                         </div>
 
-                        <%AutorSQL autorsql = new AutorSQL();
+                        <%
+                            AutorSQL autorsql = new AutorSQL();
                             List<Autor> list = autorsql.Mostrar();
                             Iterator<Autor> iter = list.iterator();
                             Autor autor = null;

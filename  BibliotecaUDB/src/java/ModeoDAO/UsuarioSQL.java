@@ -204,7 +204,7 @@ public class UsuarioSQL extends Conexion {
         PreparedStatement ps = null;
         ResultSet rs = null;
         Connection con = getConexion();
-
+        
         List<String> objeto = new ArrayList<String>();
         String sql = "";
 

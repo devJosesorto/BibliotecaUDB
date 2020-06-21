@@ -4,6 +4,10 @@
     Author     : José Sorto
 --%>
 
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.util.Iterator"%>
+<%@page import="java.util.List"%>
+<%@page import="ModeoDAO.PrestamoSQL"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page session="true"  %>
 
@@ -150,48 +154,54 @@
 
 
                     <!Botones y cuadros de texto AQUI ##########################################################>
-                    <div class="title-flat-form title-flat-blue">Listado de autores</div>
+                    <div class="title-flat-form title-flat-blue">Pendientes de devolucion</div>
 
+                    <div class="div-table-cell" style="width: 6%;">CodPrestamo</div>
+                    <div class="div-table-cell" style="width: 22%;">Fecha Entrega</div>
+                    <div class="div-table-cell" style="width: 22%;">Ejemplar</div>
+                    <div class="div-table-cell" style="width: 22%;">Titulo</div>
+                    <div class="div-table-cell" style="width: 22%;">Entregar</div>
+                   
 
+                    <%  PrestamoSQL autorsql = new PrestamoSQL();
 
-                    <div class="table-responsive">
-                        <div class="div-table" style="margin:0 !important;">
-                            <div class="div-table-row div-table-row-list" style="background-color:#DFF0D8; font-weight:bold;">
-                                <div class="div-table-cell" style="width: 6%;">Codigo</div>
-                                <div class="div-table-cell" style="width: 22%;">Nombre del autor</div>
-                                <div class="div-table-cell" style="width: 22%;">Pais Origen</div>
-                                <div class="div-table-cell" style="width: 8%;">Eliminar</div>
-                                <div class="div-table-cell" style="width: 8%;">Editar</div>
+                        int nivel = (Integer) sesion.getAttribute("nivel");
+                        String email = (String) sesion.getAttribute("Nombre");
 
-                            </div>
-                        </div>
-                    </div>
+                        List<List> objeto = autorsql.InfoPrestamosUsuario(email, true);
+                        Iterator<List> iter = objeto.iterator();
 
-                    <% /* AutorSQL autorsql = new AutorSQL();
-                        List<Autor> list = autorsql.Mostrar();
-                        Iterator<Autor> iter = list.iterator();
-                        Autor autor = null;
+                        List lis = new ArrayList();
+                        lis = null;
+
                         while (iter.hasNext()) {
-                            autor = iter.next();%>
+
+                            lis = iter.next();
+
+                            int z = 0;
+
+                    %>
 
                     <div class="table-responsive">
                         <div class="div-table" style="margin:0 !important;">
                             <div class="div-table-row div-table-row-list">
-                                <div class="div-table-cell" style="width: 6%;"><%=autor.getCodAutor()%></div>
-                                <div class="div-table-cell" style="width: 22%;"><%=autor.getNombre()%></div>
-                                <div class="div-table-cell" style="width: 22%;"><%=autor.getPais()%></div>
+                                <div class="div-table-cell" style="width: 6%;"><%=lis.get(z++)%></div>
+                                <div class="div-table-cell" style="width: 22%;"><%=lis.get(z++)%></div>
+                                <div class="div-table-cell" style="width: 22%;"><%=lis.get(z++)%></div>
+                                <div class="div-table-cell" style="width: 22%;"><%=lis.get(z++)%></div>
+                               
 
-                                <div class="div-table-cell" style="width: 8%;">
-                                    <a href="ControladorAutor?accion=eliminar&id=<%=autor.getCodAutor()%>" class="btn btn-danger"><i class="zmdi zmdi-delete"></i></a>
+
+
+                                <div class="div-table-cell" style="width: 22%;">
+                                    <a href="ControladorPrestamo?accion=presentar&id=<%=lis.get(0)%>" class="btn btn-danger"><i class="zmdi zmdi-delete"></i></a>
                                 </div>
-                                <div class="div-table-cell" style="width: 8%;">
-                                    <a href="ControladorAutor?accion=editar&id=<%=autor.getCodAutor()%>" class="btn btn-info"><i class="zmdi zmdi-file-text"></i></a>
-                                </div>
+                                
 
                             </div>
                         </div>
                     </div>
-                    <%} */ %>
+                    <%}%>
                     <div class="title-flat-form title-flat-blue"></div>
 
 

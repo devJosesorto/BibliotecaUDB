@@ -271,7 +271,8 @@ public class PrestamoSQL extends Conexion {
         ResultSet rs = null;
         Connection con = getConexion();
 
-        List<String> objeto = new ArrayList<String>();
+        List<List> list = new ArrayList<List>();
+
         String sql = "";
 
         if (nivel) {
@@ -281,8 +282,15 @@ public class PrestamoSQL extends Conexion {
                     + "inner join ejemplar as e on e.codEjemplar=ejemplar_codEjemplar\n"
                     + "inner join libro as l on e.cod_Libro=l.codLibro\n"
                     + "inner join usuario as u on u.codUsuario=Usuario\n"
-                    + "where Fecha_devolucion is null and correo='"+user+"'";
-        } 
+                    + "where Fecha_devolucion is null and correo='" + user + "'";
+        } else {
+            sql = "SELECT codPrestamo,Fecha_entrega,ejemplar_codEjemplar,Titulo,Estado \n"
+                    + "FROM biblioteca.prestamo\n"
+                    + "inner join ejemplar as e on e.codEjemplar=ejemplar_codEjemplar\n"
+                    + "inner join libro as l on e.cod_Libro=l.codLibro\n"
+                    + "inner join usuario as u on u.codUsuario=Usuario\n"
+                    + "where correo='" + user + "'";
+        }
         try {
             ps = con.prepareStatement(sql);
 
@@ -290,11 +298,13 @@ public class PrestamoSQL extends Conexion {
 
             while (rs.next()) {
                 int z = 1;
+                List<String> objeto = new ArrayList<String>();
                 objeto.add(rs.getString(z++));
                 objeto.add(rs.getString(z++));
                 objeto.add(rs.getString(z++));
                 objeto.add(rs.getString(z++));
                 objeto.add(rs.getString(z++));
+                list.add(objeto);
             }
 
         } catch (SQLException e) {
@@ -307,7 +317,7 @@ public class PrestamoSQL extends Conexion {
                 System.err.println(e);
             }
         }
-        return objeto;
+        return list;
     }
 
 }// cierre

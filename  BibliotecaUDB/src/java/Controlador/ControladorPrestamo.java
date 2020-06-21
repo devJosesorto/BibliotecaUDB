@@ -82,6 +82,10 @@ public class ControladorPrestamo extends HttpServlet {
             
          acesso = "vistas/Usuarios/PrestamosPendientes.jsp";
         
+        }else  if (action.equalsIgnoreCase("historial")) {
+            
+         acesso = "vistas/Usuarios/HistorialPrestamos.jsp";
+        
         }
         
         

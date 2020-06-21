@@ -1,15 +1,19 @@
 <%-- 
-    Document   : home
-    Created on : 06-20-2020, 02:56:19 PM
+    Document   : HistorialPrestamos
+    Created on : 06-21-2020, 01:37:00 PM
     Author     : José Sorto
 --%>
 
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.util.Iterator"%>
+<%@page import="java.util.List"%>
+<%@page import="ModeoDAO.PrestamoSQL"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page session="true"  %>
 
 <%
     HttpSession sesion = request.getSession();
-     String user="";
+    String user = "";
 
     if (sesion.getAttribute("nivel") == null) {
         response.sendRedirect("index.jsp");
@@ -21,14 +25,14 @@
 
             response.sendRedirect("../index.jsp");
 
-        }else{
-       
-        if(nivel.equals("1")){
-        user="ESTUDIANTE";
-        }else{
-        user="DOCENTE";
-        }
-        
+        } else {
+
+            if (nivel.equals("1")) {
+                user = "ESTUDIANTE";
+            } else {
+                user = "DOCENTE";
+            }
+
         }
     }
 %>
@@ -38,7 +42,7 @@
 <html lang="es">
     <head>
         <!CAMBIAR TITULO DE LA PAGINA ##########################################################>
-    <title>Inicio</title>
+    <title>Prestamos Pendientes</title>
 
 
     <meta charset="UTF-8">
@@ -90,9 +94,9 @@
                         <div class="dropdown-menu-button"><i class="zmdi zmdi-alarm zmdi-hc-fw"></i>&nbsp;&nbsp; Préstamos y reservaciones <i class="zmdi zmdi-chevron-down pull-right zmdi-hc-fw icon-sub-menu"></i></div>
                         <ul class="list-unstyled">
                             <li><a href="ControladorPrestamo?accion=prestamo"><i class="zmdi zmdi-calendar zmdi-hc-fw"></i>&nbsp;&nbsp; Realizar Prestamo</a></li>
-                            <li><a href="ControladorPrestamo?accion=historial"><i class="zmdi zmdi-calendar zmdi-hc-fw"></i>&nbsp;&nbsp; Todos los préstamos</a></li>
+                            <li><a href="loan.html"><i class="zmdi zmdi-calendar zmdi-hc-fw"></i>&nbsp;&nbsp; Todos los préstamos</a></li>
                             <li>
-                                <a href="ControladorPrestamo?accion=pendientes"><i class="zmdi zmdi-time-restore zmdi-hc-fw"></i>&nbsp;&nbsp; Devoluciones pendientes <span class="label label-danger pull-right label-mhover">7</span></a>
+                                <a href="loanpending.html"><i class="zmdi zmdi-time-restore zmdi-hc-fw"></i>&nbsp;&nbsp; Devoluciones pendientes <span class="label label-danger pull-right label-mhover">7</span></a>
                             </li>
                             <li>
 
@@ -111,7 +115,7 @@
                     <img src="Bootstrap/assets/img/user01.png" alt="user-picture" class="img-responsive img-circle center-box">
                 </figure>
                 <li style="color:#fff; cursor:default;">
-                    <span class="all-tittles"><%= session.getAttribute("Nombre") %></span>
+                    <span class="all-tittles"><%= session.getAttribute("Nombre")%></span>
                 </li>
                 <li  class="tooltips-general exit-system-button" data-href="index.jsp?cerrar=true" data-placement="bottom" title="Salir del sistema">
                     <i class="zmdi zmdi-power"></i>
@@ -134,7 +138,7 @@
             <div class="page-header">
 
                 <!CAMBIAR NOMBRE #######################################################################################>
-                <h1 class="all-tittles">Sistema bibliotecario |<small>Bienvenido <%=user %></small></h1>
+                <h1 class="all-tittles">Sistema bibliotecario |<small>Bienvenido <%=user%></small></h1>
             </div>
         </div>
 
@@ -150,7 +154,50 @@
 
 
                     <!Botones y cuadros de texto AQUI ##########################################################>
+                    <div class="title-flat-form title-flat-blue">Pendientes de devolucion</div>
 
+                    <div class="div-table-cell" style="width: 6%;">CodPrestamo</div>
+                    <div class="div-table-cell" style="width: 22%;">Fecha Entrega</div>
+                    <div class="div-table-cell" style="width: 22%;">Ejemplar</div>
+                    <div class="div-table-cell" style="width: 22%;">Titulo</div>
+                    <div class="div-table-cell" style="width: 22%;">Estado</div>
+                   
+
+                    <%  PrestamoSQL autorsql = new PrestamoSQL();
+
+                        int nivel = (Integer) sesion.getAttribute("nivel");
+                        String email = (String) sesion.getAttribute("Nombre");
+
+                        List<List> objeto = autorsql.InfoPrestamosUsuario(email, false);
+                        Iterator<List> iter = objeto.iterator();
+
+                        List lis = new ArrayList();
+                        lis = null;
+
+                        while (iter.hasNext()) {
+
+                            lis = iter.next();
+
+                            int z = 0;
+
+                    %>
+
+                    <div class="table-responsive">
+                        <div class="div-table" style="margin:0 !important;">
+                            <div class="div-table-row div-table-row-list">
+                                <div class="div-table-cell" style="width: 6%;"><%=lis.get(z++)%></div>
+                                <div class="div-table-cell" style="width: 22%;"><%=lis.get(z++)%></div>
+                                <div class="div-table-cell" style="width: 22%;"><%=lis.get(z++)%></div>
+                                <div class="div-table-cell" style="width: 22%;"><%=lis.get(z++)%></div>
+                                 <div class="div-table-cell" style="width: 22%;"><%=lis.get(z++)%></div>
+                               
+                                
+
+                            </div>
+                        </div>
+                    </div>
+                    <%}%>
+                    <div class="title-flat-form title-flat-blue"></div>
 
 
 
