@@ -128,6 +128,11 @@ public class ControladorUsuario extends HttpServlet {
             }
 
             acesso = "vistas/AgregarUsuario.jsp";
+        }else if (action.equalsIgnoreCase("admin")) {
+        
+        
+            
+             acesso = "testing.jsp";
         }
 
         RequestDispatcher vista = request.getRequestDispatcher(acesso);
