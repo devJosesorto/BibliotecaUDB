@@ -48,7 +48,7 @@ public class ControladorDocente extends HttpServlet {
 
         if (action.equalsIgnoreCase("listar")) {
 
-            acesso = listar;
+            acesso = "vistas/listar/ListarDocentes.jsp";
             
         } else if (action.equalsIgnoreCase("nuevousuario")) {
             acesso = nuevousuario;
