@@ -39,7 +39,8 @@
     <head>
         <!CAMBIAR TITULO DE LA PAGINA ##########################################################>
     <title>Inicio</title>
-
+    
+   
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -69,6 +70,7 @@
             <div class="nav-lateral-divider full-reset"></div>
             <div class="full-reset" style="padding: 10px 0; color:#fff;">
                 <figure>
+                        
                     <img src="Bootstrap/assets/img/logo.png" alt="Biblioteca" class="img-responsive center-box" style="width:55%;">
                 </figure>
                 <p class="text-center" style="padding-top: 15px;">Sistema Bibliotecario</p>
@@ -130,43 +132,50 @@
                 </li>
             </ul>
         </nav>
+                
+            
+                
+                
         <div class="container">
             <div class="page-header">
 
                 <!CAMBIAR NOMBRE #######################################################################################>
                 <h1 class="all-tittles">Sistema bibliotecario |<small>Bienvenido <%=user %></small></h1>
+                
+               
+                
             </div>
         </div>
+            
+            
+             
 
         <!CUERPO DEL DOCUMENTO #######################################################################################>
 
 
 
+            <form class="form-padding">
+                <div class="row">
 
-        <form class="form-padding">
-            <div class="row">
-
-                <div class="col-xs-12">
-
-
-                    <!Botones y cuadros de texto AQUI ##########################################################>
-
-
-
-
-
-                    <!Botones y cuadros de texto AQUI ##########################################################>
-
-
+                    <div class="col-xs-12">
+                        <div class="title-flat-form title-flat-blue">Busqueda de libro</div>
+                                               
+                        <legend><i class="zmdi zmdi-account-box"></i> &nbsp; Lo sentimos, favor validar si el titulo de libro ingresado es correcto </legend><br>
+                         
+                        
+                        <figure> 
+                               <img src="../../Bootstrap/assets/img/nobusca.jpg" alt=""/>
+                         </figure> 
+                         
+                    </div>
                 </div>
-            </div>
-        </form>
+                      
+                
+            </form>
+                        
+        
     </div>
-
-
-
-
-
+                
 
 
     <!CUERPO DEL DOCUMENTO #######################################################################################>
@@ -207,6 +216,9 @@
     </div>
     <div class="footer-copyright full-reset all-tittles">© 2020 Poo UDB Virtual</div>
 </footer>
+    
+
+    
 </div>
 </body>
 </html>
