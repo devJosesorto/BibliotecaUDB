@@ -2,11 +2,18 @@ package ModeoDAO;
 
 import Conexion.Conexion;
 
+import ModeoDAO.ConvertirFecha;
+
 import Modelo.Prestamo;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
+import java.util.Date;  
 import java.util.ArrayList;
 import java.util.List;
 
@@ -89,19 +96,28 @@ public class PrestamoSQL extends Conexion {
         return obj;
     }
 
-    public boolean agregar(boolean pass, Prestamo prest) {
+    public boolean agregar(boolean pass, Prestamo prest) throws ParseException {
 
         if (pass) {
             PreparedStatement ps = null;
             Connection con = getConexion();
+            
+            ConvertirFecha convert =new ConvertirFecha();
+            
             String sql = "INSERT INTO prestamo (codPrestamo, fecha_entrega, fecha_devolucion, ejemplar_codEjemplar, usuario, mora ) VALUES(?,?,?,?,?,?)";
-
+            
+            String sDate1=prest.getFecha_entrega();
+            String sDate2=prest.getFecha_devolucion();
+            
+            Date date1=new SimpleDateFormat("yyyy-MM-dd").parse(sDate1);  
+            Date date2=new SimpleDateFormat("yyyy-MM-dd").parse(sDate2);  
+            
             try {
                 int z = 1;
                 ps = con.prepareStatement(sql);
                 ps.setInt(z++, generarCod());
-                ps.setString(z++, prest.getFecha_entrega());
-                ps.setString(z++, prest.getFecha_devolucion());
+                ps.setDate(z++,convert.convertUtilToSql(date1) );
+                ps.setDate(z++,null );
                 ps.setString(z++, prest.getEjemplar_codEjemplar());
                 ps.setInt(z++, prest.getUsuario());
                 ps.setInt(z++, Integer.parseInt(prest.getMora()));
@@ -121,6 +137,10 @@ public class PrestamoSQL extends Conexion {
                 }
             }
         }
+        EjemplarSQL ejemsql =new EjemplarSQL();
+        
+        ejemsql.ActualizarEstado(false, prest.getEjemplar_codEjemplar());
+        
         return true;
     }
 

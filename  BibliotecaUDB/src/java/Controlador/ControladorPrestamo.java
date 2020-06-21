@@ -14,6 +14,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import ModeoDAO.PrestamoSQL;
+import Modelo.Prestamo;
+import java.text.ParseException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author José Sorto
@@ -48,17 +54,27 @@ public class ControladorPrestamo extends HttpServlet {
         String acesso = "";
         String action = request.getParameter("accion");
 
-        if (action.equalsIgnoreCase("listar")) {
-            acesso = listar;
+       if (action.equalsIgnoreCase("realizarprestamo")) {
+         
+            PrestamoSQL sql = new PrestamoSQL();
+            Prestamo prest = new Prestamo();
 
-        } else if (action.equalsIgnoreCase("nuevoprestamo")) {
-            acesso = "index.jsp";
-
-        } else if (action.equalsIgnoreCase("buscar")) {
-             LibroSQL librosql = new LibroSQL();         
+            prest.setFecha_entrega(request.getParameter("txtFecha"));
+            prest.setFecha_devolucion("0000-00-00");
+            prest.setEjemplar_codEjemplar(request.getParameter("txtEjemplar"));
+            prest.setUsuario(Integer.parseInt(request.getParameter("txtID")));
+            prest.setMora("0");
+            try {
+                sql.agregar(true, prest);
+                
+            } catch (ParseException ex) {
+                Logger.getLogger(ControladorPrestamo.class.getName()).log(Level.SEVERE, null, ex);
+            }
             
-            librosql.buscar2(true, request.getParameter("titulo"));
-            acesso = listar2;
+             acesso = "vistas/Usuarios/RealizarPrestamo.jsp";
+        }else if (action.equalsIgnoreCase("prestamo")) {
+        
+        acesso = "vistas/Usuarios/RealizarPrestamo.jsp";
         }
         RequestDispatcher vista = request.getRequestDispatcher(acesso);
         vista.forward(request, response);

@@ -1,4 +1,3 @@
-
 package ModeoDAO;
 
 import Conexion.Conexion;
@@ -15,9 +14,8 @@ import java.util.List;
  * @author Bolaines
  */
 public class EjemplarSQL extends Conexion {
-    
-    
-     public List Mostrar()  {
+
+    public List Mostrar() {
         PreparedStatement ps = null;
         ResultSet rs = null;
         Connection con = getConexion();
@@ -29,7 +27,7 @@ public class EjemplarSQL extends Conexion {
             ps = con.prepareStatement(sql);
             rs = ps.executeQuery();
             while (rs.next()) {
-                
+
                 Ejemplar ejemplar = new Ejemplar();
 
                 ejemplar.setCodEjemplar(rs.getString(1));
@@ -52,22 +50,21 @@ public class EjemplarSQL extends Conexion {
         }
         return list;
     }
-     
-     public Ejemplar buscar(String ID) {
+
+    public Ejemplar buscar(String ID) {
         PreparedStatement ps = null;
         ResultSet rs = null;
         Connection con = getConexion();
         Ejemplar ejemplar = new Ejemplar();
-        
-        String sql = "SELECT * FROM ejemplar WHERE codEjemplar='"+ID+"'";
-        
+
+        String sql = "SELECT * FROM ejemplar WHERE codEjemplar='" + ID + "'";
+
         try {
             ps = con.prepareStatement(sql);
             rs = ps.executeQuery();
-            
+
             while (rs.next()) {
-                
-               
+
                 ejemplar.setCodEjemplar(rs.getString(1));
                 ejemplar.setCod_Libro(rs.getString(2));
                 ejemplar.setUbicacion(rs.getString(3));
@@ -87,11 +84,10 @@ public class EjemplarSQL extends Conexion {
         }
         return ejemplar;
     }
-    
-     
-     public void Agregar(boolean pass, Ejemplar ejem) {
 
-        if (pass){
+    public void Agregar(boolean pass, Ejemplar ejem) {
+
+        if (pass) {
             PreparedStatement ps = null;
             Connection con = getConexion();
             String sql = "INSERT INTO ejemplar (codEjemplar, cod_Libro, Ubicacion, Estado, departamento_codDepartamento) VALUES(?,?,?,?,?)";
@@ -105,14 +101,12 @@ public class EjemplarSQL extends Conexion {
                 ps.setString(z++, ejem.getUbicacion());
                 ps.setString(z++, ejem.getEstado());
                 ps.setString(z++, ejem.getCod_Departamento());
-               
 
                 ps.execute();
 
             } catch (SQLException e) {
                 System.err.println(e);
                 System.out.println("Error en agregar de la clase EjemplarSQL");
-             
 
             } finally {
                 try {
@@ -122,11 +116,10 @@ public class EjemplarSQL extends Conexion {
                 }
             }
         }
-  
+
     }
-     
-     
-     public void Actualizar(boolean pass, Ejemplar ejem) {
+
+    public void Actualizar(boolean pass, Ejemplar ejem) {
         if (pass) {
             PreparedStatement ps = null;
             Connection con = getConexion();
@@ -134,7 +127,7 @@ public class EjemplarSQL extends Conexion {
 
             try {
                 ps = con.prepareStatement(sql);
-                int z=1;
+                int z = 1;
                 ps.setString(z++, ejem.getCod_Libro());
                 ps.setString(z++, ejem.getUbicacion());
                 ps.setString(z++, ejem.getEstado());
@@ -155,17 +148,16 @@ public class EjemplarSQL extends Conexion {
             }
         }
     }
-    
-     
-     public void Eliminar(boolean pass, String id) {
+
+    public void Eliminar(boolean pass, String id) {
         if (pass) {
             PreparedStatement ps = null;
             Connection con = getConexion();
-            String sql = "DELETE FROM ejemplar WHERE codEjemplar='"+id+"'";
-                              
+            String sql = "DELETE FROM ejemplar WHERE codEjemplar='" + id + "'";
+
             try {
                 ps = con.prepareStatement(sql);
-               //ps.setString(1, sql);
+                //ps.setString(1, sql);
                 ps.execute();
 
             } catch (SQLException e) {
@@ -181,9 +173,8 @@ public class EjemplarSQL extends Conexion {
             }
         }
     }
-          
-          
-     public String generarCod() {
+
+    public String generarCod() {
         PreparedStatement ps = null;
         ResultSet rs = null;
         Connection con = getConexion();
@@ -226,8 +217,40 @@ public class EjemplarSQL extends Conexion {
         }
 
         return string;
-    }   
-    
-    
-    
+    }
+
+    public void ActualizarEstado(boolean pass, String CodEjemplar) {
+        String estado = null;
+        if (pass) {
+            estado = "DISPONIBLE";
+        } else {
+            estado = "PRESTADO";
+        }
+        PreparedStatement ps = null;
+        Connection con = getConexion();
+        String sql = "UPDATE ejemplar SET estado=? WHERE codEjemplar=? ";
+
+        try {
+            ps = con.prepareStatement(sql);
+            int z = 1;
+
+            ps.setString(z++, estado);
+
+            ps.setString(z++, CodEjemplar);
+            ps.execute();
+
+        } catch (SQLException e) {
+            System.err.println(e);
+            System.out.println("Error en Actualizar de la clase EjemplarSQL");
+
+        } finally {
+            try {
+                con.close();
+            } catch (SQLException e) {
+                System.err.println(e);
+            }
+        }
+
+    }
+
 }// cierre
