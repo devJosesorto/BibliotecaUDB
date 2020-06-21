@@ -28,8 +28,7 @@ public class ControladorPrestamo extends HttpServlet {
 
     String listar = "vistas/Usuarios/ListarLibrosPrestamo.jsp";
     String listar2 = "searchbook.jsp";
-    
-    
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -54,8 +53,8 @@ public class ControladorPrestamo extends HttpServlet {
         String acesso = "";
         String action = request.getParameter("accion");
 
-       if (action.equalsIgnoreCase("realizarprestamo")) {
-         
+        if (action.equalsIgnoreCase("realizarprestamo")) {
+
             PrestamoSQL sql = new PrestamoSQL();
             Prestamo prest = new Prestamo();
 
@@ -66,16 +65,23 @@ public class ControladorPrestamo extends HttpServlet {
             prest.setMora("0");
             try {
                 sql.agregar(true, prest);
-                
+
             } catch (ParseException ex) {
                 Logger.getLogger(ControladorPrestamo.class.getName()).log(Level.SEVERE, null, ex);
             }
+
+            acesso = "vistas/Usuarios/PrestamoRealizado.jsp";
+        } else if (action.equalsIgnoreCase("prestamo")) {
+
+            acesso = "vistas/Usuarios/RealizarPrestamo.jsp";
+        }else  if (action.equalsIgnoreCase("noejemplares")) {
             
-             acesso = "vistas/Usuarios/RealizarPrestamo.jsp";
-        }else if (action.equalsIgnoreCase("prestamo")) {
+         acesso = "vistas/Usuarios/NoEjemplares.jsp";
         
-        acesso = "vistas/Usuarios/RealizarPrestamo.jsp";
         }
+        
+        
+        
         RequestDispatcher vista = request.getRequestDispatcher(acesso);
         vista.forward(request, response);
 
@@ -92,8 +98,4 @@ public class ControladorPrestamo extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    
-    
-    
-    
 }

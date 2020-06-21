@@ -234,6 +234,7 @@ public class PrestamoSQL extends Conexion {
         Connection con = getConexion();
    
         List<String> objeto = new ArrayList<String>();
+        
 
         String sql = "SELECT max(codEjemplar),cod_Libro,Titulo,Ubicacion "
                 + "FROM ejemplar "

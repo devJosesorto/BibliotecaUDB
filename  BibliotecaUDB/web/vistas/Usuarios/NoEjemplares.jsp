@@ -1,22 +1,15 @@
 <%-- 
-    Document   : RealizarPrestamo
-    Created on : 06-20-2020, 04:14:18 PM
+    Document   : NoEjemplares
+    Created on : 06-21-2020, 11:28:44 AM
     Author     : José Sorto
 --%>
-
-<%@page import="ModeoDAO.UsuarioSQL"%>
-<%@page import="java.util.List"%>
-<%@page import="java.util.ArrayList"%>
-<%@page import="ModeoDAO.PrestamoSQL"%>
-
-<%@ page import="java.util.*" %>
-<%@ page import="java.text.SimpleDateFormat"%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page session="true"  %>
 
 <%
     HttpSession sesion = request.getSession();
+     String user="";
 
     if (sesion.getAttribute("nivel") == null) {
         response.sendRedirect("index.jsp");
@@ -28,6 +21,14 @@
 
             response.sendRedirect("../index.jsp");
 
+        }else{
+       
+        if(nivel.equals("1")){
+        user="ESTUDIANTE";
+        }else{
+        user="DOCENTE";
+        }
+        
         }
     }
 %>
@@ -37,7 +38,7 @@
 <html lang="es">
     <head>
         <!CAMBIAR TITULO DE LA PAGINA ##########################################################>
-    <title>Prestar libro</title>
+    <title>Inicio</title>
 
 
     <meta charset="UTF-8">
@@ -82,7 +83,7 @@
                         <div class="dropdown-menu-button"><i class="zmdi zmdi-assignment-o zmdi-hc-fw"></i>&nbsp;&nbsp; Libros y catálogo <i class="zmdi zmdi-chevron-down pull-right zmdi-hc-fw icon-sub-menu"></i></div>
                         <ul class="list-unstyled">
 
-                            <li><a href="catalog.html"><i class="zmdi zmdi-bookmark-outline zmdi-hc-fw"></i>&nbsp;&nbsp; Catálogo</a></li>
+                            <li><a href="ControladorPrestamo?accion=listar"><i class="zmdi zmdi-bookmark-outline zmdi-hc-fw"></i>&nbsp;&nbsp; Catálogo</a></li>
                         </ul>
                     </li>
                     <li>
@@ -110,12 +111,12 @@
                     <img src="Bootstrap/assets/img/user01.png" alt="user-picture" class="img-responsive img-circle center-box">
                 </figure>
                 <li style="color:#fff; cursor:default;">
-                    <span class="all-tittles"><%= session.getAttribute("Nombre")%></span>
+                    <span class="all-tittles"><%= session.getAttribute("Nombre") %></span>
                 </li>
                 <li  class="tooltips-general exit-system-button" data-href="index.jsp?cerrar=true" data-placement="bottom" title="Salir del sistema">
                     <i class="zmdi zmdi-power"></i>
                 </li>
-                <li  class="tooltips-general search-book-button" data-href="searchbook.html" data-placement="bottom" title="Buscar libro">
+                <li  class="tooltips-general search-book-button" data-href="searchbook.jsp" data-placement="bottom" title="Buscar libro">
                     <i class="zmdi zmdi-search"></i>
                 </li>
                 <li  class="tooltips-general btn-help" data-placement="bottom" title="Ayuda">
@@ -133,7 +134,7 @@
             <div class="page-header">
 
                 <!CAMBIAR NOMBRE #######################################################################################>
-                <h1 class="all-tittles">Sistema bibliotecario |<small>Bienvenido</small></h1>
+                <h1 class="all-tittles">Sistema bibliotecario |<small>Bienvenido <%=user %></small></h1>
             </div>
         </div>
 
@@ -149,56 +150,11 @@
 
 
                     <!Botones y cuadros de texto AQUI ##########################################################>
-                    <div class="title-flat-form title-flat-blue">Realizar Prestamo</div>
-                    <legend><i class="zmdi zmdi-account-box"></i> &nbsp; Ejemplar a prestar</legend><br>
-                    <%
-                        Date dNow = new Date();
-                        SimpleDateFormat ft = new SimpleDateFormat("yyyy-MM-dd");
-                        String currentDate = ft.format(dNow);
-                    %>
-                    <%
-                        PrestamoSQL sql = new PrestamoSQL();
-                        UsuarioSQL sql2 = new UsuarioSQL();
-                        List<String> obj = new ArrayList<String>();
-                        List<String> pers = new ArrayList<String>();
-
-                        int nivel = (Integer) sesion.getAttribute("nivel");
-                        String user = (String) sesion.getAttribute("Nombre");
-
-                        obj = sql.seleccionarEjemplar("LIB003");
-                        if (obj.size()>1) {
-
-                            response.sendRedirect("ControladorPrestamo?accion=noejemplares");
-                        }
-
-                        pers = sql2.BuscarporCorreo(user, nivel);
-
-                        obj.add(currentDate);
-
-                    %>
-
-                    <div class="col-xs-12 col-sm-8 col-md-8 text-justify lead">
-
-                        Hola has escogido el libro con el nombre de: <%=obj.get(2)%> <br><br>
-                        Numero de ejemplar: <%=obj.get(0)%> <br><br>
-                        Fecha del prestamo: <%=currentDate%> <br><br>
-                        Prestamo a nombre de: <%=pers.get(3)%> <%=pers.get(4)%><br><br><br><br>
-
-                    </div>
 
 
 
-                    <input type="hidden" name="txtFecha" value="<%=currentDate%>" >
-                    <input type="hidden" name="txtEjemplar" value="<%=obj.get(0)%>" >
-                    <input type="hidden" name="txtID" value="<%=pers.get(0)%>" >
 
 
-
-                    <div class="col-xs-12">
-                        <p class="text-center">
-                            <button type="submit" name="accion" value="realizarprestamo" class="btn btn-primary"><i class="zmdi zmdi-floppy"></i> &nbsp;&nbsp; Guardar</button>
-                        </p> 
-                    </div>
                     <!Botones y cuadros de texto AQUI ##########################################################>
 
 
@@ -254,3 +210,4 @@
 </div>
 </body>
 </html>
+
